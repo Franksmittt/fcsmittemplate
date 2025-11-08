@@ -25,7 +25,7 @@ const config = {
           foreground: '#FAFAFA', // White/Light contrast text on primary
         },
         'secondary': {
-          DEFAULT: '#5AD5E2', // Primary Blue/Cyan
+          DEFAULT: '#5AD5E2', // Primary Blue/Cyan (Target color for button/hover text)
           foreground: '#171716', // Dark text on secondary
         },
         'tertiary': {
@@ -35,6 +35,9 @@ const config = {
         'form-gold': '#FFC33A', // Used for main CTA button
         'header-dark': '#1a1919', // Header background
         'footer-dark': '#121111', // Footer background
+
+        // --- NEW WHATSAPP GREEN ---
+        'whatsapp-green': '#25D366', 
 
         // Standard shadcn/ui colors (Consolidated)
         border: "hsl(var(--border))",

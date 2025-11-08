@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Menu, X, Phone, MessageCircle } from 'lucide-react'; // Removed unused MessageSquare
+import { Menu, X, Phone, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils'; 
 
@@ -36,7 +36,9 @@ export function MobileNav() {
       {/* Mobile Menu Overlay */}
       <div
         className={cn(
-          "fixed inset-0 top-20 z-40 bg-header-dark transition-transform duration-300 ease-in-out lg:hidden",
+          "fixed inset-0 top-20 z-40 transition-transform duration-300 ease-in-out lg:hidden",
+          // FIXED: Use solid header-dark background when open, not /90 transparency.
+          "bg-header-dark", 
           isOpen ? 'translate-x-0' : 'translate-x-full' // Slide-in/Slide-out logic
         )}
       >

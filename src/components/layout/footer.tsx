@@ -1,15 +1,14 @@
 // src/components/layout/footer.tsx
 import Link from 'next/link';
 // ADDED ClipboardCheck to the import list
-import { Phone, Mail, MessageCircle, Facebook, Linkedin, ClipboardCheck } from 'lucide-react'; 
+import { Phone, Mail, MessageCircle, Facebook, Linkedin, ClipboardCheck } from 'lucide-react';
 import React from 'react';
 
 // NOTE: This component needs to be rendered OUTSIDE of the main content area 
 // to ensure it is correctly placed at the bottom of the page structure.
-
 export function Footer() {
     // Get current year for copyright text
-    const currentYear = new Date().getFullYear(); 
+    const currentYear = new Date().getFullYear();
 
     // Reusable utility class for footer links to match the HTML design
     const footerLinkClass = "text-gray-400 hover:text-secondary transition duration-300";
@@ -97,13 +96,18 @@ export function Footer() {
                     </div>
                 </div>
 
-                {/* --- BOTTOM SECTION: Copyright & Legal Links --- */}
+                {/* --- BOTTOM SECTION: Copyright & Legal Links + Custom Credit --- */}
                 <div className="flex flex-col md:flex-row justify-between items-center text-gray-500 text-xs md:text-sm">
                     <p className="mb-3 md:mb-0">&copy; {currentYear} Maverick Painting. All rights reserved. Registered in Gauteng, South Africa.</p>
-                    <div className="flex space-x-4">
-                        <Link href="/terms" className="hover:text-secondary transition duration-300">Terms of Service</Link>
-                        <span className="text-gray-600">|</span>
-                        <Link href="/privacy" className="hover:text-secondary transition duration-300">Privacy Policy</Link>
+                    <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 items-center">
+                         <p className="order-2 md:order-1 text-gray-500 text-xs">
+                             Designed, Developed & Maintained by <a href="https://www.endpointmedia.co.za/" target="_blank" rel="noopener noreferrer" className="text-secondary hover:text-tertiary transition duration-300 font-semibold">Endpoint Media.</a>
+                         </p>
+                        <div className="flex space-x-4 order-1 md:order-2">
+                            <Link href="/terms" className="hover:text-secondary transition duration-300">Terms of Service</Link>
+                            <span className="text-gray-600">|</span>
+                            <Link href="/privacy" className="hover:text-secondary transition duration-300">Privacy Policy</Link>
+                        </div>
                     </div>
                 </div>
             </div>

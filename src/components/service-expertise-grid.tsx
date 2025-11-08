@@ -37,7 +37,8 @@ export function ServiceExpertiseGrid() {
                         
                         {/* CTA Button using shadcn/ui Button (Server-safe link structure) */}
                         <Button asChild 
-                            className="mt-8 self-start bg-form-gold hover:bg-[#ffb000] text-primary font-bold py-3 px-6 rounded-lg shadow-xl transition duration-300 transform hover:scale-105 whitespace-nowrap text-lg h-auto"
+                            // CORRECT: bg-secondary, text-white
+                            className="mt-8 self-start bg-secondary hover:bg-[#4AD5E2] text-white font-bold py-3 px-6 rounded-lg shadow-xl transition duration-300 transform hover:scale-105 whitespace-nowrap text-lg h-auto"
                         >
                              <Link href="/services">
                                 View All Technical Services

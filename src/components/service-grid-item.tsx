@@ -1,7 +1,6 @@
 // src/components/service-grid-item.tsx
 import Link from 'next/link';
 import React from 'react';
-// Changed faulty import 'Lungs' to valid 'AirVent'. Removed unused imports.
 import { Wrench, Umbrella, AirVent, PersonStanding, FlaskConical, Stethoscope, Building, Tent } from 'lucide-react'; 
 
 interface ServiceGridItemProps {
@@ -40,11 +39,16 @@ export function ServiceGridItem({ title, description, href, icon: IconComponent 
     
     return (
         <Link href={href} 
-            className="group service-card bg-white p-4 rounded-lg border-b-2 border-primary/50 flex flex-col justify-between"
-            // Note: The custom HTML .service-card styles are replicated via Tailwind in this component's wrapper
-            // for the hover effect and shadow, but the class name is used for reference here.
+            className="group bg-white p-4 rounded-lg border-b-2 border-primary/50 flex flex-col justify-between 
+                       transition-all duration-300 
+                       hover:bg-gray-50 
+                       hover:translate-y-[-4px] 
+                       hover:shadow-xl 
+                       hover:ring-2 hover:ring-secondary/50" // <-- ADDED HOVER EFFECTS
         >
-            <FinalIconComponent className="w-6 h-6 text-tertiary transition duration-300 mb-2 service-icon" />
+            {/* ICON COLOR CHANGE: Handled by 'group-hover:text-secondary' */}
+            <FinalIconComponent className="w-6 h-6 text-tertiary transition duration-300 mb-2 group-hover:text-secondary" /> 
+            
             <h3 className="text-base font-semibold text-primary leading-tight flex-grow">
                 {title}
             </h3>

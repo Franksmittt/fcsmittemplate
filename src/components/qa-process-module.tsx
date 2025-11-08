@@ -16,7 +16,7 @@ export function QaProcessModule() {
                             De-Risking Your Multi-Million Rand Asset.
                         </h2>
                         <p className="text-lg text-gray-700 mb-6">
-                            Unlike standard contractors who rely on biased, in-house quality checks, we utilize a trusted, **independent 3rd party QA company** on all projects. This is our commitment to verifiably superior quality.
+                            Unlike standard contractors who rely on biased, in-house quality checks, we utilize a trusted, independent 3rd party QA company on all projects. This is our commitment to verifiably superior quality.
                         </p>
                         {/* Button using shadcn/ui Button asChild */}
                         <Button asChild 
@@ -35,7 +35,7 @@ export function QaProcessModule() {
                             <div className="text-5xl font-extrabold text-primary mb-2 leading-none">01</div>
                             <h3 className="text-xl font-bold text-primary mb-2">Substrate Specification & Assessment</h3>
                             <p className="text-gray-600">
-                                A dedicated project manager and the independent body conduct an **on-site assessment** to determine the correct coating system and technical specification required for your specific asset.
+                                A dedicated project manager and the independent body conduct an on-site assessment to determine the correct coating system and technical specification required for your specific asset.
                             </p>
                         </div>
                         {/* Step 2 */}
@@ -43,7 +43,7 @@ export function QaProcessModule() {
                             <div className="text-5xl font-extrabold text-primary mb-2 leading-none">02</div>
                             <h3 className="text-xl font-bold text-primary mb-2">Continuous Application Inspection</h3>
                             <p className="text-gray-600">
-                                The independent company performs **continuous application inspections** at every critical stage (surface prep, primer, film thickness) to ensure manufacturer requirements are met *before* the final coat.
+                                The independent company performs continuous application inspections at every critical stage (surface prep, primer, film thickness) to ensure manufacturer requirements are met *before* the final coat.
                             </p>
                         </div>
                         {/* Step 3 */}
@@ -51,7 +51,7 @@ export function QaProcessModule() {
                             <div className="text-5xl font-extrabold text-primary mb-2 leading-none">03</div>
                             <h3 className="text-xl font-bold text-primary mb-2">Verifiable Bi-Weekly Reporting</h3>
                             <p className="text-gray-600">
-                                You receive **bi-weekly progress and substrate reports** providing a complete, recorded history of the project. This delivers objective proof of quality and total peace of mind for trustees and facility managers.
+                                You receive bi-weekly progress and substrate reports providing a complete, recorded history of the project. This delivers objective proof of quality and total peace of mind for trustees and facility managers.
                             </p>
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 // src/components/layout/header.tsx
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Phone } from 'lucide-react'; // Removed unused MessageSquare
+import { Phone, MessageCircle } from 'lucide-react'; // Import MessageCircle for the button
 import { MobileNav } from '@/components/layout/mobile-nav'; 
 import { cn } from '@/lib/utils'; 
 // Note: SVG icon path is complex and included directly here.
@@ -66,13 +66,14 @@ export function Header() {
                         </div>
                     </Link>
                     
-                    {/* Get A Quote Button (using shadcn/ui Button asChild) */}
+                    {/* WhatsApp Button - NEW COLOR/TEXT/LINK */}
                     <Button asChild 
-                        className="bg-form-gold hover:bg-[#ffb000] text-primary font-bold text-lg py-3 px-6 rounded-lg shadow-xl transition duration-300 transform hover:scale-105 whitespace-nowrap"
+                        className="bg-whatsapp-green hover:bg-[#25C356] text-white font-bold text-lg py-3 px-6 rounded-lg shadow-xl transition duration-300 transform hover:scale-105 whitespace-nowrap"
                     >
-                        <Link href="/contact">
-                            Get A Quote
-                        </Link>
+                        <a href="https://wa.me/27826277082" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2">
+                            <MessageCircle className="w-5 h-5" />
+                            <span>WhatsApp</span>
+                        </a>
                     </Button>
                 </div>
 
