@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/app/globals.css";
-import { Header } from "@/components/layout/header"; 
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer"; // <-- NEW IMPORT
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,12 +19,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        {/* The entire application content lives within the body tags */}
         
         <Header /> 
         
-        <main className="flex-1">
+        {/* Main content wrapper. flex-1 ensures it pushes the footer down if content is short. */}
+        <main className="flex-grow">
           {children}
         </main>
+        
+        {/* The Footer is placed outside the main content area for site-wide consistency */}
+        <Footer />
       </body>
     </html>
   );
