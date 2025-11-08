@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { Phone, MessageSquare } from 'lucide-react'; 
+// Note: DarkModeToggle import and usage have been removed
 
-// This is a Server Component, optimized for rendering static UI.
 export function Header() {
-  // Dummy navigation items
   const navItems = [
     { name: 'Features', href: '/features' },
     { name: 'Pricing', href: '/pricing' },
@@ -13,42 +13,71 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-200/50 bg-white/80 backdrop-blur-md">
+    // Header Background is Primary (#121111) and base text is white
+    <header className="sticky top-0 z-50 w-full border-b border-primary/50 bg-primary text-white">
       <div className="container flex h-16 items-center justify-between px-4 md:px-6">
         
         {/* Logo (Left) */}
-        <Link href="/" className="flex items-center text-2xl font-bold text-gray-900">
-          MVVP🎨
+        <Link href="/" className="flex items-center text-2xl font-bold">
+          <span className="text-primary-foreground">MAVERICK</span>
+          <span className="text-tertiary ml-1">| PAINTING CONTRACTORS</span>
         </Link>
 
         {/* Navigation Items (Center) */}
-        <nav className="hidden md:flex gap-6">
+        <nav className="flex gap-6">
           {navItems.map((item) => (
             <Link 
               key={item.name} 
               href={item.href} 
-              className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+              // Links are white, change to Secondary on hover
+              className="text-sm font-medium text-primary-foreground hover:text-secondary transition-colors"
             >
               {item.name}
             </Link>
           ))}
         </nav>
 
-        {/* Action Button (Right) - UPDATED with Red to Black/Pink Hover Effect */}
-        <Button 
-          asChild 
-          className="
-            bg-red-600                   /* Default: Red Background */
-            text-white                  /* Default: White Text */
-            hover:bg-black              /* Hover: Black Background */
-            hover:text-pink-400         /* Hover: Pink Text */
-            transition-colors           /* Smooth transition for the effect */
-          "
-        >
-          <Link href="/get-started">
-            Start Free Trial
-          </Link>
-        </Button>
+        {/* Right Section: Dual Buttons - UPDATED: Theme Toggle removed */}
+        <div className="flex items-center space-x-3">
+            
+          {/* 1. Call Button: Tertiary Default, Secondary Hover */}
+          <Button 
+            asChild
+            size="default" 
+            className="
+              bg-tertiary               /* Default: Tertiary (Green) Background */
+              text-primary              /* Default: Primary (Black) Text */
+              hover:bg-secondary        /* Hover: Secondary (Blue/Cyan) Background */
+              hover:text-primary        /* Hover: Primary (Black) Text */
+              transition-colors
+            "
+          >
+            <Link href="tel:+1234567890">
+              <Phone className="w-4 h-4 mr-2" />
+              Call Now
+            </Link>
+          </Button>
+
+          {/* 2. WhatsApp Button: Secondary Default, Tertiary Hover */}
+          <Button 
+            asChild 
+            size="default" 
+            className="
+              bg-secondary              /* Default: Secondary (Blue/Cyan) Background */
+              text-primary              /* Default: Primary (Black) Text */
+              hover:bg-tertiary         /* Hover: Tertiary (Green) Background */
+              hover:text-primary        /* Hover: Primary (Black) Text */
+              transition-colors
+            "
+          >
+            <Link href="https://wa.me/1234567890" target="_blank">
+              <MessageSquare className="w-4 h-4 mr-2" />
+              WhatsApp
+            </Link>
+          </Button>
+
+        </div>
+
       </div>
     </header>
   );
