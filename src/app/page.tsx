@@ -1,15 +1,12 @@
-// src/app/page.tsx
-// This component remains a Server Component by default, which is the architectural best practice.
+import { HeroSection } from "@/components/hero-section";
 
-import { InteractiveButton } from "@/components/interactive-button";
-
+// This page remains a Server Component, importing the HeroSection Server Component
+// which correctly encapsulates the Client Component form.
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-xl font-bold mb-4">Welcome to mvvppaint!</h1>
-      
-      {/* The Server Component imports the Client Component, which contains the interactivity. */}
-      <InteractiveButton />
-    </main>
+    <>
+      <HeroSection />
+      {/* Future sections will go here: Services, Projects, etc. */}
+    </>
   );
 }
