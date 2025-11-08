@@ -50,12 +50,12 @@ export function HeroContactForm() {
   };
 
   return (
-    <Card className="shadow-2xl border-2 border-tertiary">
+    // FINAL FIX: Explicitly set background, remove border, and remove shadow for clean white look
+    <Card className="bg-white border-none shadow-lg"> 
       <CardHeader className="text-center bg-tertiary/10">
         <CardTitle className="text-2xl font-extrabold text-primary">
           Get a Free, No-Obligation Quote
         </CardTitle>
-        {/* FIXED APOSTROPHE */}
         <p className="text-sm text-primary/80">
           We&apos;ll contact you within 24 hours to schedule your on-site assessment.
         </p>
