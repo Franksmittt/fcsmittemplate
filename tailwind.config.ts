@@ -18,21 +18,23 @@ const config = {
       },
     },
     extend: {
-      // Custom Colors Defined Here
+      // Custom Colors Redefined to Match HTML
       colors: {
-        // Your Custom Palette
-        primary: { 
-          DEFAULT: '#121111', // Primary: Used for dark backgrounds
+        'primary': {
+          DEFAULT: '#171716', // Maverick-base (Dark Text/Background)
           foreground: '#FAFAFA', // White/Light contrast text on primary
         },
-        secondary: {
-          DEFAULT: '#5AD5E2', // Secondary: Bright blue/cyan
-          foreground: '#121111', // Dark text on secondary
+        'secondary': {
+          DEFAULT: '#5AD5E2', // Primary Blue/Cyan
+          foreground: '#171716', // Dark text on secondary
         },
-        tertiary: {
-          DEFAULT: '#A9D834', // Tertiary: Bright green/lime
-          foreground: '#121111', // Dark text on tertiary
+        'tertiary': {
+          DEFAULT: '#A9D834', // Primary Green/Lime (Maverick-Accent)
+          foreground: '#171716', // Dark text on tertiary
         },
+        'form-gold': '#FFC33A', // Used for main CTA button
+        'header-dark': '#1a1919', // Header background
+        'footer-dark': '#121111', // Footer background
 
         // Standard shadcn/ui colors (Consolidated)
         border: "hsl(var(--border))",
@@ -40,7 +42,7 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        card: { // Only defined once
+        card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
@@ -62,6 +64,7 @@ const config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      // --- Custom Shake Animation Definition ---
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -71,10 +74,18 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "shake-logo": { // Custom Keyframe Added
+            "0%": { transform: "translateX(0)" },
+            "25%": { transform: "translateX(-3px) rotate(-2deg)" },
+            "50%": { transform: "translateX(3px) rotate(2deg)" },
+            "75%": { transform: "translateX(-3px) rotate(-2deg)" },
+            "100%": { transform: "translateX(0)" },
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "shake": "shake-logo 1.5s ease-in-out 3", // Custom Animation Class
       },
     },
   },

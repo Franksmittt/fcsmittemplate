@@ -2,66 +2,81 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Menu, X, Phone, MessageSquare } from 'lucide-react';
+import { Menu, X, Phone, MessageCircle } from 'lucide-react'; // Removed unused MessageSquare
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils'; 
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = React.useState(false);
-
+  
   const navItems = [
-    { name: 'Features', href: '/features' },
-    { name: 'Pricing', href: '/pricing' },
-    { name: 'About', href: '/about' },
-    { name: 'Blog', href: '/blog' },
+    { name: 'Home', href: '/' },
+    { name: 'About Us', href: '/about-us' },
+    { name: 'Services', href: '/services' },
+    { name: 'Projects', href: '/projects' },
     { name: 'Contact', href: '/contact' },
   ];
-
+  
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
     <>
-      {/* Hamburger Icon Button (Client Component) */}
+      {/* Hamburger Icon Button (Mobile Only) */}
       <Button 
         variant="ghost"
         size="icon"
-        className="lg:hidden text-primary-foreground hover:bg-primary/50 z-50"
+        // Use custom Tailwind colors defined in config
+        className="text-white hover:text-secondary p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary ml-auto"
         onClick={toggleMenu}
         aria-label="Toggle Menu"
       >
         {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
       </Button>
 
-      {/* Mobile Menu Overlay (Hidden by default, shown when isOpen is true) */}
+      {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 top-16 z-40 bg-primary/95 transition-transform duration-300 ease-in-out ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        } lg:hidden`}
+        className={cn(
+          "fixed inset-0 top-20 z-40 bg-header-dark transition-transform duration-300 ease-in-out lg:hidden",
+          isOpen ? 'translate-x-0' : 'translate-x-full' // Slide-in/Slide-out logic
+        )}
       >
-        <nav className="flex flex-col p-6 space-y-4">
+        <nav className="flex flex-col border-t border-gray-700/50">
+          
+          {/* Nav Links */}
           {navItems.map((item) => (
             <Link
               key={item.name}
               href={item.href}
-              className="text-2xl font-semibold text-primary-foreground hover:text-secondary transition-colors"
-              onClick={toggleMenu}
+              className="block px-3 py-3 text-base font-medium text-white hover:bg-black/50"
+              onClick={toggleMenu} // Close menu on click
             >
               {item.name}
             </Link>
           ))}
           
-          {/* Mobile CTAs */}
+          {/* Mobile CTAs (Bottom of Menu) */}
           <div className="pt-6 space-y-3">
-            <Button asChild className="w-full text-base bg-tertiary hover:bg-secondary text-primary">
-              <Link href="tel:+1234567890" className="flex items-center justify-center">
-                <Phone className="w-4 h-4 mr-2" /> Call Now
-              </Link>
-            </Button>
-            <Button asChild className="w-full text-base bg-secondary hover:bg-tertiary text-primary">
-              <Link href="https://wa.me/1234567890" target="_blank" className="flex items-center justify-center">
-                <MessageSquare className="w-4 h-4 mr-2" /> WhatsApp
-              </Link>
-            </Button>
+            {/* Call Lawrence */}
+            <Link 
+              href="tel:0826277082" 
+              className="block px-3 py-3 text-base font-medium text-white hover:bg-black/50"
+              onClick={toggleMenu}
+            >
+              <Phone className="w-4 h-4 mr-2 inline-block" /> Call Lawrence (082 627 7082)
+            </Link>
+            
+            {/* WhatsApp Link (Using Green Text) */}
+            <Link 
+              href="https://wa.me/27826277082" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="block px-3 py-3 text-base font-medium text-tertiary hover:bg-black/50"
+              onClick={toggleMenu}
+            >
+              <MessageCircle className="w-4 h-4 mr-2 inline-block" /> WhatsApp Us
+            </Link>
           </div>
+
         </nav>
       </div>
     </>
