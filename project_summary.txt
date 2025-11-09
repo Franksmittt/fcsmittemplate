@@ -21,6 +21,10 @@
 │   │   ├── 📄 page.tsx
 │   │   ├── 📁 about-us
 │   │   │   ├── 📄 page.tsx
+│   │   ├── 📁 access-solutions
+│   │   │   ├── 📄 page.tsx
+│   │   ├── 📁 accreditations
+│   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 contact
 │   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 fonts
@@ -31,6 +35,8 @@
 │   │   ├── 📁 painting
 │   │   │   ├── 📁 body-corporate-painting
 │   │   │   │   ├── 📄 page.tsx
+│   │   ├── 📁 painting-services
+│   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 projects
 │   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 services
@@ -38,9 +44,15 @@
 │   │   ├── 📁 solutions
 │   │   │   ├── 📁 for-body-corporates
 │   │   │   │   ├── 📄 page.tsx
+│   │   │   ├── 📁 for-developers
+│   │   │   │   ├── 📄 page.tsx
+│   │   │   ├── 📁 for-homeowners
+│   │   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 specialized-coatings
 │   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 structural-repairs
+│   │   │   ├── 📄 page.tsx
+│   │   ├── 📁 terms
 │   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 waterproofing-services
 │   │   │   ├── 📄 page.tsx
@@ -1082,6 +1094,280 @@ export default function AboutUsPage() {
     );
 }```
 
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\access-solutions\page.tsx--------------------------------------------------------------------------------```// src/app/access-solutions/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { QaProcessModule } from '@/components/qa-process-module';
+import { AccreditationsStrip } from '@/components/accreditations-strip';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { PersonStanding, Zap, Shield, TrendingUp, Phone, Truck } from 'lucide-react';
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Rope Access & High-Access Painting Solutions | Cost-Effective & OHS Compliant',
+    description: 'Expert rope access and high-access painting contractors. We use scaffolding, boom lifts, and certified rope access to provide cost-effective maintenance for high-rise facades and difficult-to-reach industrial areas.',
+};
+
+// --- TECHNICAL DATA FOR CONTENT MODULES ---
+const AccessMethods = [
+    {
+        title: "Certified Rope Access",
+        description: "IRATA/SAQA certified rope access teams provide flexible, fast, and cost-effective maintenance for high-rise and complex architectural structures.",
+        icon: PersonStanding,
+        accentColor: "border-secondary",
+    },
+    {
+        title: "Scaffolding & Boom Lifts",
+        description: "Utilizing professional, OHS-compliant scaffolding and mechanical access equipment (e.g., boom lifts) for extensive facade painting and repair projects.",
+        icon: Truck,
+        accentColor: "border-tertiary",
+    },
+    {
+        title: "Full OHS Compliance",
+        description: "Our safety file is comprehensive and audited. We eliminate all client liability by rigorously adhering to Occupational Health and Safety standards on site.",
+        icon: Shield,
+        accentColor: "border-secondary",
+    },
+    {
+        title: "Cost & Time Efficiency",
+        description: "Selecting the optimal access method—rope access for speed, scaffolding for stability—to maximize site efficiency and reduce total project cost.",
+        icon: TrendingUp,
+        accentColor: "border-tertiary",
+    },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function AccessSolutionsPage() {
+    return (
+        <div className="bg-primary pt-24 text-white">
+
+            {/* --- MODULE 1: ACCESS HERO --- */}
+            <section className="relative py-24 md:py-40 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto">
+                    <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-3">
+                        Difficult Access Expertise
+                    </p>
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-5xl">
+                        Rope Access & High-Access Painting Solutions.
+                    </h1>
+                    <p className="2xl font-light mt-6 max-w-4xl text-gray-400">
+                        We provide safe, cost-effective solutions for all **difficult-to-reach facades and industrial structures**. Our certified teams eliminate the complexity and liability of working at height.
+                    </p>
+
+                    <Button asChild
+                        className="mt-10 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <Link href="/contact">
+                            Inquire About Access Solutions &rarr;
+                        </Link>
+                    </Button>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: METHODS BREAKDOWN GRID --- */}
+            <section className="py-24 px-4 bg-primary">
+                <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-4xl mx-auto mb-16">
+                        <h2 className="text-4xl font-extrabold uppercase mb-3">
+                            Access Methods Designed for Efficiency
+                        </h2>
+                        <p className="text-lg text-gray-400 font-light">
+                            We select the optimal method—rope access, scaffolding, or mechanical lifts—to maximize safety and minimize cost and time.
+                        </p>
+                    </header>
+
+                    {/* Solutions Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {AccessMethods.map((method, index) => (
+                            <div key={index} className={`p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 ${method.accentColor}`}>
+                                <method.icon className="w-8 h-8 text-secondary mb-4" />
+                                <h3 className="text-xl font-bold uppercase mb-2 text-white">
+                                    {method.title}
+                                </h3>
+                                <p className="text-gray-400 text-sm">
+                                    {method.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 3: THE QA PROCESS (Reusing Trust Module) --- */}
+            <QaProcessModule />
+
+            {/* --- MODULE 4: ACCREDITATIONS (Visual Trust) --- */}
+            <AccreditationsStrip />
+
+            {/* --- MODULE 5: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\accreditations\page.tsx--------------------------------------------------------------------------------```// src/app/accreditations/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { AccreditationsStrip } from '@/components/accreditations-strip';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { Shield, Layers, Users, Factory, Award, Scroll, ClipboardCheck } from 'lucide-react';
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Approved Manufacturer Applicators & Certified Contractors | Maverick',
+    description: 'View our official accreditations, manufacturer applicator status (Sika, Plascon, Marmoran), and compliance certificates (OHS, MBA, NAMA). Your guarantee of verifiable quality.',
+};
+
+// --- DATA: MANUFACTURER PARTNERSHIPS ---
+const ManufacturerPartners = [
+    {
+        name: "Sika Approved Contractor",
+        expertise: "Waterproofing & Structural Repairs",
+        icon: Layers,
+        accentColor: "border-secondary",
+    },
+    {
+        name: "Plascon Preferred Applicator",
+        expertise: "Commercial & Industrial Coatings",
+        icon: Factory,
+        accentColor: "border-tertiary",
+    },
+    {
+        name: "Dulux Accredited Painter",
+        expertise: "High-Volume Residential & Facades",
+        icon: Award,
+        accentColor: "border-secondary",
+    },
+    {
+        name: "Marmoran Master Applicator",
+        expertise: "Specialized Decorative Finishes",
+        icon: Paintbrush,
+        accentColor: "border-tertiary",
+    },
+];
+
+// --- DATA: COMPLIANCE & SAFETY ---
+const ComplianceChecklist = [
+    {
+        title: "MBA & NAMA Registered",
+        description: "Official registration with Master Builders Association and National Association of Managing Agents.",
+        icon: Users,
+    },
+    {
+        title: "Full OHS Compliance",
+        description: "Rigorously audited safety file, site management, and liability coverage for all high-access work.",
+        icon: Shield,
+    },
+    {
+        title: "Independent QA Process",
+        description: "Commitment to using third-party inspectors for auditable proof of film thickness and application quality.",
+        icon: ClipboardCheck,
+    },
+    {
+        title: "Manufacturer Guarantees",
+        description: "Ability to issue 5, 7, and 15-year guarantees co-signed by the material manufacturer.",
+        icon: Scroll,
+    },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function AccreditationsPage() {
+    return (
+        <div className="bg-primary pt-24 text-white">
+
+            {/* --- MODULE 1: ACCREDITATION HERO --- */}
+            <section className="relative py-24 md:py-40 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto">
+                    <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-3">
+                        Verifiable Authority
+                    </p>
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-5xl">
+                        Certified Applicators. Guaranteed Quality.
+                    </h1>
+                    <p className="2xl font-light mt-6 max-w-4xl text-gray-400">
+                        We hold official **applicator status** with the world&apos;s leading coating manufacturers, ensuring every product warranty is valid and backed by expert application.
+                    </p>
+
+                    <Button asChild
+                        className="mt-10 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <Link href="/contact">
+                            Verify Our Credentials & Get a Quote &rarr;
+                        </Link>
+                    </Button>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: MANUFACTURER PARTNERSHIPS GRID --- */}
+            <section className="py-24 px-4 bg-primary">
+                <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-4xl mx-auto mb-16">
+                        <h2 className="text-4xl font-extrabold uppercase mb-3">
+                            Official Manufacturer Applicator Status
+                        </h2>
+                        <p className="text-lg text-gray-400 font-light">
+                            Manufacturer guarantees rely on the applicator. We are certified by these partners:
+                        </p>
+                    </header>
+
+                    {/* Partnerships Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {ManufacturerPartners.map((partner, index) => (
+                            <div key={index} className={`p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 ${partner.accentColor}`}>
+                                <partner.icon className="w-8 h-8 text-secondary mb-4" />
+                                <h3 className="text-xl font-bold uppercase mb-2 text-white">
+                                    {partner.name}
+                                </h3>
+                                <p className="text-tertiary text-sm font-semibold">
+                                    {partner.expertise}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 3: COMPLIANCE CHECKLIST --- */}
+            <section className="py-24 px-4 bg-gray-900">
+                <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-4xl mx-auto mb-16">
+                        <h2 className="text-4xl font-extrabold uppercase mb-3 text-white">
+                            Industry & Safety Compliance Checklist
+                        </h2>
+                        <p className="text-lg text-gray-400 font-light">
+                            All necessary registrations and safety protocols are in place to eliminate client liability.
+                        </p>
+                    </header>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                         {ComplianceChecklist.map((item, index) => (
+                            <div key={index} className="flex items-start space-x-4 p-6 bg-primary rounded-xl shadow-xl">
+                                <ClipboardCheck className="w-6 h-6 text-tertiary flex-shrink-0 mt-1" />
+                                <div>
+                                    <h3 className="text-xl font-bold uppercase mb-1 text-white">
+                                        {item.title}
+                                    </h3>
+                                    <p className="text-gray-400 text-base">
+                                        {item.description}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 4: ACCREDITATIONS STRIP (Reused Trust) --- */}
+            <AccreditationsStrip />
+
+            {/* --- MODULE 5: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
+        </div>
+    );
+}```
+
 --------------------------------------------------------------------------------📄 FILE PATH: src\app\contact\page.tsx--------------------------------------------------------------------------------```// src/app/contact/page.tsx
 import type { Metadata } from 'next';
 import { Phone, Mail, MapPin, MessageCircle, Layers, ClipboardCheck, Scroll } from 'lucide-react'; 
@@ -1338,7 +1624,7 @@ import { Button } from '@/components/ui/button';
 import { QaProcessModule } from '@/components/qa-process-module';
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
-import { Building, Paintbrush, Truck, Users, Clock } from 'lucide-react';
+import { Paintbrush, Truck, Users, Clock } from 'lucide-react'; // REMOVED: Building
 
 // --- METADATA (SEO) ---
 export const metadata: Metadata = {
@@ -1352,21 +1638,25 @@ const ProjectFeatures = [
         title: "Owner Supervision",
         description: "Every project is overseen daily by a director or senior manager, ensuring quality standards are maintained.",
         icon: Users,
+        accentColor: "border-tertiary",
     },
     {
         title: "Advanced Access",
         description: "We utilize our own scaffolding and high-access methods to manage costs and ensure safe, compliant painting of high-rise structures.",
         icon: Truck,
+        accentColor: "border-secondary",
     },
     {
         title: "Minimal Disruption",
         description: "Strict scheduling and site cleanup protocols minimize noise and inconvenience for residents and unit owners.",
         icon: Clock,
+        accentColor: "border-tertiary",
     },
     {
         title: "Common Property Focus",
         description: "Specialized in common area painting, including boundary walls, guard houses, lift shafts, and large unit facades.",
         icon: Paintbrush,
+        accentColor: "border-secondary",
     },
 ];
 
@@ -1384,7 +1674,7 @@ export default function BodyCorporatePaintingPage() {
                     <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-5xl">
                         Dedicated Body Corporate Painting Services.
                     </h1>
-                    <p className="text-2xl font-light mt-6 max-w-4xl text-gray-400">
+                    <p className="2xl font-light mt-6 max-w-4xl text-gray-400">
                         We deliver the durability and compliance required by trustees, supported by our **Independent QA guarantee** that eliminates debates over application quality.
                     </p>
 
@@ -1413,7 +1703,7 @@ export default function BodyCorporatePaintingPage() {
                     {/* Features Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {ProjectFeatures.map((feature, index) => (
-                            <div key={index} className="p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 border-tertiary">
+                            <div key={index} className={`p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 ${feature.accentColor}`}>
                                 <feature.icon className="w-8 h-8 text-secondary mb-4" />
                                 <h3 className="text-xl font-bold uppercase mb-2 text-white">
                                     {feature.title}
@@ -1432,6 +1722,129 @@ export default function BodyCorporatePaintingPage() {
                         >
                             <Link href="/solutions/for-body-corporates">
                                 See How We Eliminate Trustee Risk &rarr;
+                            </Link>
+                        </Button>
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 3: THE QA PROCESS (Reusing Trust Module) --- */}
+            <QaProcessModule />
+
+            {/* --- MODULE 4: ACCREDITATIONS (Visual Trust) --- */}
+            <AccreditationsStrip />
+
+            {/* --- MODULE 5: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\painting-services\page.tsx--------------------------------------------------------------------------------```// src/app/painting-services/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { QaProcessModule } from '@/components/qa-process-module';
+import { AccreditationsStrip } from '@/components/accreditations-strip';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { Building, Factory, Wrench, Paintbrush, Truck, Phone } from 'lucide-react';
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Commercial & High-Access Painting Contractors | Industrial & Body Corporate',
+    description: 'Specialist large-scale painting services for industrial sites, factories, and commercial buildings. Expert high-access, rope access, and cost-effective solutions with Independent QA.',
+};
+
+// --- TECHNICAL DATA FOR CONTENT MODULES ---
+const CommercialPaintingServices = [
+    {
+        title: "Industrial & Factory Painting",
+        description: "Application of specialized corrosion control and protective coatings for steel structures, silos, and internal factory assets in harsh environments.",
+        icon: Factory,
+        accentColor: "border-secondary",
+    },
+    {
+        title: "Commercial & Retail Facades",
+        description: "High-volume, complex exterior and interior coating solutions for shopping centres, office parks, and multi-story commercial properties.",
+        icon: Building,
+        accentColor: "border-tertiary",
+    },
+    {
+        title: "Advanced Surface Preparation",
+        description: "From structural crack repairs to abrasive blasting, preparation dictates longevity. We ensure the surface is scientifically ready for the new system.",
+        icon: Wrench,
+        accentColor: "border-secondary",
+    },
+    {
+        title: "Expert Access Management",
+        description: "Utilizing professional scaffolding, boom lifts, and certified rope access to manage costs and ensure safe, compliant high-rise work.",
+        icon: Truck,
+        accentColor: "border-tertiary",
+    },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function PaintingServicesPage() {
+    return (
+        <div className="bg-primary pt-24 text-white">
+
+            {/* --- MODULE 1: PAINTING FOCUS HERO --- */}
+            <section className="relative py-24 md:py-40 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto">
+                    <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-3">
+                        Large-Scale Coating Solutions
+                    </p>
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-5xl">
+                        High-Access Industrial & Commercial Painting.
+                    </h1>
+                    <p className="2xl font-light mt-6 max-w-4xl text-gray-400">
+                        We are specialized contractors focused exclusively on large-format, high-access projects for **industrial, commercial, and body corporate assets**, ensuring high compliance and zero risk.
+                    </p>
+
+                    <Button asChild
+                        className="mt-10 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <Link href="/contact">
+                            Request Commercial Quote &rarr;
+                        </Link>
+                    </Button>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: SERVICES BREAKDOWN GRID --- */}
+            <section className="py-24 px-4 bg-primary">
+                <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-4xl mx-auto mb-16">
+                        <h2 className="text-4xl font-extrabold uppercase mb-3">
+                            Specialist Coating Applications
+                        </h2>
+                        <p className="text-lg text-gray-400 font-light">
+                            Our focus is on durability, corrosion control, and providing a final finish that lasts under intense environmental conditions.
+                        </p>
+                    </header>
+
+                    {/* Solutions Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {CommercialPaintingServices.map((service, index) => (
+                            <div key={index} className={`p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 ${service.accentColor}`}>
+                                <service.icon className="w-8 h-8 text-secondary mb-4" />
+                                <h3 className="text-xl font-bold uppercase mb-2 text-white">
+                                    {service.title}
+                                </h3>
+                                <p className="text-gray-400 text-sm">
+                                    {service.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                    
+                    <div className="mt-12 text-center">
+                         <Button asChild
+                            variant="link"
+                            className="text-tertiary hover:text-white mt-4 pl-0 text-lg font-bold"
+                        >
+                            <Link href="/painting/body-corporate-painting">
+                                See Body Corporate Solutions &rarr;
                             </Link>
                         </Button>
                     </div>
@@ -1788,7 +2201,7 @@ import { Button } from '@/components/ui/button';
 import { QaProcessModule } from '@/components/qa-process-module';
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
-import { Users, ClipboardCheck, MessageCircle, Scroll, Shield } from 'lucide-react';
+import { ClipboardCheck, MessageCircle, Scroll, Shield } from 'lucide-react'; // REMOVED: Users
 
 // --- METADATA (SEO) ---
 export const metadata: Metadata = {
@@ -1802,21 +2215,25 @@ const PainPoints = [
         title: "Risk-Free Compliance",
         description: "Independent QA verifies film thickness and application quality, providing trustees with auditable proof of work for AGMs.",
         icon: ClipboardCheck,
+        accentColor: "border-secondary",
     },
     {
         title: "Long-Term Security",
         description: "Our structural repairs and guaranteed waterproofing systems eliminate recurring defects, securing the long-term value of the entire block.",
         icon: Shield,
+        accentColor: "border-tertiary",
     },
     {
         title: "Minimal Disturbance",
         description: "We use advanced high-access methods and strict project management protocols to ensure minimal disturbance and inconvenience to residents.",
         icon: MessageCircle,
+        accentColor: "border-secondary",
     },
     {
         title: "Transparent Guarantees",
         description: "All guarantees are co-signed by the manufacturer, the contractor, and the independent inspector, providing unparalleled warranty transparency.",
         icon: Scroll,
+        accentColor: "border-tertiary",
     },
 ];
 
@@ -1834,7 +2251,7 @@ export default function BodyCorporateSolutionsPage() {
                     <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-5xl">
                         Guaranteed Asset Security for Body Corporates.
                     </h1>
-                    <p className="text-2xl font-light mt-6 max-w-4xl text-gray-400">
+                    <p className="2xl font-light mt-6 max-w-4xl text-gray-400">
                         We specialize in large-scale residential asset maintenance, delivering **risk-free projects** with verifiable compliance and long-term structural security for every unit owner.
                     </p>
 
@@ -1863,7 +2280,7 @@ export default function BodyCorporateSolutionsPage() {
                     {/* Solutions Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {PainPoints.map((point, index) => (
-                            <div key={index} className="p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 border-secondary">
+                            <div key={index} className={`p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 ${point.accentColor}`}>
                                 <point.icon className="w-8 h-8 text-tertiary mb-4" />
                                 <h3 className="text-xl font-bold uppercase mb-2 text-white">
                                     {point.title}
@@ -1879,6 +2296,251 @@ export default function BodyCorporateSolutionsPage() {
 
             {/* --- MODULE 3: THE QA PROCESS (Reusing Trust Module) --- */}
             <QaProcessModule />
+
+            {/* --- MODULE 4: ACCREDITATIONS (Visual Trust) --- */}
+            <AccreditationsStrip />
+
+            {/* --- MODULE 5: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\solutions\for-developers\page.tsx--------------------------------------------------------------------------------```// src/app/solutions/for-developers/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { QaProcessModule } from '@/components/qa-process-module';
+import { AccreditationsStrip } from '@/components/accreditations-strip';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { Building, ClipboardCheck, Scroll, Wrench } from 'lucide-react'; // REMOVED: Hammer, Layers
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'New Build & Developer Painting Solutions | Technical Compliance & Auditable QA',
+    description: 'Verifiable painting and coating specifications for developers, engineers, and quantity surveyors. We guarantee compliance with SANS standards and ensure zero hand-over risk through Independent 3rd Party QA.',
+};
+
+// --- CORE PAIN POINTS DATA ---
+const DeveloperValueProps = [
+    {
+        title: "Technical Compliance",
+        description: "Application strictly adheres to manufacturer specifications and SANS 10047/10051 for verifiable film thickness and quality.",
+        icon: Scroll,
+        accentColor: "border-secondary",
+    },
+    {
+        title: "Auditable Quality",
+        description: "Independent QA provides fortnightly reports, eliminating contractor bias and giving the QS or engineer verifiable quality assurance documentation.",
+        icon: ClipboardCheck,
+        accentColor: "border-tertiary",
+    },
+    {
+        title: "Structural Hand-over",
+        description: "Our capability includes fixing spalling, crack injection, and waterproofing, ensuring the structure is sound before final coatings.",
+        icon: Wrench,
+        accentColor: "border-secondary",
+    },
+    {
+        title: "High-Volume Efficiency",
+        description: "Experienced in large-scale residential and commercial complex painting, ensuring on-time delivery without compromising on final quality.",
+        icon: Building,
+        accentColor: "border-tertiary",
+    },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function DeveloperSolutionsPage() {
+    return (
+        <div className="bg-primary pt-24 text-white">
+
+            {/* --- MODULE 1: AUDIENCE HERO (DEVELOPER FOCUS) --- */}
+            <section className="relative py-24 md:py-40 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto">
+                    <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-3">
+                        For Engineers & Quantity Surveyors
+                    </p>
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-5xl">
+                        Verifiable Quality. Zero Hand-over Risk.
+                    </h1>
+                    <p className="2xl font-light mt-6 max-w-4xl text-gray-400">
+                        We deliver **contractual compliance** and **auditable proof** of application quality, ensuring your project passes final inspection and eliminates costly delays and future warranty claims.
+                    </p>
+
+                    <Button asChild
+                        className="mt-10 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <Link href="/contact">
+                            Request Technical Specification &rarr;
+                        </Link>
+                    </Button>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: VALUE PROPS GRID (Solution Focus) --- */}
+            <section className="py-24 px-4 bg-primary">
+                <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-4xl mx-auto mb-16">
+                        <h2 className="text-4xl font-extrabold uppercase mb-3">
+                            The Value We Bring to Your Site
+                        </h2>
+                        <p className="text-lg text-gray-400 font-light">
+                            Our process is engineered to integrate seamlessly into your project timeline and quality control systems.
+                        </p>
+                    </header>
+
+                    {/* Solutions Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {DeveloperValueProps.map((point, index) => (
+                            <div key={index} className={`p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 ${point.accentColor}`}>
+                                <point.icon className="w-8 h-8 text-secondary mb-4" />
+                                <h3 className="text-xl font-bold uppercase mb-2 text-white">
+                                    {point.title}
+                                </h3>
+                                <p className="text-gray-400 text-sm">
+                                    {point.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 3: THE QA PROCESS (Reusing Trust Module) --- */}
+            <QaProcessModule />
+
+            {/* --- MODULE 4: ACCREDITATIONS (Visual Trust) --- */}
+            <AccreditationsStrip />
+
+            {/* --- MODULE 5: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\solutions\for-homeowners\page.tsx--------------------------------------------------------------------------------```// src/app/solutions/for-homeowners/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+// import { QaProcessModule } from '@/components/qa-process-module'; // REMOVED: Unused - replaced by modular section below
+import { AccreditationsStrip } from '@/components/accreditations-strip';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { Users, CheckSquare, Shield, Clock } from 'lucide-react'; // REMOVED: Home, Paintbrush
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Owner Supervised Painting for High-End Homeowners | Guaranteed Quality',
+    description: 'Premium exterior and interior painting services for homeowners. Benefit from daily owner supervision, guaranteed workmanship, and meticulous site cleanliness. Gauteng&apos;s trusted residential contractor.',
+};
+
+// --- CORE PAIN POINTS DATA ---
+const HomeownerAssurances = [
+    {
+        title: "Daily Owner Supervision",
+        description: "The quality of your home is too important to leave to chance. A director is on-site daily to manage the project and quality control.",
+        icon: Users,
+        accentColor: "border-tertiary",
+    },
+    {
+        title: "Meticulous Cleanliness",
+        description: "We treat your home with the utmost respect. Dust control, masking, and daily site cleanup are non-negotiable parts of our service.",
+        icon: Clock,
+        accentColor: "border-secondary",
+    },
+    {
+        title: "Guaranteed Workmanship",
+        description: "We stand by our work. All projects come with a guaranteed warranty, backed by manufacturer-approved application methods.",
+        icon: CheckSquare,
+        accentColor: "border-tertiary",
+    },
+    {
+        title: "Complete Property Protection",
+        description: "Before painting, we fix leaks, cracks, and damp, providing a full structural envelope that protects your investment long-term.",
+        icon: Shield,
+        accentColor: "border-secondary",
+    },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function HomeownerSolutionsPage() {
+    return (
+        <div className="bg-primary pt-24 text-white">
+
+            {/* --- MODULE 1: AUDIENCE HERO (HOMEOWNER FOCUS) --- */}
+            <section className="relative py-24 md:py-40 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto">
+                    <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-3">
+                        For High-End Residential Properties
+                    </p>
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-5xl">
+                        Owner Supervised Painting. Trusted. Meticulous. Guaranteed.
+                    </h1>
+                    <p className="2xl font-light mt-6 max-w-4xl text-gray-400">
+                        We deliver a **premium service** focused on quality, detail, and protecting the integrity of your home&apos;s investment, from initial prep to the final coat.
+                    </p>
+
+                    <Button asChild
+                        className="mt-10 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <Link href="/contact">
+                            Schedule Home Assessment &rarr;
+                        </Link>
+                    </Button>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: ASSURANCES GRID (Trust Focus) --- */}
+            <section className="py-24 px-4 bg-primary">
+                <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-4xl mx-auto mb-16">
+                        <h2 className="text-4xl font-extrabold uppercase mb-3">
+                            The Assurances You Deserve
+                        </h2>
+                        <p className="text-lg text-gray-400 font-light">
+                            Our process is built on integrity and a relentless pursuit of the perfect finish.
+                        </p>
+                    </header>
+
+                    {/* Assurances Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {HomeownerAssurances.map((assurance, index) => (
+                            <div key={index} className={`p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 ${assurance.accentColor}`}>
+                                <assurance.icon className="w-8 h-8 text-secondary mb-4" />
+                                <h3 className="text-xl font-bold uppercase mb-2 text-white">
+                                    {assurance.title}
+                                </h3>
+                                <p className="text-gray-400 text-sm">
+                                    {assurance.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 3: THE QA PROCESS (Reusing Trust Module - Simplified) --- */}
+            {/* The full QA module might be overkill for a homeowner, so we link to it. */}
+             <section className="py-16 px-4 bg-gray-900">
+                 <div className="max-w-7xl mx-auto text-center">
+                    <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-3">
+                        Our Commitment to Trust
+                    </p>
+                    <h2 className="text-4xl font-extrabold uppercase mb-3">
+                        Quality Backed by Professional Audits
+                    </h2>
+                    <p className="text-lg text-gray-400 font-light max-w-3xl mx-auto">
+                        Although typically reserved for our largest commercial projects, the same strict **Independent 3rd Party QA** principles are applied to your home. Quality is non-negotiable.
+                    </p>
+                    <Button asChild
+                        className="mt-8 bg-tertiary hover:bg-[#9ED529] text-primary font-bold text-lg h-12 shadow-xl"
+                    >
+                         <Link href="/our-process-independent-qa">
+                            See Our Full Auditing Process &rarr;
+                        </Link>
+                    </Button>
+                 </div>
+            </section>
+
 
             {/* --- MODULE 4: ACCREDITATIONS (Visual Trust) --- */}
             <AccreditationsStrip />
@@ -2120,6 +2782,88 @@ export default function StructuralRepairsPage() {
     );
 }```
 
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\terms\page.tsx--------------------------------------------------------------------------------```// src/app/terms/page.tsx
+import type { Metadata } from 'next';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { FileText } from 'lucide-react';
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Terms of Service | Maverick Painting Contractors',
+    description: 'Review the official Terms of Service for all contracting work and use of the Maverick Painting website.',
+};
+
+// --- MAIN PAGE COMPONENT ---
+export default function TermsPage() {
+    return (
+        <div className="bg-primary pt-32 pb-24 text-white min-h-screen">
+            <div className="max-w-4xl mx-auto px-4">
+                
+                <header className="mb-12 border-b border-gray-700 pb-6">
+                    <FileText className="w-10 h-10 text-secondary mb-3" />
+                    <h1 className="text-5xl font-extrabold uppercase mb-3">
+                        Terms of Service
+                    </h1>
+                    <p className="text-lg text-gray-400">
+                        Last Updated: November 9, 2025
+                    </p>
+                </header>
+
+                <div className="space-y-8 text-gray-300 leading-relaxed text-base">
+                    
+                    {/* SECTION 1: Introduction */}
+                    <section>
+                        <h2 className="text-2xl font-bold text-white mb-4">1. Acceptance of Terms</h2>
+                        <p>
+                            By engaging Maverick Painting for services, or by using this website, you agree to be bound by these Terms and Conditions (&quot;Terms&quot;). These Terms govern your access to and use of our services and our website. If you disagree with any part of the terms then you may not access the Service.
+                        </p>
+                    </section>
+                    
+                    {/* SECTION 2: Service Provision */}
+                    <section>
+                        <h2 className="text-2xl font-bold text-white mb-4">2. Service Provision and Scope of Work</h2>
+                        <ul className="list-disc list-inside space-y-2 ml-4">
+                            <li>All project work, including structural repairs, painting, and waterproofing, will be executed strictly in accordance with the signed quotation and technical specification provided to the client.</li>
+                            <li>The scope of work is defined exclusively by the written agreement and does not include any verbal modifications unless formalized in writing.</li>
+                            <li>Payment terms and conditions, including deposit schedules and final settlement, are outlined in the official quotation document.</li>
+                        </ul>
+                    </section>
+                    
+                    {/* SECTION 3: Quality Assurance and Guarantees */}
+                    <section>
+                        <h2 className="text-2xl font-bold text-white mb-4">3. Quality Assurance and Guarantees</h2>
+                        <p>
+                            We warrant that the work will be performed in a professional and workmanlike manner. Product guarantees are issued by the respective material manufacturer (e.g., Plascon, Dulux, Sika) and are subject to their terms and conditions. Our **Independent 3rd Party QA** process is designed to mitigate risk but does not replace manufacturer guarantees.
+                        </p>
+                    </section>
+
+                    {/* SECTION 4: Liability */}
+                    <section>
+                        <h2 className="text-2xl font-bold text-white mb-4">4. Limitation of Liability</h2>
+                        <p>
+                            Maverick Painting&apos;s liability is limited to the total value of the contract price for the services rendered. We are not liable for consequential damages or latent defects in the original structure that were not identifiable during the initial inspection.
+                        </p>
+                    </section>
+
+                    {/* SECTION 5: Governing Law */}
+                    <section>
+                        <h2 className="text-2xl font-bold text-white mb-4">5. Governing Law</h2>
+                        <p>
+                            These Terms shall be governed and construed in accordance with the laws of South Africa, without regard to its conflict of law provisions.
+                        </p>
+                    </section>
+
+                </div>
+
+            </div>
+            {/* The final CTA strip sits below the main content, outside the text container */}
+            <div className="mt-20">
+                <CtaFinalStrip />
+            </div>
+        </div>
+    );
+}```
+
 --------------------------------------------------------------------------------📄 FILE PATH: src\app\waterproofing-services\page.tsx--------------------------------------------------------------------------------```// src/app/waterproofing-services/page.tsx
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -2127,7 +2871,7 @@ import { Button } from '@/components/ui/button';
 import { QaProcessModule } from '@/components/qa-process-module';
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
-import { Shield, Droplet, Layers, FileText, Phone } from 'lucide-react';
+import { Shield, Droplet, Layers, FileText } from 'lucide-react'; // REMOVED: Phone
 
 // --- METADATA (SEO) ---
 export const metadata: Metadata = {
@@ -2141,25 +2885,25 @@ const WaterproofingSolutions = [
         title: "Torch-On Membrane Systems",
         description: "High-performance bituminous felt membranes, torch-applied by certified staff for flat concrete roofs and exposed areas requiring exceptional durability.",
         icon: FileText,
-        accentColor: "border-secondary", // <--- ADDED
+        accentColor: "border-secondary",
     },
     {
         title: "Liquid Applied Membranes (LAM)",
         description: "Seamless, cold-applied polyurethane and acrylic systems, ideal for complex areas like parapet walls, flashings, and under-tile balcony applications.",
         icon: Droplet,
-        accentColor: "border-tertiary", // <--- ADDED
+        accentColor: "border-tertiary",
     },
     {
         title: "Basement & Below-Ground Waterproofing",
         description: "Specialized slurry and crystalline systems applied to negative-side structures to stop rising damp and water ingress in basements and lift pits.",
         icon: Layers,
-        accentColor: "border-secondary", // <--- ADDED
+        accentColor: "border-secondary",
     },
     {
         title: "Under-Tile Balcony Remediation",
         description: "Fixing leaking balconies without destructive tile removal, using targeted injection and re-grouting systems, providing a less disruptive and cost-effective fix.",
         icon: Shield,
-        accentColor: "border-tertiary", // <--- ADDED
+        accentColor: "border-tertiary",
     },
 ];
 
@@ -2206,7 +2950,6 @@ export default function WaterproofingPage() {
                     {/* Solutions Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {WaterproofingSolutions.map((system, index) => (
-                            // FIX: Added system.accentColor to the border-t-4 class to style the card border
                             <div key={index} className={`p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 ${system.accentColor}`}>
                                 <system.icon className="w-8 h-8 text-secondary mb-4" />
                                 <h3 className="text-xl font-bold uppercase mb-2 text-white">
