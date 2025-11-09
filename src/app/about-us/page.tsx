@@ -1,7 +1,7 @@
 // src/app/about-us/page.tsx
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ClipboardCheck, Medal, Scroll, Users, Phone, Wrench, Sprout, Shield } from 'lucide-react';
+import { ClipboardCheck, Medal, Scroll, Users, Phone, Wrench, Sprout, Shield } from 'lucide-react'; // Removed Layers, Home, Factory
 import { Button } from '@/components/ui/button';
 import { QaProcessModule } from '@/components/qa-process-module'; // Reusing existing module
 import { AccreditationsStrip } from '@/components/accreditations-strip'; // Reusing existing module
@@ -192,7 +192,7 @@ export default function AboutUsPage() {
             {/* Displaying logos to build visual trust. */}
             <AccreditationsStrip />
 
-            {/* --- MODULE 6: FINAL CTA STRIP (Standard Footer CTA) --- */}
+            {/* --- MODULE 6: FINAL CTA STRIP (Conversion Funnel) --- */}
             <section className="bg-header-dark py-12 px-4">
                 <div className="max-w-7xl mx-auto text-center">
                     <h2 className="text-3xl font-extrabold text-white mb-4">

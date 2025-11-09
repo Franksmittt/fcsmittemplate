@@ -3,7 +3,8 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Menu, X, Phone } from 'lucide-react'; // Removed MessageCircle
+import Image from 'next/image'; // <-- NEW IMPORT
+import { Menu, X, Phone } from 'lucide-react'; 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils'; 
 
@@ -81,11 +82,13 @@ text-white hover:bg-black/50"
               onClick={toggleMenu}
             >
   
-                {/* Use standard HTML img tag for the custom image asset */}
-                <img 
+                {/* Use next/image for optimized performance */}
+                <Image 
                     src="/images/WhatsApp.svg.webp" 
                     alt="WhatsApp Icon" 
                     className="w-4 h-4 mr-2 inline-block"
+                    width={16} // Must be defined for Image component
+                    height={16} // Must be defined for Image component
                 />
              WhatsApp Us
             </Link>
@@ -95,4 +98,4 @@ text-white hover:bg-black/50"
       </div>
     </>
   );
-} 
+}

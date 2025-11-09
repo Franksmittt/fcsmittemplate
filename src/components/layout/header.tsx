@@ -1,5 +1,6 @@
 // src/components/layout/header.tsx
 import Link from 'next/link';
+import Image from 'next/image'; // <-- NEW IMPORT
 import { Button } from '@/components/ui/button';
 import { Phone } from 'lucide-react'; // Removed MessageCircle
 import { MobileNav } from '@/components/layout/mobile-nav';
@@ -37,7 +38,7 @@ className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <path d="m247.5,416c-1.98,0-3.91,0.8-5.3,2.2-1.4,1.39-2.2,3.319-2.2,5.3 0,1.97 0.8,3.91 2.2,5.3 1.39,1.4 3.33,2.2 5.3,2.2 1.97,0 3.91-0.8 5.3-2.2 1.4-1.4 2.2-3.33 2.2-5.3 0-1.971-0.8-3.91-2.2-5.3-1.39-1.4-3.33-2.2-5.3-2.2z"/>
                         
 </g>
-                    </svg>{/* <-- THIS CLOSES THE SVG TAG */}
+                    </svg>
                     {/* Text remains white */}
                     <span className="font-extrabold text-2xl tracking-tight leading-none text-white">MAVERICK</span>
                 </Link>
@@ -76,15 +77,18 @@ key={item.name}
                     
                     {/* WhatsApp Button - NEW ICON IMPLEMENTATION */}
                     <Button asChild 
-                        className="bg-whatsapp-green hover:bg-[#25C356] text-white font-bold text-lg py-3 px-6 
+                        className="bg-whatsapp-green hover:bg-[#25C356] text-primary font-bold text-lg py-3 px-6 
 rounded-lg shadow-xl transition duration-300 transform hover:scale-105 whitespace-nowrap"
                     >
                         <a href="https://wa.me/27826277082" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2">
-                            {/* Use standard HTML img tag for the custom image asset */}
-                            <img 
+                            {/* Use next/image for optimized performance */}
+                            <Image 
                                 src="/images/WhatsApp.svg.webp" 
                                 alt="WhatsApp Icon" 
                                 className="w-5 h-5"
+                                width={20} // Required by next/image
+                                height={20} // Required by next/image
+                                priority // Mark as high priority for LCP
                             />
             
                             <span>WhatsApp</span>
@@ -93,14 +97,13 @@ rounded-lg shadow-xl transition duration-300 transform hover:scale-105 whitespac
                 </div>
 
                 {/* --- 4. MOBILE MENU TOGGLE (Right, Mobile Only) --- */}
-                {/* Note: The button logic is contained within the MobileNav Client Component */}
                 <div className="md:hidden">
                     <MobileNav />
                 </div>
 
             </div>
     
-</div>
+</div> {/* <-- THIS CLOSES THE max-w-7xl mx-auto DIV */}
         {/* Mobile menu content container will be handled by MobileNav Client Component */}
     </header>
   );
