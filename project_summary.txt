@@ -1043,14 +1043,13 @@ import { ArrowRight } from 'lucide-react';
 interface ProjectCardProps {
     name: string;
     location: string;
-    tags: string[]; 
     href: string;
     imageSrc: string;
 }
 
-// FINAL FIX: We rename 'tags' to '_tags' in the parameters list. 
+// FINAL FIX: We rename 'tags' to '_tags' in the parameters list.
 // We ensure 'href' is correctly destructured.
-export function ProjectShowcaseImageCard({ name, location, tags: _tags, href, imageSrc }: ProjectCardProps) {
+export function ProjectShowcaseImageCard({ name, location, href, imageSrc }: ProjectCardProps) {
     return (
         <Link 
             href={href} 
@@ -1061,7 +1060,8 @@ export function ProjectShowcaseImageCard({ name, location, tags: _tags, href, im
             <div className="relative h-60 w-full overflow-hidden">
                 {/* Image Placeholder with Hover Effect */}
                 <div 
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.05]"
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-500 
+group-hover:scale-[1.05]"
                     // NOTE: In a real project, this style property would be replaced by <Image> 
                     // and its src attribute for Next.js optimization.
                     style={{ backgroundImage: `url(${imageSrc})` }}
@@ -1069,24 +1069,28 @@ export function ProjectShowcaseImageCard({ name, location, tags: _tags, href, im
                     {/* Dark Overlay for Text Clarity (fades out on hover) */}
                     <div className="absolute inset-0 bg-primary/20 transition-all duration-300 group-hover:bg-primary/0" />
                     
-                    {/* Placeholder Text */}
+                    {/* Placeholder Text 
+*/}
                     <span className="absolute inset-0 flex items-center justify-center text-white/50 text-xs font-semibold">
                         [Placeholder for Image: {name}]
                     </span>
                 </div>
-            </div>
+         
+           </div>
 
             {/* --- Content Area (Bottom) --- */}
             <div className="p-6 md:p-8 flex flex-col flex-grow">
                 <p className="text-sm font-medium uppercase tracking-wider text-secondary mb-1">
                     {location}
                 </p>
-                
+    
+                            
                 <h3 className="text-2xl font-extrabold mb-3 text-white group-hover:text-tertiary transition-colors leading-tight">
                     {name}
                 </h3>
                 
-                {/* Tags section is REMOVED as requested */}
+             
+           {/* Tags section is REMOVED as requested */}
                 
                 {/* Link/CTA with subtle motion */}
                 <span className="mt-auto pt-2 text-base font-semibold text-tertiary flex items-center group-hover:text-secondary transition-colors">
@@ -1106,14 +1110,13 @@ import { ProjectShowcaseImageCard } from './project-showcase-image-card'; // <--
 
 // --- Portfolio Data based on Strategic Projects and Image Paths (Placeholders) ---
 const strategicProjects = [
-    { name: "Munyaka Lifestyle Estate", location: "Midrand", tags: ["Waterproofing", "Redecoration", "ASAP Ranked"], href: "/projects/munyaka", imageSrc: "/images/munyaka-midrand.jpg" },
-    { name: "The Blyde Riverwalk Estate", location: "Pretoria East", tags: ["Specialized Coatings", "Waterproofing"], href: "/projects/the-blyde", imageSrc: "/images/the-blyde-pretorria.jpg" },
-    { name: "Celebration Retirement Estate", location: "North Riding", tags: ["Body Corporate", "Long-Term Plan"], href: "/projects/celebration", imageSrc: "/images/celebration-retirement.jpg" },
-    { name: "Eastlands Mature Lifestyle", location: "Benoni", tags: ["Structural Repairs", "Residential"], href: "/projects/eastlands", imageSrc: "/images/eastlands-benoni.jpg" },
-    { name: "Kikuyu Lifestyle Centre", location: "Midrand", tags: ["Commercial", "Large Scale", "Owner Supervised"], href: "/projects/kikuyu", imageSrc: "/images/kikuyu-lifestyle.jpg" },
-    { name: "Green Creek Eco-Estate", location: "Pretoria East", tags: ["New Build", "Developer Services"], href: "/projects/greencreek", imageSrc: "/images/greencreek-estate.jpg" },
+    { name: "Munyaka Lifestyle Estate", location: "Midrand", href: "/projects/munyaka", imageSrc: "/images/munyaka-midrand.jpg" },
+    { name: "The Blyde Riverwalk Estate", location: "Pretoria East", href: "/projects/the-blyde", imageSrc: "/images/the-blyde-pretorria.jpg" },
+    { name: "Celebration Retirement Estate", location: "North Riding", href: "/projects/celebration", imageSrc: "/images/celebration-retirement.jpg" },
+    { name: "Eastlands Mature Lifestyle", location: "Benoni", href: "/projects/eastlands", imageSrc: "/images/eastlands-benoni.jpg" },
+    { name: "Kikuyu Lifestyle Centre", location: "Midrand", href: "/projects/kikuyu", imageSrc: "/images/kikuyu-lifestyle.jpg" },
+    { name: "Green Creek Eco-Estate", location: "Pretoria East", href: "/projects/greencreek", imageSrc: "/images/greencreek-estate.jpg" },
 ];
-
 export function ProjectShowcaseModule() {
     return (
         <section className="bg-primary py-24 md:py-32 px-4 border-t border-gray-800">
@@ -1142,7 +1145,6 @@ export function ProjectShowcaseModule() {
                             key={index}
                             name={project.name}
                             location={project.location}
-                            tags={project.tags}
                             href={project.href}
                             imageSrc={project.imageSrc}
                         />

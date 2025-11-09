@@ -34,10 +34,10 @@ group-hover:scale-[1.05]"
                     <div className="absolute inset-0 bg-primary/20 transition-all duration-300 group-hover:bg-primary/0" />
                     
                     {/* Placeholder Text 
-*/}
                     <span className="absolute inset-0 flex items-center justify-center text-white/50 text-xs font-semibold">
                         [Placeholder for Image: {name}]
                     </span>
+                    */}
                 </div>
          
            </div>
