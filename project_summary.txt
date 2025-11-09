@@ -25,6 +25,11 @@
 │   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 accreditations
 │   │   │   ├── 📄 page.tsx
+│   │   ├── 📁 blog
+│   │   │   ├── 📄 page.tsx
+│   │   ├── 📁 coatings
+│   │   │   ├── 📁 hygienic-food-grade-flooring
+│   │   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 contact
 │   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 fonts
@@ -35,10 +40,16 @@
 │   │   ├── 📁 painting
 │   │   │   ├── 📁 body-corporate-painting
 │   │   │   │   ├── 📄 page.tsx
+│   │   │   ├── 📁 industrial-painting
+│   │   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 painting-services
+│   │   │   ├── 📄 page.tsx
+│   │   ├── 📁 privacy
 │   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 projects
 │   │   │   ├── 📄 page.tsx
+│   │   │   ├── 📁 [slug]
+│   │   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 services
 │   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 solutions
@@ -1101,7 +1112,7 @@ import { Button } from '@/components/ui/button';
 import { QaProcessModule } from '@/components/qa-process-module';
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
-import { PersonStanding, Zap, Shield, TrendingUp, Phone, Truck } from 'lucide-react';
+import { PersonStanding, Shield, TrendingUp, Truck } from 'lucide-react'; // REMOVED: Zap, Phone
 
 // --- METADATA (SEO) ---
 export const metadata: Metadata = {
@@ -1212,7 +1223,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
-import { Shield, Layers, Users, Factory, Award, Scroll, ClipboardCheck } from 'lucide-react';
+// FIX: Added Paintbrush to resolve TypeScript error.
+import { Shield, Layers, Users, Factory, Award, Scroll, ClipboardCheck, Paintbrush } from 'lucide-react';
 
 // --- METADATA (SEO) ---
 export const metadata: Metadata = {
@@ -1243,7 +1255,7 @@ const ManufacturerPartners = [
     {
         name: "Marmoran Master Applicator",
         expertise: "Specialized Decorative Finishes",
-        icon: Paintbrush,
+        icon: Paintbrush, 
         accentColor: "border-tertiary",
     },
 ];
@@ -1342,7 +1354,7 @@ export default function AccreditationsPage() {
                     </header>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                         {ComplianceChecklist.map((item, index) => (
+                        {ComplianceChecklist.map((item, index) => (
                             <div key={index} className="flex items-start space-x-4 p-6 bg-primary rounded-xl shadow-xl">
                                 <ClipboardCheck className="w-6 h-6 text-tertiary flex-shrink-0 mt-1" />
                                 <div>
@@ -1360,6 +1372,220 @@ export default function AccreditationsPage() {
             </section>
 
             {/* --- MODULE 4: ACCREDITATIONS STRIP (Reused Trust) --- */}
+            <AccreditationsStrip />
+
+            {/* --- MODULE 5: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\blog\page.tsx--------------------------------------------------------------------------------```// src/app/blog/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { BookOpen, Wrench, Layers, Building } from 'lucide-react';
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Expertise Hub: Structural Repair, Waterproofing & Coating Guides | Maverick Blog',
+    description: 'Read technical guides and expert advice on concrete spalling, high-performance epoxy coatings, industrial waterproofing, and managing body corporate maintenance projects.',
+};
+
+// --- DATA: Content Categories (Future SEO Silos) ---
+const ContentCategories = [
+    { title: "Structural Remediation", icon: Wrench, description: "Deep dives into concrete cancer, crack injection, and spalling repair methodologies.", href: "/blog/structural-remediation" },
+    { title: "Waterproofing & Damp", icon: Layers, description: "Guides on choosing the right torch-on or liquid membrane system for flat roofs and balconies.", href: "/blog/waterproofing" },
+    { title: "Commercial & Industrial", icon: Building, description: "Best practices for facility managers, corrosion control, and large-scale project management.", href: "/blog/industrial" },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function BlogIndexPage() {
+    return (
+        <div className="bg-primary pt-24 text-white min-h-screen">
+
+            {/* --- MODULE 1: BLOG HERO (Authority Statement) --- */}
+            <section className="relative py-24 md:py-32 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto">
+                    <BookOpen className="w-12 h-12 text-tertiary mb-4" />
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-5xl">
+                        The Expertise Hub. Technical Guides & Insights.
+                    </h1>
+                    <p className="2xl font-light mt-6 max-w-4xl text-gray-400">
+                        We don&apos;t just paint; we educate. Access expert resources on solving complex structural and waterproofing defects for high-value assets.
+                    </p>
+
+                    <Button asChild
+                        className="mt-10 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <Link href="/contact">
+                            Contact an Expert Now &rarr;
+                        </Link>
+                    </Button>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: CONTENT CATEGORIES (SEO Silo Links) --- */}
+            <section className="py-24 px-4 bg-primary">
+                <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-4xl mx-auto mb-16">
+                        <h2 className="text-4xl font-extrabold uppercase mb-3">
+                            Explore Technical Categories
+                        </h2>
+                        <p className="text-lg text-gray-400 font-light">
+                            Jump straight into the expert knowledge required to protect your asset.
+                        </p>
+                    </header>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {ContentCategories.map((category, index) => (
+                            <Link key={index} href={category.href}
+                                className="p-8 bg-gray-900 rounded-xl shadow-xl border-t-4 border-tertiary 
+                                           transition-all duration-300 transform hover:scale-[1.03] hover:shadow-tertiary/50 group"
+                            >
+                                <category.icon className="w-8 h-8 text-secondary mb-4 group-hover:text-tertiary" />
+                                <h3 className="text-2xl font-bold uppercase mb-2 text-white">
+                                    {category.title}
+                                </h3>
+                                <p className="text-gray-400 text-base">
+                                    {category.description}
+                                </p>
+                                <span className="text-tertiary font-bold mt-4 block group-hover:text-white transition-colors">
+                                    View Articles &rarr;
+                                </span>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 3: FEATURED ARTICLES (Placeholder for Dynamic Content) --- */}
+            <section className="py-24 px-4 bg-gray-900">
+                <div className="max-w-7xl mx-auto">
+                    <h2 className="text-4xl font-extrabold uppercase mb-12">
+                        Latest Insights
+                    </h2>
+                    
+                    {/* Placeholder for fetching and mapping dynamic articles */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-center text-gray-500 italic">
+                        <p className="p-12 bg-primary rounded-xl">Article Placeholder 1 (Requires CMS/Database Integration)</p>
+                        <p className="p-12 bg-primary rounded-xl">Article Placeholder 2 (Requires CMS/Database Integration)</p>
+                        <p className="p-12 bg-primary rounded-xl">Article Placeholder 3 (Requires CMS/Database Integration)</p>
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 4: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\coatings\hygienic-food-grade-flooring\page.tsx--------------------------------------------------------------------------------```// src/app/coatings/hygienic-food-grade-flooring/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { QaProcessModule } from '@/components/qa-process-module';
+import { AccreditationsStrip } from '@/components/accreditations-strip';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { FlaskConical, Beaker, Utensils, Shield } from 'lucide-react'; 
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Food-Grade & Hygienic Epoxy Flooring Contractors | HACCP Compliance',
+    description: 'Seamless, non-porous, and chemical-resistant epoxy and polyurethane floor systems for food and beverage plants, commercial kitchens, and healthcare facilities. Guaranteed HACCP compliance.',
+};
+
+// --- KEY FEATURES DATA ---
+const HygienicFeatures = [
+    {
+        title: "Seamless & Non-Porous",
+        description: "Creates a joint-free, non-absorbent surface that prevents bacteria growth and simplifies wash-down procedures, crucial for HACCP compliance.",
+        icon: FlaskConical,
+        accentColor: "border-tertiary",
+    },
+    {
+        title: "Chemical & Thermal Shock",
+        description: "Systems are designed to withstand aggressive cleaning agents and rapid temperature changes common in commercial kitchens and processing areas.",
+        icon: Beaker,
+        accentColor: "border-secondary",
+    },
+    {
+        title: "Safety & Slip Resistance",
+        description: "Customized aggregate finishes provide controlled slip resistance, improving staff safety in wet processing zones.",
+        icon: Shield,
+        accentColor: "border-tertiary",
+    },
+    {
+        title: "Minimal Disruption Install",
+        description: "Utilizing fast-curing resins to minimize downtime, allowing facilities to return to operation faster than traditional flooring methods.",
+        icon: Utensils,
+        accentColor: "border-secondary",
+    },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function HygienicFlooringPage() {
+    return (
+        <div className="bg-primary pt-24 text-white">
+
+            {/* --- MODULE 1: INDUSTRIAL FOCUS HERO --- */}
+            <section className="relative py-24 md:py-40 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto">
+                    <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-3">
+                        Specialized Floor Systems
+                    </p>
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-5xl">
+                        Hygienic Food-Grade Epoxy & Floor Coatings.
+                    </h1>
+                    <p className="2xl font-light mt-6 max-w-4xl text-gray-400">
+                        We deliver **HACCP-compliant, seamless resin floors** required for food and beverage processing, pharmaceutical, and cleanroom facilities where cleanliness is paramount.
+                    </p>
+
+                    <Button asChild
+                        className="mt-10 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <Link href="/contact">
+                            Request Hygienic Floor Specification &rarr;
+                        </Link>
+                    </Button>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: PROJECT FEATURES GRID --- */}
+            <section className="py-24 px-4 bg-primary">
+                <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-4xl mx-auto mb-16">
+                        <h2 className="text-4xl font-extrabold uppercase mb-3">
+                            Features of Compliant Flooring
+                        </h2>
+                        <p className="text-lg text-gray-400 font-light">
+                            Our systems meet the most stringent regulatory requirements for seamlessness and cleanability.
+                        </p>
+                    </header>
+
+                    {/* Features Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {HygienicFeatures.map((feature, index) => (
+                            <div key={index} className={`p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 ${feature.accentColor}`}>
+                                <feature.icon className="w-8 h-8 text-secondary mb-4" />
+                                <h3 className="text-xl font-bold uppercase mb-2 text-white">
+                                    {feature.title}
+                                </h3>
+                                <p className="text-gray-400 text-sm">
+                                    {feature.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 3: THE QA PROCESS (Reusing Trust Module) --- */}
+            <QaProcessModule />
+
+            {/* --- MODULE 4: ACCREDITATIONS (Visual Trust) --- */}
             <AccreditationsStrip />
 
             {/* --- MODULE 5: FINAL CTA STRIP (Conversion Funnel) --- */}
@@ -1740,6 +1966,118 @@ export default function BodyCorporatePaintingPage() {
     );
 }```
 
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\painting\industrial-painting\page.tsx--------------------------------------------------------------------------------```// src/app/painting/industrial-painting/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { QaProcessModule } from '@/components/qa-process-module';
+import { AccreditationsStrip } from '@/components/accreditations-strip';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { Factory, Shield, Wrench, Sprout } from 'lucide-react'; 
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Industrial Painting & Corrosion Control Contractors | Plant & Steel Structures',
+    description: 'Specialist industrial painting services including corrosion control, surface preparation (abrasive blasting), and protective coatings for factories, plants, and steel structures.',
+};
+
+// --- KEY FEATURES DATA ---
+const IndustrialFeatures = [
+    {
+        title: "Corrosion Control Systems",
+        description: "Application of specialized zinc-rich primers, epoxies, and polyurethanes designed to prevent rust and corrosion in extreme industrial environments.",
+        icon: Shield,
+        accentColor: "border-secondary",
+    },
+    {
+        title: "Abrasive Blasting Prep",
+        description: "Mandatory surface preparation via abrasive blasting or hydro-blasting to achieve the necessary profile (e.g., SA 2.5) for optimal coating adhesion and longevity.",
+        icon: Wrench,
+        accentColor: "border-tertiary",
+    },
+    {
+        title: "High-Volume Execution",
+        description: "Expertise in managing large-scale, complex industrial sites, minimizing plant downtime and adhering to strict safety shutdown schedules.",
+        icon: Factory,
+        accentColor: "border-secondary",
+    },
+    {
+        title: "OHS & Site Compliance",
+        description: "Full compliance with all Occupational Health and Safety regulations, including comprehensive safety files for industrial sites.",
+        icon: Sprout,
+        accentColor: "border-tertiary",
+    },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function IndustrialPaintingPage() {
+    return (
+        <div className="bg-primary pt-24 text-white">
+
+            {/* --- MODULE 1: INDUSTRIAL FOCUS HERO --- */}
+            <section className="relative py-24 md:py-40 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto">
+                    <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-3">
+                        Plant Asset Protection
+                    </p>
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-5xl">
+                        Industrial Painting & Corrosion Control Services.
+                    </h1>
+                    <p className="2xl font-light mt-6 max-w-4xl text-gray-400">
+                        We specialize in the **protective coating of industrial assets**, steel structures, and plant machinery, ensuring long-term defense against chemical wear and atmospheric corrosion.
+                    </p>
+
+                    <Button asChild
+                        className="mt-10 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <Link href="/contact">
+                            Request Plant Assessment & Quote &rarr;
+                        </Link>
+                    </Button>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: PROJECT FEATURES GRID --- */}
+            <section className="py-24 px-4 bg-primary">
+                <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-4xl mx-auto mb-16">
+                        <h2 className="text-4xl font-extrabold uppercase mb-3">
+                            Specialized Industrial Solutions
+                        </h2>
+                        <p className="text-lg text-gray-400 font-light">
+                            Our process focuses on the longevity of the coating system, starting with superior surface preparation.
+                        </p>
+                    </header>
+
+                    {/* Features Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {IndustrialFeatures.map((feature, index) => (
+                            <div key={index} className={`p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 ${feature.accentColor}`}>
+                                <feature.icon className="w-8 h-8 text-secondary mb-4" />
+                                <h3 className="text-xl font-bold uppercase mb-2 text-white">
+                                    {feature.title}
+                                </h3>
+                                <p className="text-gray-400 text-sm">
+                                    {feature.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 3: THE QA PROCESS (Reusing Trust Module) --- */}
+            <QaProcessModule />
+
+            {/* --- MODULE 4: ACCREDITATIONS (Visual Trust) --- */}
+            <AccreditationsStrip />
+
+            {/* --- MODULE 5: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
+        </div>
+    );
+}```
+
 --------------------------------------------------------------------------------📄 FILE PATH: src\app\painting-services\page.tsx--------------------------------------------------------------------------------```// src/app/painting-services/page.tsx
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -1747,7 +2085,7 @@ import { Button } from '@/components/ui/button';
 import { QaProcessModule } from '@/components/qa-process-module';
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
-import { Building, Factory, Wrench, Paintbrush, Truck, Phone } from 'lucide-react';
+import { Building, Factory, Wrench, Truck } from 'lucide-react'; // REMOVED: Paintbrush, Phone
 
 // --- METADATA (SEO) ---
 export const metadata: Metadata = {
@@ -1839,7 +2177,7 @@ export default function PaintingServicesPage() {
                     </div>
                     
                     <div className="mt-12 text-center">
-                         <Button asChild
+                        <Button asChild
                             variant="link"
                             className="text-tertiary hover:text-white mt-4 pl-0 text-lg font-bold"
                         >
@@ -1859,6 +2197,78 @@ export default function PaintingServicesPage() {
 
             {/* --- MODULE 5: FINAL CTA STRIP (Conversion Funnel) --- */}
             <CtaFinalStrip />
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\privacy\page.tsx--------------------------------------------------------------------------------```// src/app/privacy/page.tsx
+import type { Metadata } from 'next';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { Shield } from 'lucide-react'; // REMOVED: FileText
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Privacy Policy | Data Collection and Use | Maverick Painting Contractors',
+    description: 'Review the official Privacy Policy for Maverick Painting, detailing how user data is collected, used, and protected.',
+};
+
+// --- MAIN PAGE COMPONENT ---
+export default function PrivacyPage() {
+    return (
+        <div className="bg-primary pt-32 pb-24 text-white min-h-screen">
+            <div className="max-w-4xl mx-auto px-4">
+                
+                <header className="mb-12 border-b border-gray-700 pb-6">
+                    <Shield className="w-10 h-10 text-secondary mb-3" />
+                    <h1 className="text-5xl font-extrabold uppercase mb-3">
+                        Privacy Policy
+                    </h1>
+                    <p className="text-lg text-gray-400">
+                        Last Updated: November 9, 2025
+                    </p>
+                </header>
+
+                <div className="space-y-8 text-gray-300 leading-relaxed text-base">
+                    
+                    {/* SECTION 1: Data Collection */}
+                    <section>
+                        <h2 className="text-2xl font-bold text-white mb-4">1. Information We Collect</h2>
+                        <p>
+                            We collect personal identification information only when you voluntarily provide it through our contact forms, quote request forms, or direct email correspondence. This typically includes your name, email address, phone number, and details regarding your specific project or property maintenance needs.
+                        </p>
+                        <p>
+                            We also collect non-personal information automatically when you visit our website, such as your IP address, browser type, operating system, and the pages you view. This is used for traffic analysis and site improvement.
+                        </p>
+                    </section>
+                    
+                    {/* SECTION 2: Use of Information */}
+                    <section>
+                        <h2 className="text-2xl font-bold text-white mb-4">2. How We Use Your Information</h2>
+                        <ul className="list-disc list-inside space-y-2 ml-4">
+                            <li>To respond to your inquiries and schedule on-site assessments for quotations.</li>
+                            <li>To improve our website functionality and user experience.</li>
+                            <li>To comply with legal obligations.</li>
+                            <li>We do not sell, rent, or lease our customer lists to third parties.</li>
+                        </ul>
+                    </section>
+                    
+                    {/* SECTION 3: Security and Cookies */}
+                    <section>
+                        <h2 className="text-2xl font-bold text-white mb-4">3. Data Security and Cookies</h2>
+                        <p>
+                            We adopt appropriate data collection, storage, and processing practices and security measures to protect against unauthorized access, alteration, disclosure, or destruction of your personal information.
+                        </p>
+                        <p>
+                            Our website uses cookies to enhance user experience. You may choose to set your web browser to refuse cookies, or to alert you when cookies are being sent. If you do so, note that some parts of the Site may not function properly.
+                        </p>
+                    </section>
+                </div>
+
+            </div>
+            {/* The final CTA strip sits below the main content, outside the text container */}
+            <div className="mt-20">
+                <CtaFinalStrip />
+            </div>
         </div>
     );
 }```
@@ -1913,6 +2323,147 @@ export default function ProjectsPage() {
             {/* This re-uses the list component from the homepage, but its purpose is 
                 now purely to serve local SEO links to dynamic project pages. */}
             <ProjectShowcaseModule />
+
+            {/* --- MODULE 3: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\projects\[slug]\page.tsx--------------------------------------------------------------------------------```// src/app/projects/[slug]/page.tsx
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+// FIX: Removed unused ClipboardCheck
+import { MapPin, Layers, Clock, CheckSquare, Wrench, PersonStanding, Droplet, Shield } from 'lucide-react'; 
+
+// --- DATA: Project Mocks (Should eventually come from a Database/CMS) ---
+const MOCKED_PROJECTS = [
+    { 
+        slug: 'munyaka', 
+        name: 'Munyaka Lifestyle Estate', 
+        location: 'Midrand, Gauteng',
+        scope: 'Full Exterior Painting, Advanced Waterproofing & Structural Repairs',
+        date: '2023 Q4 - 2024 Q2',
+        value: 'R 7.5 Million',
+        details: [
+            { icon: Layers, text: 'Installed 5,000 m² of liquid applied polyurethane membrane on flat roofs.' },
+            { icon: Wrench, text: 'Repaired severe concrete spalling across three residential blocks.' },
+            { icon: CheckSquare, text: 'Project verified by Independent QA with full film thickness reports.' },
+        ]
+    },
+    { 
+        slug: 'the-blyde', 
+        name: 'The Blyde Riverwalk Estate', 
+        location: 'Pretoria East, Gauteng',
+        scope: 'Exterior Painting, High-Access Rope Work, Balcony Remediation',
+        date: '2022 Q3',
+        value: 'R 4.2 Million',
+        details: [
+            { icon: PersonStanding, text: 'Used certified rope access to paint difficult-to-reach apartment facades.' },
+            { icon: Droplet, text: 'Fixed multiple leaking balconies without removing original tiles.' },
+            { icon: Shield, text: 'Applied specialized anti-fungal and UV-resistant elastomeric coatings.' },
+        ]
+    },
+    // Note: The structure requires ALL project slugs referenced in ProjectShowcaseModule
+    // to have a mock entry here.
+];
+
+// --- DYNAMIC METADATA GENERATION ---
+interface ProjectPageProps {
+    params: {
+        slug: string;
+    };
+}
+
+export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
+    const project = MOCKED_PROJECTS.find(p => p.slug === params.slug);
+
+    if (!project) {
+        // If project isn't found, Next.js will handle the 404 via the notFound() call in the component
+        return {
+            title: 'Project Not Found | Maverick',
+            description: 'The requested project could not be found.',
+        };
+    }
+
+    return {
+        title: `${project.name} | Structural Repair & Painting Case Study | Maverick`,
+        description: `Case study for ${project.name} in ${project.location}. Scope: ${project.scope}. Project completed ${project.date}.`,
+    };
+}
+
+// --- MAIN PAGE COMPONENT ---
+export default function ProjectDetailPage({ params }: ProjectPageProps) {
+    const project = MOCKED_PROJECTS.find(p => p.slug === params.slug);
+
+    if (!project) {
+        // Use Next.js's built-in notFound() function to render the 404 page
+        notFound();
+    }
+
+    return (
+        <div className="bg-primary pt-24 text-white min-h-screen">
+
+            {/* --- MODULE 1: PROJECT HERO (Dynamic Content) --- */}
+            <section className="relative py-24 md:py-32 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto">
+                    <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-3">
+                        Project Case Study
+                    </p>
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-5xl">
+                        {project.name}
+                    </h1>
+                    <div className="flex flex-wrap space-x-6 mt-6">
+                        <p className="flex items-center space-x-2 text-lg font-medium text-gray-400">
+                            <MapPin className="w-5 h-5 text-secondary" />
+                            <span>{project.location}</span>
+                        </p>
+                        <p className="flex items-center space-x-2 text-lg font-medium text-gray-400">
+                            <Clock className="w-5 h-5 text-secondary" />
+                            <span>Completed: {project.date}</span>
+                        </p>
+                    </div>
+                    <p className="text-2xl font-light mt-6 max-w-4xl text-gray-300">
+                        {project.scope}
+                    </p>
+                    <Button asChild
+                        className="mt-10 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <Link href="/contact">
+                            Request Assessment for a Similar Project &rarr;
+                        </Link>
+                    </Button>
+                </div>
+            </section>
+            
+            {/* --- MODULE 2: PROJECT DETAIL POINTS --- */}
+            <section className="py-24 px-4 bg-primary">
+                <div className="max-w-7xl mx-auto">
+                    <h2 className="text-4xl font-extrabold uppercase mb-12">
+                        Key Project Highlights
+                    </h2>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {project.details.map((detail, index) => {
+                             // Corrected: Use the actual icon reference from the data structure
+                             const IconComponent = detail.icon;
+
+                            return (
+                                <div key={index} className="p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 border-tertiary">
+                                    <IconComponent className="w-8 h-8 text-secondary mb-4" />
+                                    <p className="text-gray-400 text-base">
+                                        {detail.text}
+                                    </p>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </section>
+
 
             {/* --- MODULE 3: FINAL CTA STRIP (Conversion Funnel) --- */}
             <CtaFinalStrip />
@@ -3799,13 +4350,10 @@ import React from 'react';
 export function Footer() {
     // Get current year for copyright text
     const currentYear = new Date().getFullYear();
-
     // Reusable utility class for footer links to match the HTML design
     const footerLinkClass = "text-gray-400 hover:text-secondary transition duration-300";
-    
     // SVG Path for the Maverick Logo (reused from header)
     const logoSvgPath = "m423.5,40h-0.5v-8.5c0-17.369-14.131-31.5-31.5-31.5h-288c-17.369,0-31.5,14.131-31.5,31.5v8.5h-0.5c-12.958,0-23.5,10.542-23.5,23.5v8.5h-0.5c-17.369,0-31.5,14.131-31.5,31.5v64c0,17.369 14.131,31.5 31.5,31.5h176c9.098,0 16.5,7.402 16.5,16.5v16.5h-8.5c-12.958,0-23.5,10.542-23.5,23.5v168c0,21.78 17.72,39.5 39.5,39.5s39.5-17.72 39.5-39.5v-168c0-12.958-10.542-23.5-23.5-23.5h-8.5v-16.5c0-17.369-14.131-31.5-31.5-31.5h-176c-9.098,0-16.5-7.402-16.5-16.5v-64c0-9.098 7.402-16.5 16.5-16.5h0.5v8.5c0,12.958 10.542,23.5 23.5,23.5h0.5v8.5c0,17.369 14.131,31.5 31.5,31.5h288c17.369,0 31.5-14.131 31.5-31.5v-8.5h0.5c12.958,0 23.5-10.542 23.5-23.5v-32c0-12.958-10.542-23.5-23.5-23.5zm-176,408c-13.509,0-24.5-10.99-24.5-24.5v-144.5h49v144.5c0,13.51-10.991,24.5-24.5,24.5zm24.5-192.5v8.5h-49v-8.5c0-4.687 3.813-8.5 8.5-8.5h32c4.687,0 8.5,3.813 8.5,8.5zm-200.5-151.5c-4.687,0-8.5-3.813-8.5-8.5v-32c0-4.687 3.813-8.5 8.5-8.5h0.5v49h-0.5zm336.5,23.5c0,9.098-7.402,16.5-16.5,16.5h-288c-9.098,0-16.5-7.402-16.5-16.5v-96c0-9.098 7.402-16.5 16.5-16.5h288c9.098,0 16.5,7.402 16.5,16.5v96zm24-32c0,4.687-3.813,8.5-8.5,8.5h-0.5v-49h0.5c4.687,0 8.5,3.813 8.5,8.5v32zM247.5,416c-1.98,0-3.91,0.8-5.3,2.2-1.4,1.39-2.2,3.319-2.2,5.3 0,1.97 0.8,3.91 2.2,5.3 1.39,1.4 3.33,2.2 5.3,2.2 1.97,0 3.91-0.8 5.3-2.2 1.4-1.4 2.2-3.33 2.2-5.3 0-1.971-0.8-3.91-2.2-5.3-1.39-1.4-3.33-2.2-5.3-2.2z";
-
     return (
         <footer className="bg-footer-dark pt-16 pb-8 border-t border-primary/50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -3852,9 +4400,11 @@ export function Footer() {
                         <ul className="space-y-3">
                             <li><Link href="/waterproofing-services" className={footerLinkClass}>Roof & Balcony Waterproofing</Link></li>
                             <li><Link href="/structural-repairs" className={footerLinkClass}>Structural & Spalling Repair</Link></li>
+                            {/* NEW LINK: Hygienic Flooring */}
                             <li><Link href="/coatings/hygienic-food-grade-flooring" className={footerLinkClass}>Hygienic Floor Coatings</Link></li>
                             <li><Link href="/access-solutions" className={footerLinkClass}>Rope Access Painting</Link></li>
                             <li><Link href="/painting/body-corporate-painting" className={footerLinkClass}>Body Corporate Painting</Link></li>
+                            {/* NEW LINK: Industrial Corrosion */}
                             <li><Link href="/painting/industrial-painting" className={footerLinkClass}>Industrial Corrosion Control</Link></li>
                         </ul>
                     </div>
@@ -3888,7 +4438,7 @@ export function Footer() {
 
                 {/* --- BOTTOM SECTION: Copyright & Legal Links + Custom Credit --- */}
                 <div className="flex flex-col md:flex-row justify-between items-center text-gray-500 text-xs md:text-sm">
-                    <p className="mb-3 md:mb-0">&copy; {currentYear} Maverick Painting. All rights reserved. Registered in Gauteng, South Africa.</p>
+                    <p className="mb-3 md:mb-0">&copy;{currentYear} Maverick Painting. All rights reserved. Registered in Gauteng, South Africa.</p>
                     <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 items-center">
                          <p className="order-2 md:order-1 text-gray-500 text-xs">
                              Designed, Developed & Maintained by <a href="https://www.endpointmedia.co.za/" target="_blank" rel="noopener noreferrer" className="text-secondary hover:text-tertiary transition duration-300 font-semibold">Endpoint Media.</a>
