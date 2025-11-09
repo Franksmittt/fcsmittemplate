@@ -9,13 +9,10 @@ import React from 'react';
 export function Footer() {
     // Get current year for copyright text
     const currentYear = new Date().getFullYear();
-
     // Reusable utility class for footer links to match the HTML design
     const footerLinkClass = "text-gray-400 hover:text-secondary transition duration-300";
-    
     // SVG Path for the Maverick Logo (reused from header)
     const logoSvgPath = "m423.5,40h-0.5v-8.5c0-17.369-14.131-31.5-31.5-31.5h-288c-17.369,0-31.5,14.131-31.5,31.5v8.5h-0.5c-12.958,0-23.5,10.542-23.5,23.5v8.5h-0.5c-17.369,0-31.5,14.131-31.5,31.5v64c0,17.369 14.131,31.5 31.5,31.5h176c9.098,0 16.5,7.402 16.5,16.5v16.5h-8.5c-12.958,0-23.5,10.542-23.5,23.5v168c0,21.78 17.72,39.5 39.5,39.5s39.5-17.72 39.5-39.5v-168c0-12.958-10.542-23.5-23.5-23.5h-8.5v-16.5c0-17.369-14.131-31.5-31.5-31.5h-176c-9.098,0-16.5-7.402-16.5-16.5v-64c0-9.098 7.402-16.5 16.5-16.5h0.5v8.5c0,12.958 10.542,23.5 23.5,23.5h0.5v8.5c0,17.369 14.131,31.5 31.5,31.5h288c17.369,0 31.5-14.131 31.5-31.5v-8.5h0.5c12.958,0 23.5-10.542 23.5-23.5v-32c0-12.958-10.542-23.5-23.5-23.5zm-176,408c-13.509,0-24.5-10.99-24.5-24.5v-144.5h49v144.5c0,13.51-10.991,24.5-24.5,24.5zm24.5-192.5v8.5h-49v-8.5c0-4.687 3.813-8.5 8.5-8.5h32c4.687,0 8.5,3.813 8.5,8.5zm-200.5-151.5c-4.687,0-8.5-3.813-8.5-8.5v-32c0-4.687 3.813-8.5 8.5-8.5h0.5v49h-0.5zm336.5,23.5c0,9.098-7.402,16.5-16.5,16.5h-288c-9.098,0-16.5-7.402-16.5-16.5v-96c0-9.098 7.402-16.5 16.5-16.5h288c9.098,0 16.5,7.402 16.5,16.5v96zm24-32c0,4.687-3.813,8.5-8.5,8.5h-0.5v-49h0.5c4.687,0 8.5,3.813 8.5,8.5v32zM247.5,416c-1.98,0-3.91,0.8-5.3,2.2-1.4,1.39-2.2,3.319-2.2,5.3 0,1.97 0.8,3.91 2.2,5.3 1.39,1.4 3.33,2.2 5.3,2.2 1.97,0 3.91-0.8 5.3-2.2 1.4-1.4 2.2-3.33 2.2-5.3 0-1.971-0.8-3.91-2.2-5.3-1.39-1.4-3.33-2.2-5.3-2.2z";
-
     return (
         <footer className="bg-footer-dark pt-16 pb-8 border-t border-primary/50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,9 +59,11 @@ export function Footer() {
                         <ul className="space-y-3">
                             <li><Link href="/waterproofing-services" className={footerLinkClass}>Roof & Balcony Waterproofing</Link></li>
                             <li><Link href="/structural-repairs" className={footerLinkClass}>Structural & Spalling Repair</Link></li>
+                            {/* NEW LINK: Hygienic Flooring */}
                             <li><Link href="/coatings/hygienic-food-grade-flooring" className={footerLinkClass}>Hygienic Floor Coatings</Link></li>
                             <li><Link href="/access-solutions" className={footerLinkClass}>Rope Access Painting</Link></li>
                             <li><Link href="/painting/body-corporate-painting" className={footerLinkClass}>Body Corporate Painting</Link></li>
+                            {/* NEW LINK: Industrial Corrosion */}
                             <li><Link href="/painting/industrial-painting" className={footerLinkClass}>Industrial Corrosion Control</Link></li>
                         </ul>
                     </div>
@@ -98,7 +97,7 @@ export function Footer() {
 
                 {/* --- BOTTOM SECTION: Copyright & Legal Links + Custom Credit --- */}
                 <div className="flex flex-col md:flex-row justify-between items-center text-gray-500 text-xs md:text-sm">
-                    <p className="mb-3 md:mb-0">&copy; {currentYear} Maverick Painting. All rights reserved. Registered in Gauteng, South Africa.</p>
+                    <p className="mb-3 md:mb-0">&copy;{currentYear} Maverick Painting. All rights reserved. Registered in Gauteng, South Africa.</p>
                     <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 items-center">
                          <p className="order-2 md:order-1 text-gray-500 text-xs">
                              Designed, Developed & Maintained by <a href="https://www.endpointmedia.co.za/" target="_blank" rel="noopener noreferrer" className="text-secondary hover:text-tertiary transition duration-300 font-semibold">Endpoint Media.</a>
