@@ -27,10 +27,14 @@
 │   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 blog
 │   │   │   ├── 📄 page.tsx
+│   │   │   ├── 📁 structural-remediation
+│   │   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 coatings
 │   │   │   ├── 📁 hygienic-food-grade-flooring
 │   │   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 contact
+│   │   │   ├── 📄 page.tsx
+│   │   ├── 📁 damp-proofing-services
 │   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 fonts
 │   │   │   ├── 📄 GeistMonoVF.woff
@@ -39,6 +43,8 @@
 │   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 painting
 │   │   │   ├── 📁 body-corporate-painting
+│   │   │   │   ├── 📄 page.tsx
+│   │   │   ├── 📁 commercial-painting
 │   │   │   │   ├── 📄 page.tsx
 │   │   │   ├── 📁 industrial-painting
 │   │   │   │   ├── 📄 page.tsx
@@ -1482,6 +1488,87 @@ export default function BlogIndexPage() {
     );
 }```
 
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\blog\structural-remediation\page.tsx--------------------------------------------------------------------------------```// src/app/blog/structural-remediation/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { Wrench, BookOpen, Clock, Users, Layers } from 'lucide-react'; 
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Technical Guide: How to Permanently Repair Concrete Spalling & Cancer',
+    description: 'An expert guide to structural remediation, detailing the process of concrete spalling repair, rebar passivation, crack injection, and final protective coating application.',
+};
+
+// --- MAIN PAGE COMPONENT ---
+export default function StructuralRemediationArticle() {
+    return (
+        <div className="bg-gray-50 pt-32 pb-24 text-primary min-h-screen">
+            <div className="max-w-4xl mx-auto px-4">
+                
+                {/* --- HEADER: Article Metadata --- */}
+                <header className="mb-12 border-b border-gray-300 pb-6">
+                    <div className="flex items-center space-x-4 text-sm text-gray-500 mb-2">
+                        <Link href="/blog" className="hover:text-secondary font-semibold uppercase">
+                            <BookOpen className="w-4 h-4 mr-1 inline-block" /> Structural Remediation
+                        </Link>
+                        <span>|</span>
+                        <span className="flex items-center space-x-1"><Clock className="w-4 h-4" /> 10 Min Read</span>
+                        <span className="flex items-center space-x-1"><Users className="w-4 h-4" /> Maverick Technical Team</span>
+                    </div>
+                    
+                    <h1 className="text-5xl font-extrabold text-primary leading-tight uppercase mb-4">
+                        The Core Problem: Why Painting Over Concrete Spalling Fails.
+                    </h1>
+                </header>
+
+                {/* --- ARTICLE CONTENT --- */}
+                <div className="space-y-8 text-lg text-gray-700 leading-relaxed">
+                    
+                    <section>
+                        <h2 className="text-3xl font-bold text-primary mb-4">The Failure of Cosmetic Patches</h2>
+                        <p>
+                            Concrete spalling (often called &quot;concrete cancer&quot;) is not a surface flaw; it&apos;s a symptom of internal structural degradation. It occurs when moisture and carbon dioxide penetrate the concrete, causing the reinforcing steel (rebar) to rust and expand, exerting immense pressure that pops the concrete off the surface[cite: 4139].
+                        </p>
+                        <p>
+                            Painting over this defect or using non-structural plaster patches only provides a temporary, cosmetic fix. The underlying corrosion process continues, and the patched area will fail again, often within 12 to 18 months, leading to costly recurring repairs.
+                        </p>
+                    </section>
+                    
+                    <section>
+                        <h2 className="text-3xl font-bold text-primary mb-4">The Four-Phase Structural Solution</h2>
+                        <p>
+                            A permanent repair must follow a strict engineering protocol that addresses the steel corrosion and restores the concrete&apos;s alkalinity. Our four-phase process includes:
+                        </p>
+                        <ul className="list-disc list-inside space-y-2 ml-6 font-semibold">
+                            <li className="flex items-center space-x-2"><Wrench className="w-5 h-5 text-secondary" /> Defect removal and rebar cleaning to a bright metal finish.</li>
+                            <li className="flex items-center space-x-2"><Layers className="w-5 h-5 text-secondary" /> Passivation of the rebar (applying an anti-corrosive coating) to halt the rusting process.</li>
+                            <li className="flex items-center space-x-2"><Wrench className="w-5 h-5 text-secondary" /> Application of polymer-modified structural mortar to replace the spalled concrete.</li>
+                            <li className="flex items-center space-x-2"><Layers className="w-5 h-5 text-secondary" /> Final application of a breathable, elastomeric coating to prevent future moisture ingress.</li>
+                        </ul>
+                    </section>
+
+                    <section className="bg-primary text-white p-6 rounded-xl shadow-xl">
+                        <h3 className="text-2xl font-bold text-tertiary mb-3">Key Takeaway for Trustees & Developers</h3>
+                        <p className="text-lg">
+                            Always demand an assessment that includes moisture readings and hammer testing. A true structural solution is an **investment** that reduces long-term liability, whereas a patch is merely an **expense**.
+                        </p>
+                         <Button asChild className="mt-4 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-12">
+                            <Link href="/structural-repairs">View Our Structural Repair Service Page &rarr;</Link>
+                        </Button>
+                    </section>
+                </div>
+            </div>
+            
+            {/* --- MODULE 4: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <div className="mt-20">
+                <CtaFinalStrip />
+            </div>
+        </div>
+    );
+}```
+
 --------------------------------------------------------------------------------📄 FILE PATH: src\app\coatings\hygienic-food-grade-flooring\page.tsx--------------------------------------------------------------------------------```// src/app/coatings/hygienic-food-grade-flooring/page.tsx
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -1708,6 +1795,118 @@ export default function ContactPage() {
                 </div>
             </section>
 
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\damp-proofing-services\page.tsx--------------------------------------------------------------------------------```// src/app/damp-proofing-services/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { QaProcessModule } from '@/components/qa-process-module';
+import { AccreditationsStrip } from '@/components/accreditations-strip';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { Droplet, Sprout, Building, MessageSquare } from 'lucide-react'; // REMOVED: AirVent
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Rising Damp & Damp Proofing Solutions | Chemical DPC & Moisture Control',
+    description: 'Specialized rising damp treatment contractors offering guaranteed chemical DPC (Damp Proof Course) injection and full moisture control solutions for basements and ground-level walls.',
+};
+
+// --- KEY FEATURES DATA ---
+const DampFeatures = [
+    {
+        title: "Chemical DPC Injection",
+        description: "Permanent solution for rising damp via pressure injection of silicone-based cream to form a new, effective damp-proof barrier in the masonry.",
+        icon: Droplet,
+        accentColor: "border-secondary",
+    },
+    {
+        title: "Basement Waterproofing",
+        description: "Internal tanking and cementitious slurry systems applied to negative-side walls to stop moisture ingress in below-ground structures.",
+        icon: Building,
+        accentColor: "border-tertiary",
+    },
+    {
+        title: "Mold Remediation Protocol",
+        description: "Full cleaning and treatment protocol to remediate mold and mildew resulting from condensation or rising damp, ensuring a healthy indoor environment.",
+        icon: Sprout,
+        accentColor: "border-secondary",
+    },
+    {
+        title: "Verifiable Diagnostics",
+        description: "Utilizing professional moisture meters and thermal imaging to accurately diagnose the source of damp before specifying treatment.",
+        icon: MessageSquare,
+        accentColor: "border-tertiary",
+    },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function DampProofingPage() {
+    return (
+        <div className="bg-primary pt-24 text-white">
+
+            {/* --- MODULE 1: DAMP PROOFING HERO --- */}
+            <section className="relative py-24 md:py-40 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto">
+                    <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-3">
+                        Moisture Control & Remediation
+                    </p>
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-5xl">
+                        Guaranteed Rising Damp & Damp Proofing Solutions.
+                    </h1>
+                    <p className="2xl font-light mt-6 max-w-4xl text-gray-400">
+                        We provide **permanent chemical damp proof course (DPC) injection** and full basement tanking systems to eliminate moisture ingress, protecting your structural assets from mold and decay.
+                    </p>
+
+                    <Button asChild
+                        className="mt-10 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <Link href="/contact">
+                            Request Damp Assessment & Quote &rarr;
+                        </Link>
+                    </Button>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: PROJECT FEATURES GRID --- */}
+            <section className="py-24 px-4 bg-primary">
+                <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-4xl mx-auto mb-16">
+                        <h2 className="text-4xl font-extrabold uppercase mb-3">
+                            Verifiable Damp Remediation Methods
+                        </h2>
+                        <p className="text-lg text-gray-400 font-light">
+                            We solve the root cause of the damp problem, ensuring a long-term guarantee against re-occurrence.
+                        </p>
+                    </header>
+
+                    {/* Features Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {DampFeatures.map((feature, index) => (
+                            <div key={index} className={`p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 ${feature.accentColor}`}>
+                                <feature.icon className="w-8 h-8 text-secondary mb-4" />
+                                <h3 className="text-xl font-bold uppercase mb-2 text-white">
+                                    {feature.title}
+                                </h3>
+                                <p className="text-gray-400 text-sm">
+                                    {feature.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 3: THE QA PROCESS (Reusing Trust Module) --- */}
+            <QaProcessModule />
+
+            {/* --- MODULE 4: ACCREDITATIONS (Visual Trust) --- */}
+            <AccreditationsStrip />
+
+            {/* --- MODULE 5: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
         </div>
     );
 }```
@@ -1950,6 +2149,118 @@ export default function BodyCorporatePaintingPage() {
                                 See How We Eliminate Trustee Risk &rarr;
                             </Link>
                         </Button>
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 3: THE QA PROCESS (Reusing Trust Module) --- */}
+            <QaProcessModule />
+
+            {/* --- MODULE 4: ACCREDITATIONS (Visual Trust) --- */}
+            <AccreditationsStrip />
+
+            {/* --- MODULE 5: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\painting\commercial-painting\page.tsx--------------------------------------------------------------------------------```// src/app/painting/commercial-painting/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { QaProcessModule } from '@/components/qa-process-module';
+import { AccreditationsStrip } from '@/components/accreditations-strip';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { Stethoscope, ClipboardCheck, MessageCircle, Building } from 'lucide-react'; 
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Commercial & Healthcare Painting Contractors | Low-VOC & Sensitive Environment Coatings',
+    description: 'Specialist low-VOC and anti-microbial coating application for commercial offices, healthcare facilities, and retail spaces. We ensure minimal disruption and high air quality compliance.',
+};
+
+// --- KEY FEATURES DATA ---
+const CommercialFeatures = [
+    {
+        title: "Low-VOC / Zero-VOC Coatings",
+        description: "Application of specialized paints that maintain high air quality and minimize disruption, essential for occupied offices, schools, and hospitals.",
+        icon: MessageCircle,
+        accentColor: "border-tertiary",
+    },
+    {
+        title: "Healthcare Grade Finishes",
+        description: "Anti-microbial and fungicidal coatings for facilities where hygiene is critical, applied following strict healthcare application protocols.",
+        icon: Stethoscope,
+        accentColor: "border-secondary",
+    },
+    {
+        title: "Managed Disruption",
+        description: "Projects are tightly managed, often executed after hours or in phased sections to ensure commercial operations continue seamlessly.",
+        icon: Building,
+        accentColor: "border-tertiary",
+    },
+    {
+        title: "Compliance Documentation",
+        description: "Full documentation provided for all products and application methods, ensuring compliance for property managers and facilities.",
+        icon: ClipboardCheck,
+        accentColor: "border-secondary",
+    },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function CommercialPaintingPage() {
+    return (
+        <div className="bg-primary pt-24 text-white">
+
+            {/* --- MODULE 1: COMMERCIAL FOCUS HERO --- */}
+            <section className="relative py-24 md:py-40 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto">
+                    <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-3">
+                        Sensitive Environment Coatings
+                    </p>
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-5xl">
+                        Low-VOC Commercial & Healthcare Painting.
+                    </h1>
+                    <p className="2xl font-light mt-6 max-w-4xl text-gray-400">
+                        We specialize in **sensitive environment coatings** for offices and medical facilities, guaranteeing high air quality, minimal disruption, and certified hygiene finishes.
+                    </p>
+
+                    <Button asChild
+                        className="mt-10 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <Link href="/contact">
+                            Request Commercial Site Assessment &rarr;
+                        </Link>
+                    </Button>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: PROJECT FEATURES GRID --- */}
+            <section className="py-24 px-4 bg-primary">
+                <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-4xl mx-auto mb-16">
+                        <h2 className="text-4xl font-extrabold uppercase mb-3">
+                            Solutions for Occupied & Sensitive Spaces
+                        </h2>
+                        <p className="text-lg text-gray-400 font-light">
+                            Our application methods are designed around maintaining site operations and air quality.
+                        </p>
+                    </header>
+
+                    {/* Features Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {CommercialFeatures.map((feature, index) => (
+                            <div key={index} className={`p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 ${feature.accentColor}`}>
+                                <feature.icon className="w-8 h-8 text-secondary mb-4" />
+                                <h3 className="text-xl font-bold uppercase mb-2 text-white">
+                                    {feature.title}
+                                </h3>
+                                <p className="text-gray-400 text-sm">
+                                    {feature.description}
+                                </p>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
