@@ -2,26 +2,35 @@
 ├── 📄 .eslintrc.json
 ├── 📄 .gitignore
 ├── 📄 README.md
+├── 📄 architect_cleanup.py
 ├── 📄 components.json
+├── 📄 mvvp_project_scanner.py
 ├── 📄 next-env.d.ts
 ├── 📄 next.config.mjs
 ├── 📄 package.json
 ├── 📄 postcss.config.mjs
-├── 📄 project_scanner.py
 ├── 📄 tailwind.config.ts
 ├── 📄 tsconfig.json
 ├── 📁 public
 │   ├── 📁 images
+│   │   ├── 📄 WhatsApp.svg.webp
 ├── 📁 src
 │   ├── 📁 app
 │   │   ├── 📄 globals.css
 │   │   ├── 📄 layout.tsx
 │   │   ├── 📄 page.tsx
+│   │   ├── 📁 about-us
+│   │   │   ├── 📄 page.tsx
+│   │   ├── 📁 contact
+│   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 fonts
 │   │   │   ├── 📄 GeistMonoVF.woff
 │   │   │   ├── 📄 GeistVF.woff
+│   │   ├── 📁 services
+│   │   │   ├── 📄 page.tsx
 │   ├── 📁 components
 │   │   ├── 📄 accreditations-strip.tsx
+│   │   ├── 📄 cta-final-strip.tsx
 │   │   ├── 📄 cta-strip-module.tsx
 │   │   ├── 📄 hero-contact-form.tsx
 │   │   ├── 📄 hero-section.tsx
@@ -92,43 +101,243 @@ yarn-error.log*
 next-env.d.ts
 ```
 
---------------------------------------------------------------------------------📄 FILE PATH: README.md--------------------------------------------------------------------------------```This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+--------------------------------------------------------------------------------📄 FILE PATH: README.md--------------------------------------------------------------------------------```# ⚡ mvvppaint: Production-Ready Next.js 14 Boilerplate
 
-## Getting Started
+[![GitHub Workflow Status (main)](https://img.shields.io/github/actions/workflow/status/Franksmittt/fcsmittemplate/main.yml?branch=main&label=Build%20Status)](https://github.com/Franksmittt/fcsmittemplate/actions)
+[![GitHub last commit](https://img.shields.io/github/last-commit/Franksmittt/fcsmittemplate)](https://github.com/Franksmittt/fcsmittemplate/commits/main)
+[![Next.js Version](https://img.shields.io/badge/Next.js-14.2.33-000000.svg)](https://nextjs.org/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-First, run the development server:
+**Live Demo:** [https://fcsmittemplate.vercel.app/](https://fcsmittemplate.vercel.app/)
+
+---
+
+## 🎯 1. Project Philosophy & Stack Overview
+
+This project is a **Minimum Viable Production-Ready** template, built to institutionalize best practices for performance, scalability, and maintainability.
+
+### The Modern "Server-First" Stack
+
+| Layer | Technology | Rationale & Best Practice |
+| :--- | :--- | :--- |
+| **Framework** | **Next.js 14.2.33** | [cite_start]The **App Router** is used exclusively, embracing the **Server-First Paradigm**[cite: 864]. This minimizes client-side JavaScript, leading to faster initial page loads (Lighthouse Core Web Vitals). |
+| **Styling** | **Tailwind CSS (v3.4)** | Utility-first framework for rapid, conflict-free UI development. |
+| **UI Components** | **shadcn/ui (New York Style)** | [cite_start]Uses the "copy, don't install" philosophy for **Architectural Sovereignty**[cite: 1040, 1120]. Components are locally owned and styled with Tailwind, ensuring zero runtime CSS-in-JS overhead. |
+| **Language** | **TypeScript (v5)** | Essential for building robust, scalable applications by catching type errors at compile time, enforcing the strictest project quality gate. |
+| **Auth & DB (Planned)**| **Auth.js** & **Drizzle ORM** | Dependencies installed (`next-auth`, `@auth/drizzle-adapter`) to provide a self-hosted, highly flexible authentication system backed by the modern, type-safe Drizzle SQL query builder. |
+| **Forms** | **React Hook Form & Zod** | Used for high-performance form state management and robust, type-safe schema validation. |
+
+---
+
+## 🛠️ 2. Local Setup & Development
+
+### 2.1 Prerequisites
+
+Ensure you have the following installed on your system:
+
+1.  **Node.js LTS** (v20.x or later is strongly recommended).
+2.  [cite_start]**pnpm** (The chosen package manager for superior peer dependency handling and performance [cite: 1065, 1074]).
+3.  **A PostgreSQL Database** connection string for the data layer.
+
+### 2.2 Project Initialization & Installation
+
+First, clone the repository and install dependencies using `pnpm`.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# 1. Clone the repository
+git clone [https://github.com/Franksmittt/fcsmittemplate.git](https://github.com/Franksmittt/fcsmittemplate.git) mvvppaint
+cd mvvppaint
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# 2. Install all dependencies using pnpm
+pnpm install```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+--------------------------------------------------------------------------------📄 FILE PATH: architect_cleanup.py--------------------------------------------------------------------------------```# architect_cleanup.py
+import os
+import re
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# --- Configuration ---
+PROJECT_ROOT = os.getcwd()
 
-## Learn More
+# Files that need their content updated (import and usage)
+PAGES_TO_UPDATE = [
+    'src/app/about-us/page.tsx',
+    'src/app/services/page.tsx',
+    'src/app/contact/page.tsx',
+]
 
-To learn more about Next.js, take a look at the following resources:
+# The path for the new reusable component
+NEW_CTA_PATH = 'src/components/cta-final-strip.tsx'
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Map of files to the specific Lucide/Next imports that need removal to fix ESLint errors
+UNUSED_IMPORTS_MAP = {
+    # About Us: Removed Layers, Home, Factory
+    'src/app/about-us/page.tsx': r'(\{.*?)(?:\s*Layers,?)?(?:\s*Home,?)?(?:\s*Factory,?)?(\s*\}\s*from\s*[\'"]lucide-react[\'"])',
 
-## Deploy on Vercel
+    # Services: Imports look clean based on last error report, but we'll re-check general Lucide cleanup.
+    # Note: The manual CtaFinalStrip import will be handled by simple find/replace.
+    'src/app/services/page.tsx': r'(\s*Home,?)', # Removing Home and Factory which were unused in services (based on manual code block)
+    
+    # Contact: Removed redundant Link import from next/link (line 7)
+    'src/app/contact/page.tsx': r'import Link from \'next/link\';', # Targeting the redundant import on line 7
+}
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# --- Core Logic ---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-```
+def create_cta_component():
+    """Creates the CtaFinalStrip component file."""
+    print(f"--- Creating New Component: {NEW_CTA_PATH} ---")
+    
+    # Ensure src/components exists
+    os.makedirs(os.path.join(PROJECT_ROOT, 'src/components'), exist_ok=True)
+    
+    content = """// src/components/cta-final-strip.tsx
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import { Phone } from 'lucide-react';
+
+// This component centralizes the high-conversion, final Call-to-Action strip.
+// It applies the mobile-specific text removal logic for better UX (using hidden md:inline).
+
+export function CtaFinalStrip() {
+    return (
+        <section className="bg-header-dark py-12 px-4 border-t border-primary/50">
+            <div className="max-w-7xl mx-auto text-center">
+                <h2 className="text-3xl font-extrabold text-white mb-4">
+                    Ready for Verifiable, Zero-Risk Quality?
+                </h2>
+                <p className="text-gray-400 text-lg mb-6">
+                    Contact us today to schedule an on-site assessment and receive your substrate-specific specification.
+                </p>
+                 <Button asChild 
+                    className="bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-xl h-14 shadow-2xl transform hover:scale-105"
+                >
+                    <a href="tel:0826277082" className="flex items-center space-x-2">
+                         <Phone className="w-6 h-6" />
+                         <span className="hidden md:inline">Call Lawrence Brooks:</span> 082 627 7082
+                    </a>
+                </Button>
+            </div>
+        </section>
+    );
+}
+"""
+    with open(os.path.join(PROJECT_ROOT, NEW_CTA_PATH), 'w', encoding='utf-8') as f:
+        f.write(content)
+    print("✅ CtaFinalStrip.tsx created successfully.")
+
+def update_pages_to_use_cta():
+    """Removes manual CTA block and inserts the new CtaFinalStrip component import and usage."""
+    
+    print("\n--- 2. Updating Pages: Replacing Manual CTA with Reusable Component ---")
+    
+    for relative_path in PAGES_TO_UPDATE:
+        full_path = os.path.join(PROJECT_ROOT, relative_path)
+        if not os.path.exists(full_path):
+            print(f"❌ File not found: {relative_path}. Skipping update.")
+            continue
+            
+        try:
+            with open(full_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            # --- A. CLEANUP: Remove Unused Imports (Fixing last ESLint errors) ---
+            if relative_path in UNUSED_IMPORTS_MAP:
+                pattern = UNUSED_IMPORTS_MAP[relative_path]
+                
+                # Special handling for the redundant 'import Link from "next/link";' on line 7 of contact/page.tsx
+                if relative_path == 'src/app/contact/page.tsx' and pattern == r'import Link from \'next/link\';':
+                    # Find the explicit import Link from next/link (assumed line 7, but check content)
+                    content = re.sub(r'import Link from [\'"]next/link[\'"];', '', content)
+                else:
+                    # Generic Lucide cleanup logic (removing unwanted icons from the import list)
+                    lucide_import_pattern = r'(import\s+\{.*?\}\s+from\s+[\'"]lucide-react[\'"];)'
+                    def clean_lucide_group(match):
+                        icons_part = match.group(0)
+                        cleaned_icons_part = re.sub(pattern, r'\1', icons_part) # r'\1' keeps the group capture if needed
+                        
+                        # Apply secondary cleanup to remove double commas or leading/trailing commas left by the first pass
+                        cleaned_icons_part = re.sub(r',(\s*,)', ',', cleaned_icons_part)
+                        cleaned_icons_part = re.sub(r'\{\s*,', '{', cleaned_icons_part)
+                        cleaned_icons_part = re.sub(r',\s*\}', '}', cleaned_icons_part)
+                        return cleaned_icons_part
+                    
+                    content = re.sub(lucide_import_pattern, clean_lucide_group, content, flags=re.DOTALL)
+            
+            # --- B. ADD: Import new CtaFinalStrip component ---
+            # Define the import to inject
+            new_import = 'import { CtaFinalStrip } from \'@/components/cta-final-strip\'; // <-- NEW REUSABLE CTA\n'
+            
+            # Insert the new import below the existing CtaFinalStrip import (if it exists)
+            if 'CtaFinalStrip' not in content:
+                # Find the existing reusable imports block (e.g., QaProcessModule import)
+                qa_import_pattern = re.compile(r'(import\s+\{\s*QaProcessModule\s*\}\s+from\s*[\'"]@/components/qa-process-module[\'"];)', re.MULTILINE)
+                content = re.sub(qa_import_pattern, r'\1\n' + new_import, content)
+            
+            # --- C. REPLACE: Find and replace the manual CTA block ---
+            # Pattern for the manual CTA section (Module 6 in about-us/services, Module 2 in contact)
+            # This relies on finding the unique text and the surrounding <section> tags.
+            
+            # The search space starts at the end of the previous known module (AccreditationsStrip)
+            # We must handle the contact page's unique structure slightly differently.
+            
+            if relative_path == 'src/app/contact/page.tsx':
+                # Target the MODULE 2 (FOOTER CTA STRIP) section in contact page
+                cta_start_text = r'\{\/\*\s*--- MODULE 2: FOOTER CTA STRIP \(WhatsApp Focus\)\s*--- \*\/\}.*?<\/section>'
+                # The contact page's final CTA is different and uses WhatsApp, so we keep that unique section.
+                # The ABOUT/SERVICES page block is the one we want to replace.
+                # We'll skip replacing the contact page's unique WhatsApp CTA for now, as the error was only on line 7's import.
+                # However, since the goal is to refactor, we replace the final common block.
+                # Let's replace the final CTA on all three pages with the new CtaFinalStrip, 
+                # and put the WhatsApp component *back* manually on the contact page if needed.
+                
+                # The manual CTA structure to remove (Module 6 in about-us/services)
+                manual_cta_pattern = re.compile(r'\{\/\*\s*--- MODULE 6: FINAL CTA STRIP \(Conversion Funnel\)\s*--- \*\/\}.*?<\/section>', re.DOTALL)
+                content = re.sub(manual_cta_pattern, r'{/* --- MODULE 6: FINAL CTA STRIP (Conversion Funnel) --- */}\n\t\t\t<CtaFinalStrip />', content, flags=re.DOTALL)
+
+                # Special case: Contact page's bottom CTA is WhatsApp focused. We'll leave it as is 
+                # but ensure the Link import is gone (handled in section A).
+                
+            else: 
+                # For about-us and services (Module 6)
+                manual_cta_pattern = re.compile(r'\{\/\*\s*--- MODULE 6: FINAL CTA STRIP \(Conversion Funnel\)\s*--- \*\/\}.*?<\/section>', re.DOTALL)
+                content = re.sub(manual_cta_pattern, r'{/* --- MODULE 6: FINAL CTA STRIP (Conversion Funnel) --- */}\n\t\t\t<CtaFinalStrip />', content, flags=re.DOTALL)
+
+            
+            # --- D. Final cleanup of artifact imports ---
+            # Remove Phone icon import from about-us/services/contact as it's now in CtaFinalStrip
+            content = re.sub(r'(\s*,?\s*Phone\s*,?)', '', content)
+            
+            with open(full_path, 'w', encoding='utf-8') as f:
+                f.write(content)
+                
+            print(f"✅ Refactored {relative_path} to use CtaFinalStrip and cleaned imports.")
+            
+        except Exception as e:
+            print(f"❌ Error processing {relative_path}: {e}")
+            print(f"Detail: {e}")
+
+
+def run_automation():
+    """Runs the full sequence of automation steps."""
+    
+    # 1. Create safety net (already done by the user!)
+    
+    # 2. Create the new component file
+    create_cta_component()
+    
+    # 3. Update all pages to use the new component and clean up unused imports
+    update_pages_to_use_cta()
+    
+    print("\n\nAutomation complete. Ready for verification.")
+
+
+if __name__ == "__main__":
+    # Ensure we are in the main context before running anything
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    # For safety, let's revert to the original logic structure for Python path.
+    # We will assume the user has switched to the correct directory.
+    run_automation()```
 
 --------------------------------------------------------------------------------📄 FILE PATH: components.json--------------------------------------------------------------------------------```{
   "$schema": "https://ui.shadcn.com/schema.json",
@@ -154,72 +363,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 }
 ```
 
---------------------------------------------------------------------------------📄 FILE PATH: next-env.d.ts--------------------------------------------------------------------------------```/// <reference types="next" />
-/// <reference types="next/image-types/global" />
-
-// NOTE: This file should not be edited
-// see https://nextjs.org/docs/app/building-your-application/configuring/typescript for more information.
-```
-
---------------------------------------------------------------------------------📄 FILE PATH: next.config.mjs--------------------------------------------------------------------------------```/** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default nextConfig;
-```
-
---------------------------------------------------------------------------------📄 FILE PATH: package.json--------------------------------------------------------------------------------```{
-  "name": "mvvppaint",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@auth/core": "^0.34.3",
-    "@auth/drizzle-adapter": "^1.11.1",
-    "@hookform/resolvers": "^5.2.2",
-    "@radix-ui/react-slot": "^1.2.4",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "lucide-react": "^0.553.0",
-    "next": "14.2.33",
-    "next-auth": "^4.24.13",
-    "next-themes": "^0.4.6",
-    "pg": "^8.16.3",
-    "react": "^18",
-    "react-dom": "^18",
-    "react-hook-form": "^7.66.0",
-    "tailwind-merge": "^3.3.1",
-    "tailwindcss-animate": "^1.0.7",
-    "zod": "^4.1.12"
-  },
-  "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.33",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
-  }
-}
-```
-
---------------------------------------------------------------------------------📄 FILE PATH: postcss.config.mjs--------------------------------------------------------------------------------```/** @type {import('postcss-load-config').Config} */
-const config = {
-  plugins: {
-    tailwindcss: {},
-  },
-};
-
-export default config;
-```
-
---------------------------------------------------------------------------------📄 FILE PATH: project_scanner.py--------------------------------------------------------------------------------```import os
+--------------------------------------------------------------------------------📄 FILE PATH: mvvp_project_scanner.py--------------------------------------------------------------------------------```import os
 
 # --- Configuration ---
 # Set the root directory for your project
@@ -426,6 +570,71 @@ def main():
 
 if __name__ == "__main__":
     main()```
+
+--------------------------------------------------------------------------------📄 FILE PATH: next-env.d.ts--------------------------------------------------------------------------------```/// <reference types="next" />
+/// <reference types="next/image-types/global" />
+
+// NOTE: This file should not be edited
+// see https://nextjs.org/docs/app/building-your-application/configuring/typescript for more information.
+```
+
+--------------------------------------------------------------------------------📄 FILE PATH: next.config.mjs--------------------------------------------------------------------------------```/** @type {import('next').NextConfig} */
+const nextConfig = {};
+
+export default nextConfig;
+```
+
+--------------------------------------------------------------------------------📄 FILE PATH: package.json--------------------------------------------------------------------------------```{
+  "name": "mvvppaint",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@auth/core": "^0.34.3",
+    "@auth/drizzle-adapter": "^1.11.1",
+    "@hookform/resolvers": "^5.2.2",
+    "@radix-ui/react-slot": "^1.2.4",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.553.0",
+    "next": "14.2.33",
+    "next-auth": "^4.24.13",
+    "next-themes": "^0.4.6",
+    "pg": "^8.16.3",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-hook-form": "^7.66.0",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.33",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
+```
+
+--------------------------------------------------------------------------------📄 FILE PATH: postcss.config.mjs--------------------------------------------------------------------------------```/** @type {import('postcss-load-config').Config} */
+const config = {
+  plugins: {
+    tailwindcss: {},
+  },
+};
+
+export default config;
+```
 
 --------------------------------------------------------------------------------📄 FILE PATH: tailwind.config.ts--------------------------------------------------------------------------------```import type { Config } from "tailwindcss"
 
@@ -639,6 +848,602 @@ export default function Home() {
   );
 }```
 
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\about-us\page.tsx--------------------------------------------------------------------------------```// src/app/about-us/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { ClipboardCheck, Medal, Scroll, Users, Phone, Wrench, Sprout, Shield } from 'lucide-react'; // Removed Layers, Home, Factory
+import { Button } from '@/components/ui/button';
+import { QaProcessModule } from '@/components/qa-process-module'; // Reusing existing module
+import { AccreditationsStrip } from '@/components/accreditations-strip'; // Reusing existing module
+
+// --- Temporary Local Components for the About Page ---
+
+// NOTE: In a professional setup, complex components like this would be moved 
+// to src/components/about/section-name.tsx for clean architecture.
+
+// Component for the "Experience" statistics grid
+function ExperienceStatCard({ value, label, icon: Icon }: { value: string; label: string; icon: React.ElementType }) {
+    return (
+        <div className="flex flex-col items-center p-6 bg-primary border border-secondary/50 rounded-xl shadow-xl">
+            <Icon className="w-8 h-8 text-secondary mb-3 animate-shake" />
+            <h3 className="text-4xl font-extrabold text-white">{value}</h3>
+            <p className="text-sm uppercase tracking-wider text-tertiary mt-1 font-semibold">{label}</p>
+        </div>
+    );
+}
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Owner Supervised Painting Contractors - 50+ Years Experience | Maverick',
+    description: 'Established in 2004, Maverick Painting offers structural repair and specialized coatings, backed by Independent 3rd Party Quality Assurance on every high-value project.',
+};
+
+
+// --- MAIN PAGE COMPONENT ---
+export default function AboutUsPage() {
+    return (
+        <div className="bg-primary pt-24">
+            
+            {/* --- MODULE 1: THE AUTHORITY HERO (Experience & Mission) --- */}
+            <section className="relative py-24 md:py-32 px-4 text-white">
+                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    {/* LEFT: Headline & Core USP */}
+                    <div className="lg:col-span-7">
+                        <p className="text-xl font-medium uppercase tracking-widest text-secondary mb-2">
+                            The Structural Asset Maintenance Partner
+                        </p>
+                        <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase text-white">
+                            Driven by Experience. Built for Trust.
+                        </h1>
+                        <p className="text-xl font-light mt-6 max-w-2xl text-gray-400">
+                            Maverick Painting was established in 2004 and is led by a management team with more than 50 years combined experience in the coatings and structural solutions industry. 
+                            We are committed to verifiable safety, reliability, and guaranteed quality workmanship.
+                        </p>
+
+                        {/* Direct CTA */}
+                        <Button asChild 
+                            className="mt-8 bg-tertiary hover:bg-[#9ED529] text-primary font-bold text-lg h-12 shadow-xl transform hover:scale-[1.02]"
+                        >
+                            <Link href="/contact">
+                                Get Your Verifiable Quote Now
+                            </Link>
+                        </Button>
+                    </div>
+
+                    {/* RIGHT: Visual Proof & Stats Grid */}
+                    <div className="lg:col-span-5 space-y-6">
+                        {/* Placeholder for Management Photo */}
+                        <div className="w-full h-80 bg-gray-800 rounded-xl shadow-2xl flex items-center justify-center">
+                            <span className="text-white/60 text-lg"></span>
+                        </div>
+                        
+                        {/* Stats Grid */}
+                        <div className="grid grid-cols-2 gap-4">
+                            <ExperienceStatCard value="50+" label="Years Combined" icon={Medal} />
+                            <ExperienceStatCard value="Est. 2004" label="Since Inception" icon={Scroll} />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: CORE PILLARS & INDEPENDENCE (4-Column Grid) --- */}
+            <section className="bg-gray-900 py-24 px-4 border-t border-b border-primary/50">
+                <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-3xl mx-auto mb-16">
+                         <h2 className="text-4xl font-extrabold uppercase text-white mb-3">
+                            The Maverick Difference
+                        </h2>
+                        <p className="text-lg text-gray-400 font-light">
+                            Our process is built on four non-negotiable standards that de-risk the project for every high-value client.
+                        </p>
+                    </header>
+                    
+                    {/* 4-Column Feature Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        
+                        {/* Pillar 1: Owner Supervision */}
+                        <div className="p-6 bg-primary rounded-xl shadow-xl border-t-4 border-tertiary transform hover:shadow-tertiary/40 transition duration-300">
+                            <Users className="w-8 h-8 text-tertiary mb-3" />
+                            <h3 className="text-xl font-bold uppercase text-white mb-2">Daily Owner Supervision</h3>
+                            <p className="text-gray-400 text-sm">
+                                Every project is owner supervised daily with a dedicated foreman on-site, ensuring the highest quality of workmanship is maintained.
+                            </p>
+                        </div>
+
+                        {/* Pillar 2: Specialized Access */}
+                        <div className="p-6 bg-primary rounded-xl shadow-xl border-t-4 border-secondary transform hover:shadow-secondary/40 transition duration-300">
+                            <Scroll className="w-8 h-8 text-secondary mb-3" />
+                            <h3 className="text-xl font-bold uppercase text-white mb-2">Advanced Access Solutions</h3>
+                            <p className="text-gray-400 text-sm">
+                                We invest in advanced access methods, including scaffolding, rope access, and cherry pickers, to ensure cost-effective access to the most difficult surfaces.
+                            </p>
+                        </div>
+                        
+                        {/* Pillar 3: Manufacturer Compliance */}
+                        <div className="p-6 bg-primary rounded-xl shadow-xl border-t-4 border-tertiary transform hover:shadow-tertiary/40 transition duration-300">
+                            <Medal className="w-8 h-8 text-tertiary mb-3" />
+                            <h3 className="text-xl font-bold uppercase text-white mb-2">Manufacturer Guarantees</h3>
+                            <p className="text-gray-400 text-sm">
+                                We work closely with the best paint & waterproofing manufacturers to issue manufacturer and workmanship guarantees.
+                            </p>
+                        </div>
+                        
+                        {/* Pillar 4: Independent QA (The Differentiator) */}
+                        <div className="p-6 bg-primary rounded-xl shadow-xl border-t-4 border-secondary transform hover:shadow-secondary/40 transition duration-300">
+                            <ClipboardCheck className="w-8 h-8 text-secondary mb-3" />
+                            <h3 className="text-xl font-bold uppercase text-white mb-2">Independent QA Process</h3>
+                            <p className="text-gray-400 text-sm">
+                                We use independent 3rd party quality assurance on all projects, with fortnightly reports on progress and film thickness.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* --- NEW MODULE 3: THE STRUCTURAL THESIS (Paint vs. Plaster) --- */}
+            <section className="py-24 px-4 text-white bg-primary">
+                 <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    
+                    {/* LEFT: Core Structural Statement */}
+                    <div className="lg:pr-12">
+                        <span className="text-xl font-medium uppercase tracking-widest text-tertiary mb-2 block">
+                            Our Core Thesis
+                        </span>
+                        <h2 className="text-5xl font-extrabold leading-tight uppercase mb-4">
+                            We Don&apos;t Just Paint Over Problems.
+                        </h2>
+                        <p className="text-xl font-light text-gray-400">
+                            We pivot the conversation from cosmetic painting to structural protection. Visible cracks, spalling, and damp are symptoms of deeper asset failure. We handle defect identification, structural repairs, waterproofing, and specialized coatings—providing a complete turn-key solution.
+                        </p>
+                        
+                        <Button asChild 
+                            variant="link"
+                            className="text-secondary hover:text-white mt-4 pl-0 text-lg font-bold"
+                        >
+                            <Link href="/structural-repairs">
+                                Explore Our Structural Repair Services &rarr;
+                            </Link>
+                        </Button>
+                    </div>
+
+                    {/* RIGHT: Service Breakdown Grid (The Proof) */}
+                    <div className="grid grid-cols-2 gap-6 p-4 bg-gray-900 rounded-xl shadow-2xl">
+                         <div className="p-4">
+                            <Wrench className="w-6 h-6 text-secondary mb-2" />
+                            <h4 className="font-bold text-lg text-white">Structural Repairs</h4>
+                            <p className="text-sm text-gray-400">Concrete spalling, crack injection, and expansion joint sealing are fixed structurally, not just patched.</p>
+                        </div>
+                        <div className="p-4">
+                            <Shield className="w-6 h-6 text-tertiary mb-2" />
+                            <h4 className="font-bold text-lg text-white">Waterproofing First</h4>
+                            <p className="text-sm text-gray-400">Guaranteed systems for flat roofs and balconies using manufacturer-approved membranes and liquid-applied coatings.</p>
+                        </div>
+                         <div className="p-4">
+                            <Sprout className="w-6 h-6 text-tertiary mb-2" />
+                            <h4 className="font-bold text-lg text-white">Turn-Key Service</h4>
+                            <p className="text-sm text-gray-400">From defect identification to preparation and final specialized coating application, we provide a full solution.</p>
+                        </div>
+                        <div className="p-4">
+                            <ClipboardCheck className="w-6 h-6 text-secondary mb-2" />
+                            <h4 className="font-bold text-lg text-white">Specialized Coatings</h4>
+                            <p className="text-sm text-gray-400">We are one of a select few applicators for high-performance, industrial-grade floor and wall systems.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            {/* --- MODULE 4: THE PROCESS IN DEPTH (Reusing existing module) --- */}
+            {/* The QA Process module is perfectly suited for the narrative architecture. */}
+            <QaProcessModule />
+
+            {/* --- MODULE 5: ACCREDITATIONS (Reusing existing module) --- */}
+            {/* Displaying logos to build visual trust. */}
+            <AccreditationsStrip />
+
+            {/* --- MODULE 6: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <section className="bg-header-dark py-12 px-4">
+                <div className="max-w-7xl mx-auto text-center">
+                    <h2 className="text-3xl font-extrabold text-white mb-4">
+                        Ready for Verifiable, Zero-Risk Quality?
+                    </h2>
+                    <p className="text-gray-400 text-lg mb-6">
+                        Contact us today to schedule an on-site assessment and receive your substrate-specific specification.
+                    </p>
+                     <Button asChild 
+                        className="bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-xl h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <a href="tel:0826277082" className="flex items-center space-x-2">
+                             <Phone className="w-6 h-6" />
+                             <span>Call Lawrence Brooks: 082 627 7082</span>
+                        </a>
+                    </Button>
+                </div>
+            </section>
+
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\contact\page.tsx--------------------------------------------------------------------------------```// src/app/contact/page.tsx
+import type { Metadata } from 'next';
+import { Phone, Mail, MapPin, MessageCircle, Layers, ClipboardCheck, Scroll } from 'lucide-react'; 
+import { Button } from '@/components/ui/button';
+import { HeroContactForm } from '@/components/hero-contact-form'; // Reusing the form logic
+
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Get a Professional Painting, Structural Repair Quote | Contact Maverick',
+    description: 'Contact Maverick Painting for a free site assessment and comprehensive quote. Specialized solutions for Body Corporates, Developers, and high-value properties in Gauteng, South Africa.',
+};
+
+// --- MAIN PAGE COMPONENT ---
+export default function ContactPage() {
+    return (
+        <div className="bg-primary pt-24 text-white">
+            
+            {/* --- MODULE 1: CONVERSION HERO --- */}
+            <section className="relative py-20 md:py-32 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    
+                    {/* LEFT (Server Component): Dynamic Contact Info & Trust Signals */}
+                    <div className="lg:col-span-6 space-y-10 lg:pr-12">
+                        <header>
+                            <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-2">
+                                Talk to a Specialist
+                            </p>
+                            <h1 className="text-5xl md:text-6xl font-extrabold leading-tight uppercase text-white">
+                                Eliminate Risk. Get a Verifiable Quote.
+                            </h1>
+                            <p className="text-xl font-light mt-4 text-gray-400">
+                                Schedule your free on-site assessment now. Our technical team is ready to assist with substrate-specific specifications for your high-value asset.
+                            </p>
+                        </header>
+
+                        {/* Direct Contact Links (High Visual Priority) */}
+                        <div className="space-y-8 p-6 bg-primary rounded-xl shadow-2xl border border-gray-800">
+                            
+                            <div className="flex items-center space-x-4">
+                                <Phone className="w-10 h-10 text-tertiary flex-shrink-0" />
+                                <div>
+                                    <p className="text-sm font-semibold uppercase text-gray-400">Call Lawrence Brooks (Owner Supervision)</p>
+                                    <a href="tel:0826277082" className="text-3xl font-extrabold text-tertiary hover:text-white transition-colors">
+                                        082 627 7082
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div className="flex items-center space-x-4 border-t border-gray-800 pt-4">
+                                <Mail className="w-10 h-10 text-secondary flex-shrink-0" />
+                                <div>
+                                    <p className="text-sm font-semibold uppercase text-gray-400">Email for Technical Specifications</p>
+                                    <a href="mailto:maverickpainters1984@gmail.com" className="text-xl font-bold text-white hover:text-tertiary transition-colors">
+                                        maverickpainters1984@gmail.com
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Trust Bar Section: Core USPs */}
+                         <div className="pt-6 space-y-4">
+                            <h3 className="text-xl font-bold uppercase text-secondary">Why Quote with Maverick?</h3>
+                            <div className="grid grid-cols-2 gap-4 text-gray-400">
+                                <p className="flex items-center space-x-2 text-sm">
+                                    <Layers className="w-5 h-5 text-tertiary" />
+                                    <span>Specialized, Structural Solutions.</span>
+                                </p>
+                                <p className="flex items-center space-x-2 text-sm">
+                                    <ClipboardCheck className="w-5 h-5 text-tertiary" />
+                                    <span>Independent 3rd Party QA.</span>
+                                </p>
+                                <p className="flex items-center space-x-2 text-sm">
+                                    <Scroll className="w-5 h-5 text-tertiary" />
+                                    <span>Manufacturer Guarantees Issued.</span>
+                                </p>
+                                <p className="flex items-center space-x-2 text-sm">
+                                    <MapPin className="w-5 h-5 text-tertiary" />
+                                    <span>Gauteng-Wide Service Area.</span>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {/* RIGHT (Client Component): The Form Container */}
+                    <div className="lg:col-span-6 flex justify-center lg:pl-12">
+                        {/* HeroContactForm already contains its own white/shadow card styling */}
+                        <HeroContactForm />
+                    </div>
+
+                </div>
+            </section>
+            
+            {/* --- MODULE 2: FOOTER CTA STRIP (WhatsApp Focus) --- */}
+            <section className="bg-header-dark py-12 px-4 border-t border-primary/50">
+                <div className="max-w-7xl mx-auto text-center">
+                    <h2 className="text-3xl font-extrabold text-white mb-4">
+                        Prefer WhatsApp? Get a Quick Response.
+                    </h2>
+                    <p className="text-gray-400 text-lg mb-6">
+                        Send us pictures of your defect or project scope now for immediate attention.
+                    </p>
+                     <Button asChild 
+                        className="bg-whatsapp-green hover:bg-[#25C356] text-primary font-bold text-xl h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <a href="https://wa.me/27826277082" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2">
+                             <MessageCircle className="w-6 h-6" />
+                             <span>WhatsApp Maverick Painting</span>
+                        </a>
+                    </Button>
+                </div>
+            </section>
+
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\services\page.tsx--------------------------------------------------------------------------------```// src/app/services/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { ClipboardCheck, Shield, Wrench, FlaskConical, Building, Layers, Home, Factory, Phone } from 'lucide-react'; // Removed HardHat and Scroll
+import { QaProcessModule } from '@/components/qa-process-module'; // Reusing existing module
+import { AccreditationsStrip } from '@/components/accreditations-strip'; // Reusing existing module
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Specialized Painting, Waterproofing & Structural Repair Services | Maverick',
+    description: 'A structural asset maintenance partner offering turn-key solutions for commercial, industrial, and body corporate properties, including structural repairs, specialized coatings, and Independent QA.',
+};
+
+// --- CORE SERVICE PILLAR DATA (Central to SEO Silo) ---
+const servicePillars = [
+    {
+        title: "Structural & Remedial Repairs",
+        href: "/structural-repairs",
+        icon: Wrench,
+        description: "The foundation of asset maintenance. We fix concrete cancer, spalling, structural cracks, and joint defects before any coating is applied.",
+        subServices: [
+            "Concrete Spalling Repair",
+            "Structural Crack Injection",
+            "Expansion Joint Sealing",
+            "Rising Damp Treatment",
+        ],
+        accentColor: "border-tertiary",
+        isFeatured: true, // Used for visual prominence
+    },
+    {
+        title: "Specialized Coating Systems",
+        href: "/specialized-coatings",
+        icon: FlaskConical,
+        description: "Beyond standard paint. We are approved applicators for high-performance, durable floor, wall, and industrial coating systems.",
+        subServices: [
+            "Epoxy & Polyurethane Flooring",
+            "Hygienic Food-Grade Floors",
+            "Marmoran Master Applicator",
+            "Industrial Corrosion Control",
+        ],
+        accentColor: "border-secondary",
+        isFeatured: false,
+    },
+    {
+        title: "Advanced Waterproofing",
+        href: "/waterproofing-services",
+        icon: Shield,
+        description: "Guaranteed systems for high-stakes water ingress problems in flat roofs, slabs, and balconies, using both Torch-On and Liquid Applied Membranes.",
+        subServices: [
+            "Flat Concrete Roof Systems",
+            "Leaking Balcony Repair (Under-Tile)",
+            "Torch-On & Liquid Membranes",
+            "Basement Waterproofing",
+        ],
+        accentColor: "border-tertiary",
+        isFeatured: false,
+    },
+    {
+        title: "Commercial & High-Access Painting",
+        href: "/painting-services",
+        icon: Building,
+        description: "High-volume painting solutions for Body Corporates, industrial sites, and commercial spaces, including complex access and full project management.",
+        subServices: [
+            "Body Corporate Painting",
+            "Industrial & Factory Painting",
+            "Rope Access Painting",
+            "Roof Painting & Restoration",
+        ],
+        accentColor: "border-secondary",
+        isFeatured: false,
+    },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function ServicesPage() {
+    return (
+        <div className="bg-primary pt-24">
+            
+            {/* --- MODULE 1: SEO HERO (Structural Thesis) --- */}
+            <section className="relative py-20 md:py-32 px-4 text-white bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    {/* LEFT: Headline */}
+                    <div className="lg:col-span-6">
+                        <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-2">
+                            The Turn-Key Asset Solution
+                        </p>
+                        <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase text-white">
+                            Beyond Paint. Specialized Contractor Services.
+                        </h1>
+                    </div>
+
+                    {/* RIGHT: Core Thesis/CTA */}
+                    <div className="lg:col-span-6 lg:pl-12">
+                        <p className="text-xl font-light text-gray-400 mb-6">
+                            We are not general painters. We are structural remediation specialists, approved applicators, and advanced coating experts. We provide guaranteed, turn-key solutions from defect identification to the final protective layer.
+                        </p>
+                        
+                        {/* Direct link to QA Process */}
+                        <Button asChild 
+                            className="bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-12 shadow-xl"
+                        >
+                            <Link href="/our-process-independent-qa" className="flex items-center space-x-2">
+                                <ClipboardCheck className="w-5 h-5" />
+                                <span>Our Independent QA Guarantee</span>
+                            </Link>
+                        </Button>
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: AUDIENCE FUNNEL (Segmented UX) --- */}
+            <section className="py-20 px-4 bg-primary text-white">
+                 <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-4xl mx-auto mb-16">
+                         <h2 className="text-4xl font-extrabold uppercase text-white mb-3">
+                            Who We Serve
+                        </h2>
+                        <p className="text-xl text-gray-400 font-light">
+                            Select your role below to view the solutions, guarantees, and compliance you require.
+                        </p>
+                    </header>
+
+                    {/* 3-Column Audience Grid - High Contrast Links */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        
+                        {/* Audience 1: Developers / Engineers */}
+                        <Link href="/solutions/for-developers" className="group p-8 bg-gray-900 rounded-xl shadow-2xl border-b-4 border-secondary transform hover:scale-[1.03] transition-all duration-500">
+                            <Factory className="w-10 h-10 text-secondary mb-3" />
+                            <h3 className="text-2xl font-extrabold uppercase text-white mb-2">Developers & Engineers</h3>
+                            <p className="text-gray-400 text-base mb-4">
+                                Verifiable specifications, on-time delivery, and full compliance to eliminate delays and hand-over issues.
+                            </p>
+                            <span className="text-tertiary font-bold group-hover:text-white transition-colors">
+                                View Technical Solutions &rarr;
+                            </span>
+                        </Link>
+
+                        {/* Audience 2: Body Corporates / HOAs */}
+                        <Link href="/solutions/for-body-corporates" className="group p-8 bg-gray-900 rounded-xl shadow-2xl border-b-4 border-tertiary transform hover:scale-[1.03] transition-all duration-500">
+                            <Layers className="w-10 h-10 text-tertiary mb-3" />
+                            <h3 className="text-2xl font-extrabold uppercase text-white mb-2">Body Corporates & Trustees</h3>
+                            <p className="text-gray-400 text-base mb-4">
+                                Independent QA, co-signed guarantees, and minimal disturbance for long-term asset security and peace of mind.
+                            </p>
+                            <span className="text-tertiary font-bold group-hover:text-white transition-colors">
+                                View Maintenance Solutions &rarr;
+                            </span>
+                        </Link>
+
+                        {/* Audience 3: Homeowners / Industrial */}
+                        <Link href="/solutions/for-homeowners" className="group p-8 bg-gray-900 rounded-xl shadow-2xl border-b-4 border-secondary transform hover:scale-[1.03] transition-all duration-500">
+                            <Home className="w-10 h-10 text-secondary mb-3" />
+                            <h3 className="text-2xl font-extrabold uppercase text-white mb-2">Homeowners & Facilities</h3>
+                            <p className="text-gray-400 text-base mb-4">
+                                Owner supervised excellence, guaranteed workmanship, and the highest standards of cleanliness and efficiency for your property.
+                            </p>
+                            <span className="text-tertiary font-bold group-hover:text-white transition-colors">
+                                View Project Solutions &rarr;
+                            </span>
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+
+            {/* --- MODULE 3: THE SERVICE SILOS (Pillars Grid) --- */}
+            <section className="py-24 md:py-32 px-4 bg-gray-900 text-white">
+                <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-4xl mx-auto mb-16">
+                         <h2 className="text-5xl font-extrabold uppercase text-white mb-3">
+                            The Four Pillars of Asset Protection
+                        </h2>
+                        <p className="text-xl text-gray-400 font-light">
+                            Select an expertise area below to see how we apply advanced methods and verifiable quality to your specific maintenance challenge.
+                        </p>
+                    </header>
+
+                    {/* 2x2 Layout with a Featured Item for a non-template look */}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        
+                        {servicePillars.map((pillar, index) => {
+                            const IconComponent = pillar.icon;
+                            
+                            // Visual emphasis for the most complex service (Structural)
+                            const isFeatured = pillar.isFeatured;
+                            const cardClass = isFeatured ? "lg:col-span-2 p-10 transform hover:scale-[1.01] transition-all duration-500" : 
+                                                           "p-8 transform hover:scale-[1.03] transition-all duration-500";
+                            const titleClass = isFeatured ? "text-3xl md:text-4xl" : "text-2xl";
+                            const descriptionClass = isFeatured ? "text-lg text-secondary/80 mt-4" : "text-base text-gray-400 mt-2";
+                            
+                            return (
+                                <Link 
+                                    key={index} 
+                                    href={pillar.href}
+                                    className={`group bg-primary rounded-xl shadow-2xl flex flex-col justify-between 
+                                                ${cardClass} ${pillar.accentColor}`}
+                                    style={{ borderTopWidth: isFeatured ? '8px' : '4px' }}
+                                >
+                                    <div>
+                                        <IconComponent className="w-10 h-10 text-secondary mb-4 group-hover:text-tertiary transition-colors" />
+                                        <h3 className={titleClass + " font-extrabold uppercase text-white mb-2 leading-snug"}>
+                                            {pillar.title}
+                                        </h3>
+                                        <p className={descriptionClass}>
+                                            {pillar.description}
+                                        </p>
+                                    </div>
+                                    
+                                    <div className="mt-8">
+                                        <ul className="space-y-2 text-sm text-gray-400 list-inside border-t border-gray-700 pt-4 mb-4">
+                                            {pillar.subServices.map((sub, i) => (
+                                                <li key={i} className="flex items-start">
+                                                    <span className="text-tertiary mr-2">•</span>
+                                                    <span className="flex-1 text-base font-medium">{sub}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        <span className="text-lg font-bold text-secondary flex items-center group-hover:text-tertiary transition-colors">
+                                            Explore Full Expertise &rarr;
+                                        </span>
+                                    </div>
+                                </Link>
+                            );
+                        })}
+                    </div>
+                </div>
+            </section>
+            
+            {/* --- MODULE 4: THE PROCESS IN DEPTH (Trust Module) --- */}
+            <QaProcessModule />
+
+            {/* --- MODULE 5: ACCREDITATIONS (Visual Trust) --- */}
+            <AccreditationsStrip />
+
+            {/* --- MODULE 6: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <section className="bg-header-dark py-12 px-4">
+                <div className="max-w-7xl mx-auto text-center">
+                    <h2 className="text-3xl font-extrabold text-white mb-4">
+                        Don&apos;t Risk Your Asset. Talk to a Specialist.
+                    </h2>
+                    <p className="text-gray-400 text-lg mb-6">
+                        Contact us today to schedule an on-site assessment and receive your substrate-specific specification.
+                    </p>
+                     <Button asChild 
+                        className="bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-xl h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <a href="tel:0826277082" className="flex items-center space-x-2">
+                             <Phone className="w-6 h-6" />
+                             <span>Call Lawrence Brooks: 082 627 7082</span>
+                        </a>
+                    </Button>
+                </div>
+            </section>
+
+        </div>
+    );
+}```
+
 --------------------------------------------------------------------------------📄 FILE PATH: src\components\accreditations-strip.tsx--------------------------------------------------------------------------------```// src/components/accreditations-strip.tsx
 import React from 'react';
 import { Shield, Users } from 'lucide-react'; // 'Truck' removed
@@ -698,6 +1503,38 @@ export function AccreditationsStrip() {
         </section>
     );
 }```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\components\cta-final-strip.tsx--------------------------------------------------------------------------------```// src/components/cta-final-strip.tsx
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import { Phone } from 'lucide-react';
+
+// This component centralizes the high-conversion, final Call-to-Action strip.
+// It applies the mobile-specific text removal logic for better UX (using hidden md:inline).
+
+export function CtaFinalStrip() {
+    return (
+        <section className="bg-header-dark py-12 px-4 border-t border-primary/50">
+            <div className="max-w-7xl mx-auto text-center">
+                <h2 className="text-3xl font-extrabold text-white mb-4">
+                    Ready for Verifiable, Zero-Risk Quality?
+                </h2>
+                <p className="text-gray-400 text-lg mb-6">
+                    Contact us today to schedule an on-site assessment and receive your substrate-specific specification.
+                </p>
+                 <Button asChild 
+                    className="bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-xl h-14 shadow-2xl transform hover:scale-105"
+                >
+                    <a href="tel:0826277082" className="flex items-center space-x-2">
+                         <Phone className="w-6 h-6" />
+                         <span className="hidden md:inline">Call Lawrence Brooks:</span> 082 627 7082
+                    </a>
+                </Button>
+            </div>
+        </section>
+    );
+}
+```
 
 --------------------------------------------------------------------------------📄 FILE PATH: src\components\cta-strip-module.tsx--------------------------------------------------------------------------------```// src/components/cta-strip-module.tsx
 import Link from 'next/link';
@@ -911,27 +1748,27 @@ export function HeroContactForm() {
 --------------------------------------------------------------------------------📄 FILE PATH: src\components\hero-section.tsx--------------------------------------------------------------------------------```// src/components/hero-section.tsx
 import Link from "next/link";
 import { HeroContactForm } from "@/components/hero-contact-form";
-
 // This is a Server Component, optimized for initial load speed.
 export function HeroSection() {
   
   // Removed unused 'usps' array.
-  
-  return (
+return (
     // The pt-20 ensures the content starts below the fixed header
     <section className="relative pt-32 pb-12 overflow-hidden bg-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8 lg:items-start lg:pt-8">
             
             {/* --- LEFT COLUMN: Marketing Headline & CTA (Server-Side Content) --- */}
             <div className="text-center md:text-left p-4">
-                <h1 className="text-4xl sm:text-5xl font-extrabold text-primary leading-tight mb-3 drop-shadow-sm uppercase tracking-tight">
-                    Quickly explain the big benefits of your business.
+       
+                 <h1 className="text-4xl sm:text-5xl font-extrabold text-primary leading-tight mb-3 drop-shadow-sm uppercase tracking-tight">
+                    Your High-Access Asset Maintenance Partner.
                 </h1>
                 <p className="text-lg sm:text-xl text-primary max-w-xl mx-auto md:mx-0 mb-3 font-semibold">
-                    The trusted partner for complex-access, high-value property solutions.
+               
+                     The proven specialist, Professional Paint Contractors for structural repair and complex high-rise coating projects.
                 </p>
                 <p className="text-base text-gray-700 max-w-xl mx-auto md:mx-0 mb-6 font-medium">
-                    Protecting your assets where others can&apos;t reach. Now, back it up with some proof. {/* Fixed unescaped apostrophe: 't -> &apos;t */}
+                    We eliminate risk on multi-million rand assets with Independent, 3rd Party Quality Assurance (QA) on every project.
                 </p>
                 
                 {/* Non-interactive CTA Button (using basic HTML/Tailwind classes to match the design) 
@@ -940,6 +1777,7 @@ export function HeroSection() {
                     className="inline-block bg-primary hover:bg-gray-800 text-white font-bold py-3 px-8 rounded-lg shadow-xl transition duration-300 transform hover:scale-105 text-lg focus:outline-none focus:ring-4 focus:ring-secondary/50"
                 >
                     View Our Process
+    
                 </Link>
             </div>
 
@@ -947,7 +1785,8 @@ export function HeroSection() {
             <div className="mx-auto w-full max-w-sm pt-4 md:pt-0"> 
                 <HeroContactForm />
             </div>
-        </div>
+        
+</div>
     </section>
   );
 }```
@@ -1070,10 +1909,10 @@ group-hover:scale-[1.05]"
                     <div className="absolute inset-0 bg-primary/20 transition-all duration-300 group-hover:bg-primary/0" />
                     
                     {/* Placeholder Text 
-*/}
                     <span className="absolute inset-0 flex items-center justify-center text-white/50 text-xs font-semibold">
                         [Placeholder for Image: {name}]
                     </span>
+                    */}
                 </div>
          
            </div>
@@ -1527,12 +2366,12 @@ export function Footer() {
 
 --------------------------------------------------------------------------------📄 FILE PATH: src\components\layout\header.tsx--------------------------------------------------------------------------------```// src/components/layout/header.tsx
 import Link from 'next/link';
+import Image from 'next/image'; // <-- NEW IMPORT
 import { Button } from '@/components/ui/button';
-import { Phone, MessageCircle } from 'lucide-react'; // Import MessageCircle for the button
-import { MobileNav } from '@/components/layout/mobile-nav'; 
+import { Phone } from 'lucide-react'; // Removed MessageCircle
+import { MobileNav } from '@/components/layout/mobile-nav';
 import { cn } from '@/lib/utils'; 
 // Note: SVG icon path is complex and included directly here.
-
 export function Header() {
   const navItems = [
     { name: 'Home', href: '/' },
@@ -1541,8 +2380,7 @@ export function Header() {
     { name: 'Projects', href: '/projects' },
     { name: 'Contact', href: '/contact' },
   ];
-
-  // **The original HTML used JS for fixed/scroll logic, we apply fixed/blur/shadow classes directly**
+// **The original HTML used JS for fixed/scroll logic, we apply fixed/blur/shadow classes directly**
   return (
     <header 
         id="header-nav" 
@@ -1551,31 +2389,38 @@ export function Header() {
             "bg-header-dark/90" // Always use the dark background with slight transparency
         )}
     >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div 
+className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-20">
                 
                 {/* --- 1. LOGO & ICON (Left) --- */}
                 <Link href="/" className="flex-shrink-0 flex items-center text-white rounded-lg p-1 transition duration-300 hover:text-secondary space-x-2">
-                    {/* SVG Icon - Remains Green/tertiary (fill="#A9D834") */}
+             
+{/* SVG Icon - Remains Green/tertiary (fill="#A9D834") */}
                     <svg className="w-7 h-7 animate-shake" fill="#A9D834" height="800px" width="800px" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 463 463" xmlnsXlink="http://www.w3.org/1999/xlink" enableBackground="new 0 0 463 463">
                         <g>
-                            <path d="m423.5,40h-0.5v-8.5c0-17.369-14.131-31.5-31.5-31.5h-288c-17.369,0-31.5,14.131-31.5,31.5v8.5h-0.5c-12.958,0-23.5,10.542-23.5,23.5v8.5h-0.5c-17.369,0-31.5,14.131-31.5,31.5v64c0,17.369 14.131,31.5 31.5,31.5h176c9.098,0 16.5,7.402 16.5,16.5v16.5h-8.5c-12.958,0-23.5,10.542-23.5,23.5v168c0,21.78 17.72,39.5 39.5,39.5s39.5-17.72 39.5-39.5v-168c0-12.958-10.542-23.5-23.5-23.5h-8.5v-16.5c0-17.369-14.131-31.5-31.5-31.5h-176c-9.098,0-16.5-7.402-16.5-16.5v-64c0-9.098 7.402-16.5 16.5-16.5h0.5v8.5c0,12.958 10.542,23.5 23.5,23.5h0.5v8.5c0,17.369 14.131,31.5 31.5,31.5h288c17.369,0 31.5-14.131 31.5-31.5v-8.5h0.5c12.958,0 23.5-10.542 23.5-23.5v-32c0-12.958-10.542-23.5-23.5-23.5zm-176,408c-13.509,0-24.5-10.99-24.5-24.5v-144.5h49v144.5c0,13.51-10.991,24.5-24.5,24.5zm24.5-192.5v8.5h-49v-8.5c0-4.687 3.813-8.5 8.5-8.5h32c4.687,0 8.5,3.813 8.5,8.5zm-200.5-151.5c-4.687,0-8.5-3.813-8.5-8.5v-32c0-4.687 3.813-8.5 8.5-8.5h0.5v49h-0.5zm336.5,23.5c0,9.098-7.402,16.5-16.5,16.5h-288c-9.098,0-16.5-7.402-16.5-16.5v-96c0-9.098 7.402-16.5 16.5-16.5h288c9.098,0 16.5,7.402 16.5,16.5v96zm24-32c0,4.687-3.813,8.5-8.5,8.5h-0.5v-49h0.5c4.687,0 8.5,3.813 8.5,8.5v32z"/>
+                        
+<path d="m423.5,40h-0.5v-8.5c0-17.369-14.131-31.5-31.5-31.5h-288c-17.369,0-31.5,14.131-31.5,31.5v8.5h-0.5c-12.958,0-23.5,10.542-23.5,23.5v8.5h-0.5c-17.369,0-31.5,14.131-31.5,31.5v64c0,17.369 14.131,31.5 31.5,31.5h176c9.098,0 16.5,7.402 16.5,16.5v16.5h-8.5c-12.958,0-23.5,10.542-23.5,23.5v168c0,21.78 17.72,39.5 39.5,39.5s39.5-17.72 39.5-39.5v-168c0-12.958-10.542-23.5-23.5-23.5h-8.5v-16.5c0-17.369-14.131-31.5-31.5-31.5h-176c-9.098,0-16.5-7.402-16.5-16.5v-64c0-9.098 7.402-16.5 16.5-16.5h0.5v8.5c0,12.958 10.542,23.5 23.5,23.5h0.5v8.5c0,17.369 14.131,31.5 31.5,31.5h288c17.369,0 31.5-14.131 31.5-31.5v-8.5h0.5c12.958,0 23.5-10.542 23.5-23.5v-32c0-12.958-10.542-23.5-23.5-23.5zm-176,408c-13.509,0-24.5-10.99-24.5-24.5v-144.5h49v144.5c0,13.51-10.991,24.5-24.5,24.5zm24.5-192.5v8.5h-49v-8.5c0-4.687 3.813-8.5 8.5-8.5h32c4.687,0 8.5,3.813 8.5,8.5zm-200.5-151.5c-4.687,0-8.5-3.813-8.5-8.5v-32c0-4.687 3.813-8.5 8.5-8.5h0.5v49h-0.5zm336.5,23.5c0,9.098-7.402,16.5-16.5,16.5h-288c-9.098,0-16.5-7.402-16.5-16.5v-96c0-9.098 7.402-16.5 16.5-16.5h288c9.098,0 16.5,7.402 16.5,16.5v96zm24-32c0,4.687-3.813,8.5-8.5,8.5h-0.5v-49h0.5c4.687,0 8.5,3.813 8.5,8.5v32z"/>
                             <path d="m247.5,416c-1.98,0-3.91,0.8-5.3,2.2-1.4,1.39-2.2,3.319-2.2,5.3 0,1.97 0.8,3.91 2.2,5.3 1.39,1.4 3.33,2.2 5.3,2.2 1.97,0 3.91-0.8 5.3-2.2 1.4-1.4 2.2-3.33 2.2-5.3 0-1.971-0.8-3.91-2.2-5.3-1.39-1.4-3.33-2.2-5.3-2.2z"/>
-                        </g>
+                        
+</g>
                     </svg>
                     {/* Text remains white */}
                     <span className="font-extrabold text-2xl tracking-tight leading-none text-white">MAVERICK</span>
                 </Link>
 
-                {/* --- 2. DESKTOP NAVIGATION (Center) --- */}
+               
+{/* --- 2. DESKTOP NAVIGATION (Center) --- */}
                 <nav className="hidden md:flex flex-grow justify-center px-4">
                     {navItems.map((item) => (
                         <Link 
-                            key={item.name} 
+                        
+key={item.name} 
                             href={item.href} 
                             className="text-white hover:text-secondary transition duration-300 font-medium py-2 px-3 rounded-lg"
                         >
-                            {item.name}
+       
+{item.name}
                         </Link>
                     ))}
                 </nav>
@@ -1584,59 +2429,72 @@ export function Header() {
                 <div className="hidden md:flex space-x-6 items-center flex-shrink-0">
                     {/* Phone Number Section (Simplified using Lucide Icons) */}
                     <Link href="tel:0826277082" className="flex items-center text-white/90 transition duration-300 hover:text-secondary space-x-2">
-                        <div className="p-2 border border-white/50 rounded-full">
+                   
+<div className="p-2 border border-white/50 rounded-full">
                             <Phone className="w-5 h-5" />
                         </div>
                         <div className="text-left">
-                            <span className="text-xs font-light block text-white/70">Lawrence Brooks</span>
+           
+<span className="text-xs font-light block text-white/70">Lawrence Brooks</span>
                             <span className="text-base font-semibold block whitespace-nowrap text-white">082 627 7082</span>
                         </div>
-                    </Link>
+                   
+</Link>
                     
-                    {/* WhatsApp Button - NEW COLOR/TEXT/LINK */}
+                    {/* WhatsApp Button - NEW ICON IMPLEMENTATION */}
                     <Button asChild 
-                        className="bg-whatsapp-green hover:bg-[#25C356] text-white font-bold text-lg py-3 px-6 rounded-lg shadow-xl transition duration-300 transform hover:scale-105 whitespace-nowrap"
+                        className="bg-whatsapp-green hover:bg-[#25C356] text-primary font-bold text-lg py-3 px-6 
+rounded-lg shadow-xl transition duration-300 transform hover:scale-105 whitespace-nowrap"
                     >
                         <a href="https://wa.me/27826277082" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2">
-                            <MessageCircle className="w-5 h-5" />
+                            {/* Use next/image for optimized performance */}
+                            <Image 
+                                src="/images/WhatsApp.svg.webp" 
+                                alt="WhatsApp Icon" 
+                                className="w-5 h-5"
+                                width={20} // Required by next/image
+                                height={20} // Required by next/image
+                                priority // Mark as high priority for LCP
+                            />
+            
                             <span>WhatsApp</span>
                         </a>
                     </Button>
                 </div>
 
                 {/* --- 4. MOBILE MENU TOGGLE (Right, Mobile Only) --- */}
-                {/* Note: The button logic is contained within the MobileNav Client Component */}
                 <div className="md:hidden">
                     <MobileNav />
                 </div>
 
             </div>
-        </div>
+    
+</div> {/* <-- THIS CLOSES THE max-w-7xl mx-auto DIV */}
         {/* Mobile menu content container will be handled by MobileNav Client Component */}
     </header>
   );
 }```
 
---------------------------------------------------------------------------------📄 FILE PATH: src\components\layout\mobile-nav.tsx--------------------------------------------------------------------------------```"use client";
+--------------------------------------------------------------------------------📄 FILE PATH: src\components\layout\mobile-nav.tsx--------------------------------------------------------------------------------```// src/components/layout/mobile-nav.tsx
+"use client";
 
 import React from 'react';
 import Link from 'next/link';
-import { Menu, X, Phone, MessageCircle } from 'lucide-react';
+import Image from 'next/image'; // <-- NEW IMPORT
+import { Menu, X, Phone } from 'lucide-react'; 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils'; 
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = React.useState(false);
-  
-  const navItems = [
+const navItems = [
     { name: 'Home', href: '/' },
     { name: 'About Us', href: '/about-us' },
     { name: 'Services', href: '/services' },
     { name: 'Projects', href: '/projects' },
     { name: 'Contact', href: '/contact' },
   ];
-  
-  const toggleMenu = () => setIsOpen(!isOpen);
+const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
     <>
@@ -1649,7 +2507,8 @@ export function MobileNav() {
         onClick={toggleMenu}
         aria-label="Toggle Menu"
       >
-        {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+ 
+{isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
       </Button>
 
       {/* Mobile Menu Overlay */}
@@ -1658,7 +2517,8 @@ export function MobileNav() {
           "fixed inset-0 top-20 z-40 transition-transform duration-300 ease-in-out lg:hidden",
           // FIXED: Use solid header-dark background when open, not /90 transparency.
           "bg-header-dark", 
-          isOpen ? 'translate-x-0' : 'translate-x-full' // Slide-in/Slide-out logic
+     
+isOpen ? 'translate-x-0' : 'translate-x-full' // Slide-in/Slide-out logic
         )}
       >
         <nav className="flex flex-col border-t border-gray-700/50">
@@ -1667,26 +2527,30 @@ export function MobileNav() {
           {navItems.map((item) => (
             <Link
               key={item.name}
+ 
               href={item.href}
               className="block px-3 py-3 text-base font-medium text-white hover:bg-black/50"
               onClick={toggleMenu} // Close menu on click
             >
               {item.name}
             </Link>
-          ))}
+          
+))}
           
           {/* Mobile CTAs (Bottom of Menu) */}
           <div className="pt-6 space-y-3">
             {/* Call Lawrence */}
             <Link 
               href="tel:0826277082" 
-              className="block px-3 py-3 text-base font-medium text-white hover:bg-black/50"
+              className="block px-3 py-3 text-base font-medium 
+text-white hover:bg-black/50"
               onClick={toggleMenu}
             >
               <Phone className="w-4 h-4 mr-2 inline-block" /> Call Lawrence (082 627 7082)
             </Link>
             
-            {/* WhatsApp Link (Using Green Text) */}
+            {/* WhatsApp Link (Using Green Text) - NEW ICON IMPLEMENTATION */}
+       
             <Link 
               href="https://wa.me/27826277082" 
               target="_blank" 
@@ -1694,7 +2558,16 @@ export function MobileNav() {
               className="block px-3 py-3 text-base font-medium text-tertiary hover:bg-black/50"
               onClick={toggleMenu}
             >
-              <MessageCircle className="w-4 h-4 mr-2 inline-block" /> WhatsApp Us
+  
+                {/* Use next/image for optimized performance */}
+                <Image 
+                    src="/images/WhatsApp.svg.webp" 
+                    alt="WhatsApp Icon" 
+                    className="w-4 h-4 mr-2 inline-block"
+                    width={16} // Must be defined for Image component
+                    height={16} // Must be defined for Image component
+                />
+             WhatsApp Us
             </Link>
           </div>
 
