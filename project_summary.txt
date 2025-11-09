@@ -1,4 +1,5 @@
 📁 **PROJECT FILE TREE: mvvppaint**
+├── 📄 .env.local
 ├── 📄 .eslintrc.json
 ├── 📄 .gitignore
 ├── 📄 README.md
@@ -25,10 +26,24 @@
 │   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 accreditations
 │   │   │   ├── 📄 page.tsx
+│   │   ├── 📁 api
+│   │   │   ├── 📁 auth
+│   │   │   │   ├── 📁 [...nextauth]
+│   │   │   │   │   ├── 📄 route.ts
 │   │   ├── 📁 blog
 │   │   │   ├── 📄 page.tsx
+│   │   │   ├── 📁 industrial
+│   │   │   │   ├── 📄 page.tsx
 │   │   │   ├── 📁 structural-remediation
 │   │   │   │   ├── 📄 page.tsx
+│   │   │   ├── 📁 waterproofing
+│   │   │   │   ├── 📄 page.tsx
+│   │   │   │   ├── 📁 leaking-balcony-fixes
+│   │   │   │   │   ├── 📄 page.tsx
+│   │   │   │   ├── 📁 liquid-vs-torch-on
+│   │   │   │   │   ├── 📄 page.tsx
+│   │   │   │   ├── 📁 rising-damp-guide
+│   │   │   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 coatings
 │   │   │   ├── 📁 hygienic-food-grade-flooring
 │   │   │   │   ├── 📄 page.tsx
@@ -45,6 +60,8 @@
 │   │   │   ├── 📁 body-corporate-painting
 │   │   │   │   ├── 📄 page.tsx
 │   │   │   ├── 📁 commercial-painting
+│   │   │   │   ├── 📄 page.tsx
+│   │   │   ├── 📁 high-volume-commercial-painting
 │   │   │   │   ├── 📄 page.tsx
 │   │   │   ├── 📁 industrial-painting
 │   │   │   │   ├── 📄 page.tsx
@@ -94,7 +111,11 @@
 │   │   │   ├── 📄 button.tsx
 │   │   │   ├── 📄 card.tsx
 │   ├── 📁 lib
+│   │   ├── 📄 auth.ts
+│   │   ├── 📄 db.ts
 │   │   ├── 📄 utils.ts
+│   │   ├── 📁 db
+│   │   │   ├── 📄 schema.ts
 
 
 ====================================================================================================
@@ -102,6 +123,24 @@
 📄 **INDIVIDUAL FILE CONTENTS**
 
 ====================================================================================================
+
+--------------------------------------------------------------------------------📄 FILE PATH: .env.local--------------------------------------------------------------------------------```# ==============================================================================
+# 🚨 BUILD-TIME PLACEHOLDERS (REQUIRED FOR DB/AUTH CLIENT INITIALIZATION)
+# NOTE: The values must be set, but they don't need to be real yet.
+# ==============================================================================
+
+# 1. DATABASE CONNECTION STRING
+# Next.js must see this variable set during the build process.
+DATABASE_URL="postgresql://placeholder:placeholder@host:5432/placeholder"
+
+# 2. NEXT-AUTH CORE SECRET
+# Must be set for security and session token signing.
+AUTH_SECRET="insecure_placeholder_change_this_immediately" 
+
+# 3. GITHUB OAUTH PROVIDER CREDENTIALS
+# These need to exist to avoid configuration errors in src/lib/auth.ts.
+GITHUB_ID="placeholder_github_id"
+GITHUB_SECRET="placeholder_github_secret"```
 
 --------------------------------------------------------------------------------📄 FILE PATH: .eslintrc.json--------------------------------------------------------------------------------```{
   "extends": ["next/core-web-vitals", "next/typescript"]
@@ -656,20 +695,22 @@ export default nextConfig;
     "react-hook-form": "^7.66.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^4.1.12"
+    "zod": "^4.1.12",
+    "drizzle-orm": "^0.31.2",
+    "postgres": "^3.4.4" 
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "drizzle-kit": "^0.23.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.33",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
-}
-```
+}```
 
 --------------------------------------------------------------------------------📄 FILE PATH: postcss.config.mjs--------------------------------------------------------------------------------```/** @type {import('postcss-load-config').Config} */
 const config = {
@@ -1386,6 +1427,17 @@ export default function AccreditationsPage() {
     );
 }```
 
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\api\auth\[...nextauth]\route.ts--------------------------------------------------------------------------------```// src/app/api/auth/[...nextauth]/route.ts
+import NextAuth from "next-auth";
+import { authOptions } from "@/lib/auth";
+
+// This dynamic file exports the NextAuth handler function, connecting it to our core configuration.
+
+const handler = NextAuth(authOptions);
+
+// Required by Next.js App Router for handling API requests
+export { handler as GET, handler as POST };```
+
 --------------------------------------------------------------------------------📄 FILE PATH: src\app\blog\page.tsx--------------------------------------------------------------------------------```// src/app/blog/page.tsx
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -1488,6 +1540,107 @@ export default function BlogIndexPage() {
     );
 }```
 
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\blog\industrial\page.tsx--------------------------------------------------------------------------------```// src/app/blog/industrial/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { Factory, Shield, Wrench } from 'lucide-react'; // REMOVED: Building
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Industrial Painting & Maintenance Blog | Corrosion Control & Plant Asset Guides',
+    description: 'Expert industrial guides on corrosion control, abrasive blasting preparation, epoxy flooring systems, and protective coatings for factories and plant assets.',
+};
+
+// --- DATA: Featured Industrial Content (Placeholders) ---
+const FeaturedArticles = [
+    { 
+        title: "The Science of Stopping Rust: Choosing the Right Zinc Primer", 
+        description: "A technical guide to sacrificial and barrier protection systems for structural steel and exposed plant assets.", 
+        icon: Wrench, 
+        href: "/blog/industrial/zinc-primer-corrosion-control" 
+    },
+    { 
+        title: "Minimizing Downtime: Fast-Curing Floors for Food Production", 
+        description: "How fast-curing polyurethane screeds minimize disruption and ensure HACCP compliance in processing plants.", 
+        icon: Factory, 
+        href: "/blog/industrial/fast-curing-floors" 
+    },
+    { 
+        title: "OHS Compliance: Managing High-Access Liability on Industrial Sites", 
+        description: "A checklist for facility managers to ensure contractors meet all OHS requirements for work performed at height.", 
+        icon: Shield, 
+        href: "/blog/industrial/ohs-access-liability" 
+    },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function IndustrialBlogIndexPage() {
+    return (
+        <div className="bg-primary pt-24 text-white min-h-screen">
+
+            {/* --- MODULE 1: INDUSTRIAL BLOG HERO --- */}
+            <section className="relative py-24 md:py-32 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto">
+                    <Factory className="w-12 h-12 text-tertiary mb-4" />
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-5xl">
+                        Industrial Asset Protection Insights.
+                    </h1>
+                    <p className="2xl font-light mt-6 max-w-4xl text-gray-400">
+                        Technical articles dedicated to **corrosion control, high-performance coatings,** and structural preservation for commercial and manufacturing plants.
+                    </p>
+
+                    <Button asChild
+                        className="mt-10 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <Link href="/contact">
+                            Request a Technical Consultation &rarr;
+                        </Link>
+                    </Button>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: FEATURED ARTICLES GRID --- */}
+            <section className="py-24 px-4 bg-primary">
+                <div className="max-w-7xl mx-auto">
+                    <header className="mb-16">
+                        <h2 className="text-4xl font-extrabold uppercase mb-3">
+                            Featured Technical Guides
+                        </h2>
+                        <p className="text-lg text-gray-400 font-light">
+                            Deep-dive analysis on the highest-risk areas of industrial asset maintenance.
+                        </p>
+                    </header>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {FeaturedArticles.map((article, index) => (
+                            <Link key={index} href={article.href}
+                                className="p-8 bg-gray-900 rounded-xl shadow-xl border-t-4 border-tertiary 
+                                           transition-all duration-300 transform hover:scale-[1.03] hover:shadow-secondary/50 group"
+                            >
+                                <article.icon className="w-8 h-8 text-secondary mb-4 group-hover:text-tertiary" />
+                                <h3 className="text-xl font-bold uppercase mb-2 text-white leading-snug">
+                                    {article.title}
+                                </h3>
+                                <p className="text-gray-400 text-sm">
+                                    {article.description}
+                                </p>
+                                <span className="text-tertiary font-bold mt-4 block group-hover:text-white transition-colors">
+                                    Read Article &rarr;
+                                </span>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            </section>
+            
+            {/* --- MODULE 3: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
+        </div>
+    );
+}```
+
 --------------------------------------------------------------------------------📄 FILE PATH: src\app\blog\structural-remediation\page.tsx--------------------------------------------------------------------------------```// src/app/blog/structural-remediation/page.tsx
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -1556,6 +1709,338 @@ export default function StructuralRemediationArticle() {
                         </p>
                          <Button asChild className="mt-4 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-12">
                             <Link href="/structural-repairs">View Our Structural Repair Service Page &rarr;</Link>
+                        </Button>
+                    </section>
+                </div>
+            </div>
+            
+            {/* --- MODULE 4: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <div className="mt-20">
+                <CtaFinalStrip />
+            </div>
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\blog\waterproofing\page.tsx--------------------------------------------------------------------------------```// src/app/blog/waterproofing/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { Shield, Droplet, Layers } from 'lucide-react'; // REMOVED: Building
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Waterproofing & Damp Proofing Guides | Flat Roof, Balcony, and Basement Solutions',
+    description: 'Expert guides on selecting liquid-applied vs. torch-on membranes, preventing rising damp, and troubleshooting water ingress in balconies and basements.',
+};
+
+// --- DATA: Featured Waterproofing Content (Placeholders) ---
+const FeaturedArticles = [
+    { 
+        title: "Liquid Applied Membranes vs. Torch-On: Which System is Right for Your Roof?", 
+        description: "A technical comparison of durability, installation complexity, and warranty implications for flat concrete roofs.", 
+        icon: Droplet, 
+        href: "/blog/waterproofing/liquid-vs-torch-on" 
+    },
+    { 
+        title: "The Ultimate Guide to Eliminating Rising Damp Permanently", 
+        description: "Detailing the chemical DPC injection process and the necessary subsequent plastering and finishing work.", 
+        icon: Layers, 
+        href: "/blog/waterproofing/rising-damp-guide" 
+    },
+    { 
+        title: "Why Your Under-Tile Balcony Keeps Leaking (and how to fix it)", 
+        description: "Diagnosing failed joint sealants and applying low-disruption remediation methods to save your tiles.", 
+        icon: Shield, 
+        href: "/blog/waterproofing/leaking-balcony-fixes" 
+    },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function WaterproofingBlogIndexPage() {
+    return (
+        <div className="bg-primary pt-24 text-white min-h-screen">
+
+            {/* --- MODULE 1: WATERPROOFING BLOG HERO --- */}
+            <section className="relative py-24 md:py-32 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto">
+                    <Layers className="w-12 h-12 text-tertiary mb-4" />
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-5xl">
+                        Waterproofing & Structural Protection Guides.
+                    </h1>
+                    <p className="2xl font-light mt-6 max-w-4xl text-gray-400">
+                        In-depth articles from our specialists on **solving structural water ingress,** chemical damp proofing, and selecting certified membrane systems.
+                    </p>
+
+                    <Button asChild
+                        className="mt-10 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <Link href="/contact">
+                            Consult a Waterproofing Expert &rarr;
+                        </Link>
+                    </Button>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: FEATURED ARTICLES GRID --- */}
+            <section className="py-24 px-4 bg-primary">
+                <div className="max-w-7xl mx-auto">
+                    <header className="mb-16">
+                        <h2 className="text-4xl font-extrabold uppercase mb-3">
+                            Essential Guides to Moisture Control
+                        </h2>
+                        <p className="text-lg text-gray-400 font-light">
+                            Protect your investment by understanding the critical technical differences between systems.
+                        </p>
+                    </header>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {FeaturedArticles.map((article, index) => (
+                            <Link key={index} href={article.href}
+                                className="p-8 bg-gray-900 rounded-xl shadow-xl border-t-4 border-tertiary 
+                                           transition-all duration-300 transform hover:scale-[1.03] hover:shadow-secondary/50 group"
+                            >
+                                <article.icon className="w-8 h-8 text-secondary mb-4 group-hover:text-tertiary" />
+                                <h3 className="text-xl font-bold uppercase mb-2 text-white leading-snug">
+                                    {article.title}
+                                </h3>
+                                <p className="text-gray-400 text-sm">
+                                    {article.description}
+                                </p>
+                                <span className="text-tertiary font-bold mt-4 block group-hover:text-white transition-colors">
+                                    Read Article &rarr;
+                                </span>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            </section>
+            
+            {/* --- MODULE 3: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\blog\waterproofing\leaking-balcony-fixes\page.tsx--------------------------------------------------------------------------------```// src/app/blog/waterproofing/leaking-balcony-fixes/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { Shield, BookOpen, Droplet, Wrench } from 'lucide-react'; // REMOVED: Users
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'How to Fix a Leaking Balcony Without Removing Tiles (Low-Disruption Repair)',
+    description: 'A practical guide for body corporates and homeowners on diagnosing and repairing leaking under-tile balconies using low-disruption injection and re-grouting systems, avoiding costly demolition.',
+};
+
+// --- MAIN PAGE COMPONENT ---
+export default function LeakingBalconyFixesArticle() {
+    return (
+        <div className="bg-gray-50 pt-32 pb-24 text-primary min-h-screen">
+            <div className="max-w-4xl mx-auto px-4">
+                
+                {/* --- HEADER: Article Metadata --- */}
+                <header className="mb-12 border-b border-gray-300 pb-6">
+                    <div className="flex items-center space-x-4 text-sm text-gray-500 mb-2">
+                        <Link href="/blog/waterproofing" className="hover:text-secondary font-semibold uppercase">
+                            <BookOpen className="w-4 h-4 mr-1 inline-block" /> Waterproofing Guides
+                        </Link>
+                        <span>|</span>
+                        <span className="flex items-center space-x-1"><Droplet className="w-4 h-4" /> Balcony Remediation</span>
+                    </div>
+                    
+                    <h1 className="text-5xl font-extrabold text-primary leading-tight uppercase mb-4">
+                        The Low-Disruption Fix: Leaking Balconies Without Tile Removal.
+                    </h1>
+                </header>
+
+                {/* --- ARTICLE CONTENT --- */}
+                <div className="space-y-8 text-lg text-gray-700 leading-relaxed">
+                    
+                    <section>
+                        <h2 className="text-3xl font-bold text-primary mb-4">The Balcony Leak Problem: Usually the Grout, Not the Slab</h2>
+                        <p>
+                            In many cases, water ingress in a tiled balcony is not caused by a failed slab, but by a **failed or cracked grout and joint sealant system**. Water penetrates these joints, saturates the screed beneath the tiles, and then migrates laterally until it reaches the substrate below or the room below. The key is to stop the water at the surface without the destructive, expensive process of removing all the tiles.
+                        </p>
+                    </section>
+                    
+                    <section>
+                        <h2 className="text-3xl font-bold text-primary mb-4">Our Low-Disruption Remediation Process</h2>
+                        <p>
+                            We specialize in targeted, low-disruption systems that save time, money, and most importantly, the original aesthetics of the balcony.
+                        </p>
+                        <ul className="list-disc list-inside space-y-2 ml-6 font-semibold">
+                            <li className="flex items-center space-x-2"><Wrench className="w-5 h-5 text-secondary" /> **Grout Removal:** Carefully remove old, cracked, or compromised grout lines.</li>
+                            <li className="flex items-center space-x-2"><Droplet className="w-5 h-5 text-secondary" /> **Injection/Sealing:** Injecting specialized flexible epoxy sealants into critical joints and re-grouting with high-performance, water-repellent grout.</li>
+                            <li className="flex items-center space-x-2"><Shield className="w-5 h-5 text-secondary" /> **Final Finish:** Applying an invisible, penetrating sealer over the entire tile surface to reduce porosity.</li>
+                        </ul>
+                        <p>
+                            This method minimizes disruption to residents and is significantly faster and more cost-effective than full demolition and re-waterproofing.
+                        </p>
+                    </section>
+
+                    <section className="bg-primary text-white p-6 rounded-xl shadow-xl">
+                        <h3 className="text-2xl font-bold text-tertiary mb-3">A Note for Body Corporates</h3>
+                        <p className="text-lg">
+                            When dealing with multiple balconies, the low-disruption fix is essential to manage budgets and resident inconvenience. Always prioritize a solution that **guarantees against water migration** into the screed layer.
+                        </p>
+                         <Button asChild className="mt-4 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-12">
+                            <Link href="/waterproofing-services">View All Our Guaranteed Waterproofing Systems &rarr;</Link>
+                        </Button>
+                    </section>
+                </div>
+            </div>
+            
+            {/* --- MODULE 4: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <div className="mt-20">
+                <CtaFinalStrip />
+            </div>
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\blog\waterproofing\liquid-vs-torch-on\page.tsx--------------------------------------------------------------------------------```// src/app/blog/waterproofing/liquid-vs-torch-on/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { Droplet, BookOpen, Layers, CheckSquare } from 'lucide-react'; 
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Technical Comparison: Liquid Applied vs. Torch-On Waterproofing Membranes',
+    description: 'An expert technical guide comparing the durability, installation process, and long-term cost-effectiveness of liquid applied polyurethane membranes against traditional torch-on felt systems for flat roofs and balconies.',
+};
+
+// --- MAIN PAGE COMPONENT ---
+export default function LiquidVsTorchOnArticle() {
+    return (
+        <div className="bg-gray-50 pt-32 pb-24 text-primary min-h-screen">
+            <div className="max-w-4xl mx-auto px-4">
+                
+                {/* --- HEADER: Article Metadata --- */}
+                <header className="mb-12 border-b border-gray-300 pb-6">
+                    <div className="flex items-center space-x-4 text-sm text-gray-500 mb-2">
+                        <Link href="/blog/waterproofing" className="hover:text-secondary font-semibold uppercase">
+                            <BookOpen className="w-4 h-4 mr-1 inline-block" /> Waterproofing Guides
+                        </Link>
+                        <span>|</span>
+                        <span className="flex items-center space-x-1"><Layers className="w-4 h-4" /> Technical Specification</span>
+                    </div>
+                    
+                    <h1 className="text-5xl font-extrabold text-primary leading-tight uppercase mb-4">
+                        Liquid Applied vs. Torch-On: Which Waterproofing System is Superior?
+                    </h1>
+                </header>
+
+                {/* --- ARTICLE CONTENT --- */}
+                <div className="space-y-8 text-lg text-gray-700 leading-relaxed">
+                    
+                    <section>
+                        <h2 className="text-3xl font-bold text-primary mb-4">The Seamless Advantage of Liquid Membranes</h2>
+                        <p>
+                            **Liquid Applied Membranes (LAMs)**, particularly polyurethane systems, offer a fundamentally superior seal for complex flat roofs and structures. Unlike felt-based systems, LAMs cure to form a single, seamless, monolithic barrier. This eliminates the weakest point of any traditional system: the joins and overlaps.
+                        </p>
+                        <ul className="list-disc list-inside space-y-2 ml-6 font-semibold">
+                            <li className="flex items-center space-x-2"><Droplet className="w-5 h-5 text-secondary" /> Forms a single, monolithic, and joint-free barrier.</li>
+                            <li className="flex items-center space-x-2"><CheckSquare className="w-5 h-5 text-secondary" /> Adheres fully to substrates, reducing risk of water migration beneath the membrane.</li>
+                            <li className="flex items-center space-x-2"><Droplet className="w-5 h-5 text-secondary" /> Ideal for complex details like parapet walls, vents, and flashings where torch-on often fails.</li>
+                        </ul>
+                    </section>
+                    
+                    <section>
+                        <h2 className="text-3xl font-bold text-primary mb-4">The Trade-offs of Torch-On Systems</h2>
+                        <p>
+                            **Torch-On Systems** (bituminous felt) are robust and widely used, but their reliance on heat application introduces site risks and inherent limitations. Every overlap is a potential point of failure. While they offer excellent resistance to foot traffic and puncture, the system&apos;s performance is entirely dependent on the skill and precision of the applicator fusing the seams.
+                        </p>
+                    </section>
+
+                    <section className="bg-primary text-white p-6 rounded-xl shadow-xl">
+                        <h3 className="text-2xl font-bold text-tertiary mb-3">Maverick&apos;s Specification Recommendation</h3>
+                        <p className="text-lg">
+                            For critical, high-value assets (like multi-story commercial roofs and balconies), we generally specify **high-quality polyurethane LAMs** due to their seamless, long-term integrity. For large, open, and accessible industrial roofs, an expertly applied torch-on system can still be cost-effective. The choice is always substrate and project-specific.
+                        </p>
+                         <Button asChild className="mt-4 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-12">
+                            <Link href="/waterproofing-services">Request a Waterproofing Specification Audit &rarr;</Link>
+                        </Button>
+                    </section>
+                </div>
+            </div>
+            
+            {/* --- MODULE 4: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <div className="mt-20">
+                <CtaFinalStrip />
+            </div>
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\blog\waterproofing\rising-damp-guide\page.tsx--------------------------------------------------------------------------------```// src/app/blog/waterproofing/rising-damp-guide/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { Layers, BookOpen, CheckSquare, Droplet, Wrench } from 'lucide-react'; 
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'The Permanent Fix for Rising Damp: Chemical DPC Injection Guide',
+    description: 'A comprehensive guide on diagnosing rising damp versus condensation, detailing the chemical DPC (Damp Proof Course) injection method, and the essential subsequent plaster remediation.',
+};
+
+// --- MAIN PAGE COMPONENT ---
+export default function RisingDampGuideArticle() {
+    return (
+        <div className="bg-gray-50 pt-32 pb-24 text-primary min-h-screen">
+            <div className="max-w-4xl mx-auto px-4">
+                
+                {/* --- HEADER: Article Metadata --- */}
+                <header className="mb-12 border-b border-gray-300 pb-6">
+                    <div className="flex items-center space-x-4 text-sm text-gray-500 mb-2">
+                        <Link href="/blog/waterproofing" className="hover:text-secondary font-semibold uppercase">
+                            <BookOpen className="w-4 h-4 mr-1 inline-block" /> Waterproofing Guides
+                        </Link>
+                        <span>|</span>
+                        <span className="flex items-center space-x-1"><Droplet className="w-4 h-4" /> Moisture Control</span>
+                    </div>
+                    
+                    <h1 className="text-5xl font-extrabold text-primary leading-tight uppercase mb-4">
+                        The Permanent Fix for Rising Damp: Chemical DPC Injection.
+                    </h1>
+                </header>
+
+                {/* --- ARTICLE CONTENT --- */}
+                <div className="space-y-8 text-lg text-gray-700 leading-relaxed">
+                    
+                    <section>
+                        <h2 className="text-3xl font-bold text-primary mb-4">Rising Damp vs. Condensation: The Correct Diagnosis</h2>
+                        <p>
+                            The first mistake is treating all internal dampness as rising damp. Rising damp draws moisture up from the ground via capillary action, typically affecting only the lowest meter of the wall. Condensation is an airborne moisture problem, usually appearing in high-humidity areas like bathrooms. We use **moisture profiling equipment** to definitively diagnose the source before recommending treatment.
+                        </p>
+                    </section>
+                    
+                    <section>
+                        <h2 className="text-3xl font-bold text-primary mb-4">The Chemical DPC Injection Process</h2>
+                        <p>
+                            Since many older properties have failed or absent damp-proof courses, the modern solution is a **Chemical DPC**. This involves drilling a series of holes into the lowest mortar course, injecting a water-repellent (silane or siloxane-based) cream under pressure, and allowing it to cure.
+                        </p>
+                        <ul className="list-disc list-inside space-y-2 ml-6 font-semibold">
+                            <li className="flex items-center space-x-2"><Wrench className="w-5 h-5 text-secondary" /> **Injection:** Forming a new, permanent, horizontal barrier within the wall fabric.</li>
+                            <li className="flex items-center space-x-2"><Layers className="w-5 h-5 text-secondary" /> **Plaster Remediation:** All contaminated plaster must be removed and replaced with salt-retardant render to prevent salt migration.</li>
+                            <li className="flex items-center space-x-2"><CheckSquare className="w-5 h-5 text-secondary" /> **Finishing:** Applying a final coat of breathable, decorative paint.</li>
+                        </ul>
+                    </section>
+
+                    <section className="bg-primary text-white p-6 rounded-xl shadow-xl">
+                        <h3 className="text-2xl font-bold text-tertiary mb-3">Why DIY Damp Proofing Fails</h3>
+                        <p className="text-lg">
+                            The failure of DIY or non-specialized damp proofing usually occurs in the **plaster remediation** phase. If salt-contaminated plaster is not fully removed, the salts will continue to draw moisture from the air, causing the damp to reappear. Always use a professional who guarantees the entire process.
+                        </p>
+                         <Button asChild className="mt-4 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-12">
+                            <Link href="/damp-proofing-services">View Our Full Damp Proofing Solutions &rarr;</Link>
                         </Button>
                     </section>
                 </div>
@@ -2251,6 +2736,118 @@ export default function CommercialPaintingPage() {
                     {/* Features Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {CommercialFeatures.map((feature, index) => (
+                            <div key={index} className={`p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 ${feature.accentColor}`}>
+                                <feature.icon className="w-8 h-8 text-secondary mb-4" />
+                                <h3 className="text-xl font-bold uppercase mb-2 text-white">
+                                    {feature.title}
+                                </h3>
+                                <p className="text-gray-400 text-sm">
+                                    {feature.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 3: THE QA PROCESS (Reusing Trust Module) --- */}
+            <QaProcessModule />
+
+            {/* --- MODULE 4: ACCREDITATIONS (Visual Trust) --- */}
+            <AccreditationsStrip />
+
+            {/* --- MODULE 5: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\painting\high-volume-commercial-painting\page.tsx--------------------------------------------------------------------------------```// src/app/painting/high-volume-commercial-painting/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { QaProcessModule } from '@/components/qa-process-module';
+import { AccreditationsStrip } from '@/components/accreditations-strip';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { Scale, Factory, Clock, Building } from 'lucide-react'; 
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Large-Scale Commercial Painting Contractors | High-Volume Industrial Facades',
+    description: 'High-volume commercial painting services for large retail centres, office blocks, and industrial complexes. We specialize in projects requiring strict scheduling and multi-phase execution.',
+};
+
+// --- KEY FEATURES DATA ---
+const VolumeFeatures = [
+    {
+        title: "Large-Scale Capacity",
+        description: "Dedicated project management and labor resources to handle painting projects exceeding R1 million in value and complex commercial specifications.",
+        icon: Scale,
+        accentColor: "border-secondary",
+    },
+    {
+        title: "Multi-Phase Scheduling",
+        description: "Expertise in segmenting large sites into multi-phase execution plans to minimize operational disruption and maintain access control.",
+        icon: Clock,
+        accentColor: "border-tertiary",
+    },
+    {
+        title: "Commercial Facade Restoration",
+        description: "Specialized in preparation and coating systems tailored to protect modern commercial facades against weathering and environmental pollutants.",
+        icon: Building,
+        accentColor: "border-secondary",
+    },
+    {
+        title: "Industrial Complex Painting",
+        description: "High-level access and specialized anti-corrosion applications for painting large industrial sites, warehouses, and storage depots.",
+        icon: Factory,
+        accentColor: "border-tertiary",
+    },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function HighVolumeCommercialPaintingPage() {
+    return (
+        <div className="bg-primary pt-24 text-white">
+
+            {/* --- MODULE 1: HIGH-VOLUME HERO --- */}
+            <section className="relative py-24 md:py-40 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto">
+                    <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-3">
+                        Project Volume Expertise
+                    </p>
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-5xl">
+                        High-Volume Commercial & Large-Scale Painting.
+                    </h1>
+                    <p className="2xl font-light mt-6 max-w-4xl text-gray-400">
+                        We are the preferred contractors for large retail groups and property management firms, specializing in **high-volume, multi-phase commercial painting** and asset restoration.
+                    </p>
+
+                    <Button asChild
+                        className="mt-10 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <Link href="/contact">
+                            Request Large Project Tender &rarr;
+                        </Link>
+                    </Button>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: PROJECT FEATURES GRID --- */}
+            <section className="py-24 px-4 bg-primary">
+                <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-4xl mx-auto mb-16">
+                        <h2 className="text-4xl font-extrabold uppercase mb-3">
+                            Capacity Built for Scale & Scheduling
+                        </h2>
+                        <p className="text-lg text-gray-400 font-light">
+                            Our resources and project planning are optimized to deliver large commercial tenders on time and within operational constraints.
+                        </p>
+                    </header>
+
+                    {/* Features Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {VolumeFeatures.map((feature, index) => (
                             <div key={index} className={`p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 ${feature.accentColor}`}>
                                 <feature.icon className="w-8 h-8 text-secondary mb-4" />
                                 <h3 className="text-xl font-bold uppercase mb-2 text-white">
@@ -5116,6 +5713,95 @@ CardFooter.displayName = "CardFooter"
 export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
 ```
 
+--------------------------------------------------------------------------------📄 FILE PATH: src\lib\auth.ts--------------------------------------------------------------------------------```// src/lib/auth.ts
+// ADDED: Module augmentation for NextAuth types
+declare module "next-auth" {
+    interface Session {
+        user: {
+            id: string; // Add the 'id' property to the User interface
+            name?: string | null;
+            email?: string | null;
+            image?: string | null;
+        };
+    }
+}
+
+import { getServerSession } from "next-auth";
+import { DrizzleAdapter } from "@auth/drizzle-adapter";
+import type { NextAuthOptions } from "next-auth";
+import GitHubProvider from "next-auth/providers/github";
+import { db } from "./db"; // Placeholder for actual database connection
+
+// NOTE: We rely on the developer setting environment variables:
+// GITHUB_ID, GITHUB_SECRET, AUTH_SECRET (for NextAuth)
+// and DATABASE_URL (for Drizzle/Postgres)
+
+export const authOptions: NextAuthOptions = {
+    // Adapter connects Auth.js to the database schema
+    adapter: DrizzleAdapter(db), 
+    
+    // Configure authentication providers
+    providers: [
+        GitHubProvider({
+            clientId: process.env.GITHUB_ID!,
+            clientSecret: process.env.GITHUB_SECRET!,
+        }),
+        // Add more providers here (e.g., Google, Credentials)
+    ],
+
+    // Strategy for managing sessions (using JWTs for statelessness is common for Next.js/Vercel)
+    session: {
+        strategy: "jwt",
+    },
+
+    // Secret is required for signing the session cookie
+    secret: process.env.AUTH_SECRET,
+    
+    // Pages configuration (optional, but good practice for protected routes)
+    pages: {
+        signIn: '/auth/signin', // Custom sign-in page path
+        error: '/auth/error', // Error page path
+    },
+
+    // Callbacks can be used to customize session and JWT data
+    callbacks: {
+        async session({ session, token }) {
+            // Include user ID in the session object (now safe due to augmentation)
+            if (token.sub && session.user) {
+                session.user.id = token.sub; 
+            }
+            return session;
+        },
+        async jwt({ token, user }) {
+             // Pass user ID from sign-in to the token
+            if (user) {
+                token.sub = user.id;
+            }
+            return token;
+        }
+    },
+};
+
+// Helper function to get the session on the server (used in API handlers and Server Components)
+export const getAuthSession = () => getServerSession(authOptions);```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\lib\db.ts--------------------------------------------------------------------------------```// src/lib/db.ts
+// FIX: Using the direct package name, relying on npm resolution
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres"; 
+import * as schema from "./db/schema"; // Import your schema definitions
+
+// Drizzle ORM requires the developer to define the DATABASE_URL environment variable.
+if (!process.env.DATABASE_URL) {
+  throw new Error("DATABASE_URL is missing in environment variables.");
+}
+
+// Create a connection pool using postgres-js
+const client = postgres(process.env.DATABASE_URL);
+
+// Initialize Drizzle with the client and your schema files
+export const db = drizzle(client, { schema });```
+
 --------------------------------------------------------------------------------📄 FILE PATH: src\lib\utils.ts--------------------------------------------------------------------------------```import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -5123,4 +5809,84 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 ```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\lib\db\schema.ts--------------------------------------------------------------------------------```// src/lib/db/schema.ts
+import {
+  timestamp,
+  pgTable,
+  text,
+  primaryKey,
+  integer,
+  serial,
+  // REMOVED: Unnecessary explicit Drizzle types that caused the error
+} from "drizzle-orm/pg-core";
+import type { AdapterAccount } from "@auth/core/adapters";
+
+// --- CORE TABLES FOR NEXT-AUTH INTEGRATION (Auth.js) ---
+
+export const users = pgTable("user", {
+  id: text("id").notNull().primaryKey(),
+  name: text("name"),
+  email: text("email").notNull(),
+  emailVerified: timestamp("emailVerified", { mode: "date" }),
+  image: text("image"),
+});
+
+export const accounts = pgTable(
+  "account",
+  {
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    type: text("type").$type<AdapterAccount["type"]>().notNull(),
+    provider: text("provider").notNull(),
+    providerAccountId: text("providerAccountId").notNull(),
+    refresh_token: text("refresh_token"),
+    access_token: text("access_token"),
+    expires_at: integer("expires_at"),
+    token_type: text("token_type"),
+    scope: text("scope"),
+    id_token: text("id_token"),
+    session_state: text("session_state"),
+  },
+  (account) => ({ // FIX: Removed explicit type casting (PgTableFn<any>)
+    compoundKey: primaryKey({
+      columns: [account.provider, account.providerAccountId],
+    }),
+  })
+);
+
+export const sessions = pgTable("session", {
+  sessionToken: text("sessionToken").notNull().primaryKey(),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  expires: timestamp("expires", { mode: "date" }).notNull(),
+});
+
+export const verificationTokens = pgTable(
+  "verificationToken",
+  {
+    identifier: text("identifier").notNull(),
+    token: text("token").notNull(),
+    expires: timestamp("expires", { mode: "date" }).notNull(),
+  },
+  (vt) => ({ // FIX: Removed explicit type casting (PgTableFn<any>)
+    compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
+  })
+);
+
+// --- APPLICATION-SPECIFIC TABLES (Example) ---
+
+// Placeholder table for Blog Articles (to enable dynamic content later)
+export const articles = pgTable("article", {
+    id: serial("id").primaryKey(),
+    title: text("title").notNull(),
+    slug: text("slug").notNull().unique(),
+    content: text("content").notNull(),
+    createdAt: timestamp("createdAt", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt", { mode: "date" }).defaultNow().notNull(),
+    // Link to the user who authored the article
+    authorId: text("authorId").references(() => users.id, { onDelete: "set null" }), 
+});```
 
