@@ -26,7 +26,23 @@
 │   │   ├── 📁 fonts
 │   │   │   ├── 📄 GeistMonoVF.woff
 │   │   │   ├── 📄 GeistVF.woff
+│   │   ├── 📁 our-process-independent-qa
+│   │   │   ├── 📄 page.tsx
+│   │   ├── 📁 painting
+│   │   │   ├── 📁 body-corporate-painting
+│   │   │   │   ├── 📄 page.tsx
+│   │   ├── 📁 projects
+│   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 services
+│   │   │   ├── 📄 page.tsx
+│   │   ├── 📁 solutions
+│   │   │   ├── 📁 for-body-corporates
+│   │   │   │   ├── 📄 page.tsx
+│   │   ├── 📁 specialized-coatings
+│   │   │   ├── 📄 page.tsx
+│   │   ├── 📁 structural-repairs
+│   │   │   ├── 📄 page.tsx
+│   │   ├── 📁 waterproofing-services
 │   │   │   ├── 📄 page.tsx
 │   ├── 📁 components
 │   │   ├── 📄 accreditations-strip.tsx
@@ -1184,20 +1200,328 @@ export default function ContactPage() {
     );
 }```
 
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\our-process-independent-qa\page.tsx--------------------------------------------------------------------------------```// src/app/our-process-independent-qa/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+// import { QaProcessModule } from '@/components/qa-process-module'; // REMOVED: Replaced by custom module below
+import { AccreditationsStrip } from '@/components/accreditations-strip';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { Scroll, CheckSquare, FileText, BarChart } from 'lucide-react';
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Independent 3rd Party QA Process & Guarantee | Maverick Painting',
+    description: 'Learn how our Independent 3rd Party Quality Assurance (QA) process eliminates project risk. Receive bi-weekly reports on film thickness and application quality, guaranteed.',
+};
+
+// --- TECHNICAL DATA FOR THE PROCESS MODULE ---
+const FullQAProcess = [
+    {
+        step: 1,
+        title: "Pre-Project Substrate Assessment",
+        description: "An independent coatings inspector conducts the initial hammer tests, moisture readings, and adhesion tests. We use this data to finalize a **non-negotiable technical specification** that includes material type, minimum film thickness, and preparation method.",
+        icon: Scroll,
+    },
+    {
+        step: 2,
+        title: "Mandatory Surface Preparation Checks",
+        description: "The inspector verifies that surface preparation (e.g., crack cleaning, spalling repair, washing) meets SANS and manufacturer standards *before* primer is applied. This ensures maximum adhesion and product lifespan.",
+        icon: CheckSquare,
+    },
+    {
+        step: 3,
+        title: "Film Thickness Measurement & Verification",
+        // FIX: Replaced single quote ' with &apos; to escape the character
+        description: "The inspector monitors the **Wet Film Thickness (WFT)** and **Dry Film Thickness (DFT)** of every coat. This is critical: if minimum thickness is not met, the manufacturer guarantee is void. We ensure it&apos;s verified.",
+        icon: BarChart,
+    },
+    {
+        step: 4,
+        title: "Bi-Weekly Progress & Technical Reporting",
+        description: "You receive a comprehensive report every two weeks detailing all tests, compliance checks, and a visual project overview. This provides **total, verifiable transparency** for trustees or building owners.",
+        icon: FileText,
+    },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function IndependentQAPage() {
+    return (
+        <div className="bg-gray-50 pt-24">
+
+            {/* --- MODULE 1: TRUST HERO (Server Component) --- */}
+            <section className="relative py-24 md:py-40 px-4 bg-primary text-white border-b-4 border-tertiary">
+                <div className="max-w-7xl mx-auto">
+                    <p className="text-xl font-medium uppercase tracking-widest text-secondary mb-3">
+                        Our Unbeatable De-Risking Strategy
+                    </p>
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-4xl">
+                        Independent QA. The Only Real Guarantee.
+                    </h1>
+                    <p className="text-2xl font-light mt-6 max-w-3xl text-gray-400">
+                        We do not rely on self-inspection. We pay a trusted, **independent 3rd party** to verify every critical phase of your high-value project, giving you auditable, bi-weekly proof of quality.
+                    </p>
+
+                    <Button asChild
+                        className="mt-10 bg-tertiary hover:bg-[#9ED529] text-primary font-bold text-lg h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <Link href="/contact">
+                            Eliminate Risk & Get a Quote &rarr;
+                        </Link>
+                    </Button>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: FULL PROCESS BREAKDOWN (Custom Module for Depth) --- */}
+            <section className="py-24 px-4 bg-gray-50">
+                <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-3xl mx-auto mb-16">
+                        <h2 className="text-4xl font-extrabold uppercase text-primary mb-3">
+                            The Four Steps to Auditable Quality
+                        </h2>
+                        <p className="text-lg text-gray-700 font-light">
+                            Our process is co-signed by the manufacturer, the contractor (Maverick), and the independent inspection body.
+                        </p>
+                    </header>
+
+                    {/* Timeline/Steps Grid */}
+                    <div className="space-y-12">
+                        {FullQAProcess.map((item) => (
+                            <div key={item.step} className="flex flex-col md:flex-row space-x-0 md:space-x-12 items-start group">
+                                <div className="flex-shrink-0 mb-4 md:mb-0 w-full md:w-48">
+                                    <div className="text-5xl font-extrabold text-secondary group-hover:text-tertiary transition-colors">
+                                        {`0${item.step}`}
+                                    </div>
+                                    <h3 className="text-2xl font-bold uppercase text-primary mt-1">
+                                        {`Step ${item.step}`}
+                                    </h3>
+                                </div>
+                                <div className="flex-1 border-l-4 border-gray-300 pl-6 py-2 rounded-r-lg group-hover:border-secondary transition-colors duration-300">
+                                    <div className="flex items-center space-x-4 mb-3">
+                                        <item.icon className="w-8 h-8 text-secondary group-hover:text-tertiary transition-colors" />
+                                        <h4 className="text-2xl font-bold text-primary">{item.title}</h4>
+                                    </div>
+                                    <p className="text-lg text-gray-700">
+                                        {item.description}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="mt-16 text-center">
+                        <p className="text-xl font-semibold text-primary">Ready for a guarantee that holds up to scrutiny?</p>
+                        <Button asChild
+                            className="mt-4 bg-primary hover:bg-gray-800 text-white font-bold text-lg h-12 shadow-xl"
+                        >
+                            <Link href="/contact">
+                                Request Auditable Quote &rarr;
+                            </Link>
+                        </Button>
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 3: ACCREDITATIONS (Visual Trust) --- */}
+            <AccreditationsStrip />
+
+            {/* --- MODULE 4: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\painting\body-corporate-painting\page.tsx--------------------------------------------------------------------------------```// src/app/painting/body-corporate-painting/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { QaProcessModule } from '@/components/qa-process-module';
+import { AccreditationsStrip } from '@/components/accreditations-strip';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { Building, Paintbrush, Truck, Users, Clock } from 'lucide-react';
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Large-Scale Body Corporate Painting Contractors Gauteng | Auditable Quality',
+    description: 'Expert residential complex and Body Corporate painting services. We ensure minimal resident disturbance, full site compliance, and transparent Independent QA on all common property painting projects.',
+};
+
+// --- KEY FEATURES DATA ---
+const ProjectFeatures = [
+    {
+        title: "Owner Supervision",
+        description: "Every project is overseen daily by a director or senior manager, ensuring quality standards are maintained.",
+        icon: Users,
+    },
+    {
+        title: "Advanced Access",
+        description: "We utilize our own scaffolding and high-access methods to manage costs and ensure safe, compliant painting of high-rise structures.",
+        icon: Truck,
+    },
+    {
+        title: "Minimal Disruption",
+        description: "Strict scheduling and site cleanup protocols minimize noise and inconvenience for residents and unit owners.",
+        icon: Clock,
+    },
+    {
+        title: "Common Property Focus",
+        description: "Specialized in common area painting, including boundary walls, guard houses, lift shafts, and large unit facades.",
+        icon: Paintbrush,
+    },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function BodyCorporatePaintingPage() {
+    return (
+        <div className="bg-primary pt-24 text-white">
+
+            {/* --- MODULE 1: PAINTING FOCUS HERO --- */}
+            <section className="relative py-24 md:py-40 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto">
+                    <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-3">
+                        Large-Scale Residential Complexes
+                    </p>
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-5xl">
+                        Dedicated Body Corporate Painting Services.
+                    </h1>
+                    <p className="text-2xl font-light mt-6 max-w-4xl text-gray-400">
+                        We deliver the durability and compliance required by trustees, supported by our **Independent QA guarantee** that eliminates debates over application quality.
+                    </p>
+
+                    <Button asChild
+                        className="mt-10 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <Link href="/contact">
+                            Get Quote for Common Property &rarr;
+                        </Link>
+                    </Button>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: PROJECT FEATURES GRID --- */}
+            <section className="py-24 px-4 bg-primary">
+                <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-4xl mx-auto mb-16">
+                        <h2 className="text-4xl font-extrabold uppercase mb-3">
+                            Project Management That Works for Residents
+                        </h2>
+                        <p className="text-lg text-gray-400 font-light">
+                            Our team is optimized for efficiency and resident respect when working in complex, high-density residential environments.
+                        </p>
+                    </header>
+
+                    {/* Features Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {ProjectFeatures.map((feature, index) => (
+                            <div key={index} className="p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 border-tertiary">
+                                <feature.icon className="w-8 h-8 text-secondary mb-4" />
+                                <h3 className="text-xl font-bold uppercase mb-2 text-white">
+                                    {feature.title}
+                                </h3>
+                                <p className="text-gray-400 text-sm">
+                                    {feature.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                    
+                    <div className="mt-12 text-center">
+                         <Button asChild
+                            variant="link"
+                            className="text-tertiary hover:text-white mt-4 pl-0 text-lg font-bold"
+                        >
+                            <Link href="/solutions/for-body-corporates">
+                                See How We Eliminate Trustee Risk &rarr;
+                            </Link>
+                        </Button>
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 3: THE QA PROCESS (Reusing Trust Module) --- */}
+            <QaProcessModule />
+
+            {/* --- MODULE 4: ACCREDITATIONS (Visual Trust) --- */}
+            <AccreditationsStrip />
+
+            {/* --- MODULE 5: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\projects\page.tsx--------------------------------------------------------------------------------```// src/app/projects/page.tsx
+import type { Metadata } from 'next';
+// import Link from 'next/link'; // REMOVED: Unused
+// import { Button } from '@/components/ui/button'; // REMOVED: Unused
+import { ProjectShowcaseModule } from '@/components/project-showcase-module';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { Layers, MapPin, CheckSquare } from 'lucide-react';
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Gauteng Painting & Structural Repair Project Portfolio | Maverick',
+    description: 'View our portfolio of high-value commercial, body corporate, and industrial projects across Gauteng, including Midrand, Pretoria East, and North Riding. Verifiable quality assurance on every job.',
+};
+
+// --- CORE FEATURE DATA (Proof Points) ---
+const ProofPoints = [
+    { text: "Hyper-Local Focus: Midrand, Pretoria, Benoni", icon: MapPin },
+    { text: "Structural Complexity Handled", icon: Layers },
+    { text: "Independent QA Verified Quality", icon: CheckSquare },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function ProjectsPage() {
+    return (
+        <div className="bg-primary pt-24 text-white">
+
+            {/* --- MODULE 1: PORTFOLIO HERO --- */}
+            <section className="relative py-24 md:py-32 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto">
+                    <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-3">
+                        Verifiable Track Record
+                    </p>
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-4xl">
+                        Proof in Paint. Our Commercial Portfolio.
+                    </h1>
+                    <div className="flex flex-wrap space-x-6 mt-6">
+                        {ProofPoints.map((point, index) => (
+                             <div key={index} className="flex items-center space-x-2 text-lg font-medium text-gray-400">
+                                 <point.icon className="w-5 h-5 text-secondary" />
+                                 <span>{point.text}</span>
+                             </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: PROJECT SHOWCASE (The Engine) --- */}
+            {/* This re-uses the list component from the homepage, but its purpose is 
+                now purely to serve local SEO links to dynamic project pages. */}
+            <ProjectShowcaseModule />
+
+            {/* --- MODULE 3: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
+        </div>
+    );
+}```
+
 --------------------------------------------------------------------------------📄 FILE PATH: src\app\services\page.tsx--------------------------------------------------------------------------------```// src/app/services/page.tsx
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ClipboardCheck, Shield, Wrench, FlaskConical, Building, Layers, Home, Factory, Phone } from 'lucide-react'; // Removed HardHat and Scroll
+import { ClipboardCheck, Shield, Wrench, FlaskConical, Building, Layers, Home, Factory, Phone } from 'lucide-react';
+// Removed HardHat and Scroll
 import { QaProcessModule } from '@/components/qa-process-module'; // Reusing existing module
-import { AccreditationsStrip } from '@/components/accreditations-strip'; // Reusing existing module
+import { AccreditationsStrip } from '@/components/accreditations-strip';
+// Reusing existing module
 
 // --- METADATA (SEO) ---
 export const metadata: Metadata = {
-    title: 'Specialized Painting, Waterproofing & Structural Repair Services | Maverick',
-    description: 'A structural asset maintenance partner offering turn-key solutions for commercial, industrial, and body corporate properties, including structural repairs, specialized coatings, and Independent QA.',
+    title: 'Specialized Painting, Waterproofing & Structural Repair Services | Gauteng Contractor',
+    description: 'A structural asset maintenance partner offering guaranteed, turn-key solutions for commercial, industrial, and body corporate properties, including structural repairs, specialized coatings, and Independent QA. Johannesburg & Pretoria.',
 };
-
 // --- CORE SERVICE PILLAR DATA (Central to SEO Silo) ---
 const servicePillars = [
     {
@@ -1207,6 +1531,7 @@ const servicePillars = [
         description: "The foundation of asset maintenance. We fix concrete cancer, spalling, structural cracks, and joint defects before any coating is applied.",
         subServices: [
             "Concrete Spalling Repair",
+
             "Structural Crack Injection",
             "Expansion Joint Sealing",
             "Rising Damp Treatment",
@@ -1217,6 +1542,7 @@ const servicePillars = [
     {
         title: "Specialized Coating Systems",
         href: "/specialized-coatings",
+
         icon: FlaskConical,
         description: "Beyond standard paint. We are approved applicators for high-performance, durable floor, wall, and industrial coating systems.",
         subServices: [
@@ -1224,6 +1550,7 @@ const servicePillars = [
             "Hygienic Food-Grade Floors",
             "Marmoran Master Applicator",
             "Industrial Corrosion Control",
+
         ],
         accentColor: "border-secondary",
         isFeatured: false,
@@ -1234,6 +1561,7 @@ const servicePillars = [
         icon: Shield,
         description: "Guaranteed systems for high-stakes water ingress problems in flat roofs, slabs, and balconies, using both Torch-On and Liquid Applied Membranes.",
         subServices: [
+
             "Flat Concrete Roof Systems",
             "Leaking Balcony Repair (Under-Tile)",
             "Torch-On & Liquid Membranes",
@@ -1251,22 +1579,23 @@ const servicePillars = [
             "Body Corporate Painting",
             "Industrial & Factory Painting",
             "Rope Access Painting",
+
             "Roof Painting & Restoration",
         ],
         accentColor: "border-secondary",
         isFeatured: false,
     },
 ];
-
 // --- MAIN PAGE COMPONENT ---
 export default function ServicesPage() {
     return (
         <div className="bg-primary pt-24">
-            
+
             {/* --- MODULE 1: SEO HERO (Structural Thesis) --- */}
             <section className="relative py-20 md:py-32 px-4 text-white bg-gray-900 border-b-4 border-secondary">
-                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                    
+                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 
+items-center">
+
                     {/* LEFT: Headline */}
                     <div className="lg:col-span-6">
                         <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-2">
@@ -1278,13 +1607,15 @@ export default function ServicesPage() {
                     </div>
 
                     {/* RIGHT: Core Thesis/CTA */}
-                    <div className="lg:col-span-6 lg:pl-12">
+                    <div 
+className="lg:col-span-6 lg:pl-12">
                         <p className="text-xl font-light text-gray-400 mb-6">
                             We are not general painters. We are structural remediation specialists, approved applicators, and advanced coating experts. We provide guaranteed, turn-key solutions from defect identification to the final protective layer.
                         </p>
-                        
+
                         {/* Direct link to QA Process */}
                         <Button asChild 
+
                             className="bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-12 shadow-xl"
                         >
                             <Link href="/our-process-independent-qa" className="flex items-center space-x-2">
@@ -1298,9 +1629,9 @@ export default function ServicesPage() {
 
             {/* --- MODULE 2: AUDIENCE FUNNEL (Segmented UX) --- */}
             <section className="py-20 px-4 bg-primary text-white">
-                 <div className="max-w-7xl mx-auto">
+                <div className="max-w-7xl mx-auto">
                     <header className="text-center max-w-4xl mx-auto mb-16">
-                         <h2 className="text-4xl font-extrabold uppercase text-white mb-3">
+                        <h2 className="text-4xl font-extrabold uppercase text-white mb-3">
                             Who We Serve
                         </h2>
                         <p className="text-xl text-gray-400 font-light">
@@ -1310,13 +1641,14 @@ export default function ServicesPage() {
 
                     {/* 3-Column Audience Grid - High Contrast Links */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        
+
                         {/* Audience 1: Developers / Engineers */}
                         <Link href="/solutions/for-developers" className="group p-8 bg-gray-900 rounded-xl shadow-2xl border-b-4 border-secondary transform hover:scale-[1.03] transition-all duration-500">
                             <Factory className="w-10 h-10 text-secondary mb-3" />
                             <h3 className="text-2xl font-extrabold uppercase text-white mb-2">Developers & Engineers</h3>
                             <p className="text-gray-400 text-base mb-4">
-                                Verifiable specifications, on-time delivery, and full compliance to eliminate delays and hand-over issues.
+                                Verifiable specifications, on-time delivery, and full compliance 
+                                to eliminate delays and hand-over issues.
                             </p>
                             <span className="text-tertiary font-bold group-hover:text-white transition-colors">
                                 View Technical Solutions &rarr;
@@ -1352,30 +1684,31 @@ export default function ServicesPage() {
 
 
             {/* --- MODULE 3: THE SERVICE SILOS (Pillars Grid) --- */}
+
             <section className="py-24 md:py-32 px-4 bg-gray-900 text-white">
                 <div className="max-w-7xl mx-auto">
                     <header className="text-center max-w-4xl mx-auto mb-16">
-                         <h2 className="text-5xl font-extrabold uppercase text-white mb-3">
+                        <h2 className="text-5xl font-extrabold uppercase text-white mb-3">
                             The Four Pillars of Asset Protection
                         </h2>
                         <p className="text-xl text-gray-400 font-light">
-                            Select an expertise area below to see how we apply advanced methods and verifiable quality to your specific maintenance challenge.
+                            Select an expertise area below 
+                            to see how we apply advanced methods and verifiable quality to your specific maintenance challenge.
                         </p>
                     </header>
 
                     {/* 2x2 Layout with a Featured Item for a non-template look */}
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        
+
                         {servicePillars.map((pillar, index) => {
                             const IconComponent = pillar.icon;
-                            
+
                             // Visual emphasis for the most complex service (Structural)
                             const isFeatured = pillar.isFeatured;
                             const cardClass = isFeatured ? "lg:col-span-2 p-10 transform hover:scale-[1.01] transition-all duration-500" : 
-                                                           "p-8 transform hover:scale-[1.03] transition-all duration-500";
+                                                    "p-8 transform hover:scale-[1.03] transition-all duration-500";
                             const titleClass = isFeatured ? "text-3xl md:text-4xl" : "text-2xl";
                             const descriptionClass = isFeatured ? "text-lg text-secondary/80 mt-4" : "text-base text-gray-400 mt-2";
-                            
                             return (
                                 <Link 
                                     key={index} 
@@ -1386,14 +1719,15 @@ export default function ServicesPage() {
                                 >
                                     <div>
                                         <IconComponent className="w-10 h-10 text-secondary mb-4 group-hover:text-tertiary transition-colors" />
-                                        <h3 className={titleClass + " font-extrabold uppercase text-white mb-2 leading-snug"}>
+                                        <h3 className={titleClass + 
+                                            " font-extrabold uppercase text-white mb-2 leading-snug"}>
                                             {pillar.title}
                                         </h3>
                                         <p className={descriptionClass}>
                                             {pillar.description}
                                         </p>
                                     </div>
-                                    
+
                                     <div className="mt-8">
                                         <ul className="space-y-2 text-sm text-gray-400 list-inside border-t border-gray-700 pt-4 mb-4">
                                             {pillar.subServices.map((sub, i) => (
@@ -1413,9 +1747,10 @@ export default function ServicesPage() {
                     </div>
                 </div>
             </section>
-            
+
             {/* --- MODULE 4: THE PROCESS IN DEPTH (Trust Module) --- */}
             <QaProcessModule />
+
 
             {/* --- MODULE 5: ACCREDITATIONS (Visual Trust) --- */}
             <AccreditationsStrip />
@@ -1423,23 +1758,477 @@ export default function ServicesPage() {
             {/* --- MODULE 6: FINAL CTA STRIP (Conversion Funnel) --- */}
             <section className="bg-header-dark py-12 px-4">
                 <div className="max-w-7xl mx-auto text-center">
+
                     <h2 className="text-3xl font-extrabold text-white mb-4">
                         Don&apos;t Risk Your Asset. Talk to a Specialist.
                     </h2>
                     <p className="text-gray-400 text-lg mb-6">
                         Contact us today to schedule an on-site assessment and receive your substrate-specific specification.
                     </p>
-                     <Button asChild 
+                    <Button asChild 
                         className="bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-xl h-14 shadow-2xl transform hover:scale-105"
                     >
-                        <a href="tel:0826277082" className="flex items-center space-x-2">
-                             <Phone className="w-6 h-6" />
-                             <span>Call Lawrence Brooks: 082 627 7082</span>
+                        <a 
+                            href="tel:0826277082" className="flex items-center space-x-2">
+                            <Phone className="w-6 h-6" />
+                            <span>Call Lawrence Brooks: 082 627 7082</span>
                         </a>
                     </Button>
                 </div>
             </section>
 
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\solutions\for-body-corporates\page.tsx--------------------------------------------------------------------------------```// src/app/solutions/for-body-corporates/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { QaProcessModule } from '@/components/qa-process-module';
+import { AccreditationsStrip } from '@/components/accreditations-strip';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { Users, ClipboardCheck, MessageCircle, Scroll, Shield } from 'lucide-react';
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Painting & Waterproofing Solutions for Body Corporates & HOAs | Maverick',
+    description: 'Specialized asset maintenance for Body Corporates and Homeowners&apos; Associations. We offer guaranteed compliance, minimal disturbance, and Independent QA for long-term asset security.',
+};
+
+// --- CORE PAIN POINTS DATA ---
+const PainPoints = [
+    {
+        title: "Risk-Free Compliance",
+        description: "Independent QA verifies film thickness and application quality, providing trustees with auditable proof of work for AGMs.",
+        icon: ClipboardCheck,
+    },
+    {
+        title: "Long-Term Security",
+        description: "Our structural repairs and guaranteed waterproofing systems eliminate recurring defects, securing the long-term value of the entire block.",
+        icon: Shield,
+    },
+    {
+        title: "Minimal Disturbance",
+        description: "We use advanced high-access methods and strict project management protocols to ensure minimal disturbance and inconvenience to residents.",
+        icon: MessageCircle,
+    },
+    {
+        title: "Transparent Guarantees",
+        description: "All guarantees are co-signed by the manufacturer, the contractor, and the independent inspector, providing unparalleled warranty transparency.",
+        icon: Scroll,
+    },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function BodyCorporateSolutionsPage() {
+    return (
+        <div className="bg-primary pt-24 text-white">
+
+            {/* --- MODULE 1: AUDIENCE HERO (BODY CORPORATE) --- */}
+            <section className="relative py-24 md:py-40 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto">
+                    <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-3">
+                        For Trustees & Facility Managers
+                    </p>
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-5xl">
+                        Guaranteed Asset Security for Body Corporates.
+                    </h1>
+                    <p className="text-2xl font-light mt-6 max-w-4xl text-gray-400">
+                        We specialize in large-scale residential asset maintenance, delivering **risk-free projects** with verifiable compliance and long-term structural security for every unit owner.
+                    </p>
+
+                    <Button asChild
+                        className="mt-10 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <Link href="/contact">
+                            Request Compliance Quote &rarr;
+                        </Link>
+                    </Button>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: PAIN POINTS GRID (Solution Focus) --- */}
+            <section className="py-24 px-4 bg-primary">
+                <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-4xl mx-auto mb-16">
+                        <h2 className="text-4xl font-extrabold uppercase mb-3">
+                            Eliminating Trustee Risk
+                        </h2>
+                        <p className="text-lg text-gray-400 font-light">
+                            Our unique process addresses the key vulnerabilities faced by trustees and building managers.
+                        </p>
+                    </header>
+
+                    {/* Solutions Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {PainPoints.map((point, index) => (
+                            <div key={index} className="p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 border-secondary">
+                                <point.icon className="w-8 h-8 text-tertiary mb-4" />
+                                <h3 className="text-xl font-bold uppercase mb-2 text-white">
+                                    {point.title}
+                                </h3>
+                                <p className="text-gray-400 text-sm">
+                                    {point.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 3: THE QA PROCESS (Reusing Trust Module) --- */}
+            <QaProcessModule />
+
+            {/* --- MODULE 4: ACCREDITATIONS (Visual Trust) --- */}
+            <AccreditationsStrip />
+
+            {/* --- MODULE 5: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\specialized-coatings\page.tsx--------------------------------------------------------------------------------```// src/app/specialized-coatings/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { QaProcessModule } from '@/components/qa-process-module';
+import { AccreditationsStrip } from '@/components/accreditations-strip';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { FlaskConical, Layers, Shield, Building } from 'lucide-react'; // REMOVED: Rss, Phone
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Epoxy & Polyurethane Floor Coatings | Certified Specialized Applicators',
+    description: 'Approved applicators for high-performance, industrial-grade floor and wall coatings. We provide guaranteed, chemical-resistant systems for food production, manufacturing, and commercial spaces.',
+};
+
+// --- TECHNICAL DATA FOR CONTENT MODULES ---
+const CoatingSystems = [
+    {
+        title: "Epoxy & Polyurethane Floors",
+        description: "Seamless, chemical-resistant systems for high-traffic industrial, commercial, and retail environments that require exceptional durability.",
+        icon: FlaskConical,
+        accentColor: "border-secondary",
+    },
+    {
+        title: "Hygienic/Food-Grade Walls",
+        description: "Application of specialized, smooth, and easily cleanable coatings required for food and beverage facilities to comply with health and safety regulations.",
+        icon: Shield,
+        accentColor: "border-tertiary",
+    },
+    {
+        title: "Marmoran Decorative Finishes",
+        description: "Certified application of Marmoran&apos;s architectural coatings, providing durable, specialized, and aesthetic wall finishes for high-end residential and commercial facades.",
+        icon: Layers,
+        accentColor: "border-secondary",
+    },
+    {
+        title: "Industrial Corrosion Control",
+        description: "Protective coating systems for steel structures, piping, and plant assets, designed to prevent rust and corrosion in harsh industrial and coastal environments.",
+        icon: Building,
+        accentColor: "border-tertiary",
+    },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function SpecializedCoatingsPage() {
+    return (
+        <div className="bg-primary pt-24 text-white">
+
+            {/* --- MODULE 1: INDUSTRIAL HERO --- */}
+            <section className="relative py-24 md:py-40 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto">
+                    <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-3">
+                        Technical Coatings Expertise
+                    </p>
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-5xl">
+                        High-Performance Floor & Specialized Coating Systems.
+                    </h1>
+                    <p className="text-2xl font-light mt-6 max-w-4xl text-gray-400">
+                        We are **certified applicators** for industrial-grade systems, providing a guaranteed protective shield against chemical wear, heavy traffic, and structural deterioration.
+                    </p>
+
+                    <Button asChild
+                        className="mt-10 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <Link href="/contact">
+                            Request Coating Specification &rarr;
+                        </Link>
+                    </Button>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: SYSTEM BREAKDOWN (Technical Grid) --- */}
+            <section className="py-24 px-4 bg-primary">
+                <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-4xl mx-auto mb-16">
+                        <h2 className="text-4xl font-extrabold uppercase mb-3">
+                            Certified Systems We Apply
+                        </h2>
+                        <p className="text-lg text-gray-400 font-light">
+                            Our team is factory-trained and approved for these specialized, industrial and architectural coating solutions.
+                        </p>
+                    </header>
+
+                    {/* Coating Systems Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {CoatingSystems.map((system, index) => (
+                            <div key={index} className={`p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 ${system.accentColor}`}>
+                                <system.icon className="w-8 h-8 text-secondary mb-4" />
+                                <h3 className="text-xl font-bold uppercase mb-2 text-white">
+                                    {system.title}
+                                </h3>
+                                <p className="text-gray-400 text-sm">
+                                    {system.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                    
+                    <div className="mt-12 text-center">
+                         <Button asChild
+                            variant="link"
+                            className="text-tertiary hover:text-white mt-4 pl-0 text-lg font-bold"
+                        >
+                            <Link href="/accreditations">
+                                View All Approved Manufacturer Accreditations &rarr;
+                            </Link>
+                        </Button>
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 3: THE QA PROCESS (Reusing Trust Module) --- */}
+            <QaProcessModule />
+
+            {/* --- MODULE 4: ACCREDITATIONS (Visual Trust) --- */}
+            <AccreditationsStrip />
+
+            {/* --- MODULE 5: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\structural-repairs\page.tsx--------------------------------------------------------------------------------```// src/app/structural-repairs/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { QaProcessModule } from '@/components/qa-process-module';
+import { AccreditationsStrip } from '@/components/accreditations-strip';
+import { Wrench, Shield, Layers, Users } from 'lucide-react';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Concrete Spalling, Structural Crack & Remedial Repair Specialists | Maverick',
+    description: 'Expert structural repair contractors in Gauteng. We permanently fix concrete spalling, rising damp, and structural cracks before applying specialized protective coatings. Guaranteed quality assurance.',
+};
+
+// --- TECHNICAL DATA FOR CONTENT MODULES ---
+const RepairProcessSteps = [
+    {
+        title: "Defect Diagnosis & Technical Specification",
+        description: "Our assessment team uses moisture meters and hammer tests to diagnose the root cause (e.g., carbonation, chloride ingress) and prepares a substrate-specific, engineer-approved specification.",
+        icon: Wrench,
+    },
+    {
+        title: "Spalling & Concrete Cancer Remediation",
+        description: "Removal of delaminated concrete, passivation of rebar to stop rust, and repair using polymer-modified structural mortar. This is the permanent fix, not a cosmetic patch.",
+        icon: Shield,
+    },
+    {
+        title: "Structural Crack Injection & Sealing",
+        description: "Low-viscosity epoxy resin injection into dormant structural cracks to restore integrity. This stops water ingress and prevents crack propagation.",
+        icon: Layers,
+    },
+    {
+        title: "Protealing Application",
+        description: "Application of specialized, manufacturer-approved breathable membranes and elastomeric coatings that resist UV, prevent water ingress, and accommodate movement.",
+        icon: Users,
+    },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function StructuralRepairsPage() {
+    return (
+        <div className="bg-primary pt-24 text-white">
+
+            {/* --- MODULE 1: TECHNICAL HERO --- */}
+            <section className="relative py-24 md:py-40 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto">
+                    <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-3">
+                        Structural Integrity First
+                    </p>
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-4xl">
+                        Permanent Concrete Spalling & Structural Repair.
+                    </h1>
+                    <p className="text-2xl font-light mt-6 max-w-3xl text-gray-400">
+                        We pivot from cosmetic paint to **Guaranteed Remedial Solutions**. Our process is designed by engineers to permanently de-risk your multi-million rand asset from structural failure.
+                    </p>
+
+                    <Button asChild
+                        className="mt-10 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <Link href="/contact">
+                            Schedule Technical Assessment &rarr;
+                        </Link>
+                    </Button>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: THE PROCESS (Technical Grid) --- */}
+            <section className="py-24 px-4 bg-primary">
+                <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-3xl mx-auto mb-16">
+                        <h2 className="text-4xl font-extrabold uppercase mb-3">
+                            Our Four-Phase Remedial Approach
+                        </h2>
+                        <p className="text-lg text-gray-400 font-light">
+                            We follow a strict manufacturer and engineer-approved protocol to ensure the repair is structural, not cosmetic.
+                        </p>
+                    </header>
+
+                    {/* Technical Steps Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {RepairProcessSteps.map((step, index) => (
+                            <div key={index} className="p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 border-tertiary">
+                                <step.icon className="w-8 h-8 text-secondary mb-4" />
+                                <h3 className="text-xl font-bold uppercase mb-2 text-white">
+                                    {step.title}
+                                </h3>
+                                <p className="text-gray-400 text-sm">
+                                    {step.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 3: THE QA PROCESS (Reusing Trust Module) --- */}
+            <QaProcessModule />
+
+            {/* --- MODULE 4: ACCREDITATIONS (Visual Trust) --- */}
+            <AccreditationsStrip />
+
+            {/* --- MODULE 5: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
+        </div>
+    );
+}```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\waterproofing-services\page.tsx--------------------------------------------------------------------------------```// src/app/waterproofing-services/page.tsx
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { QaProcessModule } from '@/components/qa-process-module';
+import { AccreditationsStrip } from '@/components/accreditations-strip';
+import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { Shield, Droplet, Layers, FileText, Phone } from 'lucide-react';
+
+// --- METADATA (SEO) ---
+export const metadata: Metadata = {
+    title: 'Flat Roof & Balcony Waterproofing Services | Guaranteed Membrane Systems',
+    description: 'Specialist waterproofing contractors in Gauteng. We use guaranteed liquid-applied and torch-on membrane systems to permanently solve flat roof, balcony, and basement water ingress. Independent QA verified.',
+};
+
+// --- TECHNICAL DATA FOR CONTENT MODULES ---
+const WaterproofingSolutions = [
+    {
+        title: "Torch-On Membrane Systems",
+        description: "High-performance bituminous felt membranes, torch-applied by certified staff for flat concrete roofs and exposed areas requiring exceptional durability.",
+        icon: FileText,
+        accentColor: "border-secondary", // <--- ADDED
+    },
+    {
+        title: "Liquid Applied Membranes (LAM)",
+        description: "Seamless, cold-applied polyurethane and acrylic systems, ideal for complex areas like parapet walls, flashings, and under-tile balcony applications.",
+        icon: Droplet,
+        accentColor: "border-tertiary", // <--- ADDED
+    },
+    {
+        title: "Basement & Below-Ground Waterproofing",
+        description: "Specialized slurry and crystalline systems applied to negative-side structures to stop rising damp and water ingress in basements and lift pits.",
+        icon: Layers,
+        accentColor: "border-secondary", // <--- ADDED
+    },
+    {
+        title: "Under-Tile Balcony Remediation",
+        description: "Fixing leaking balconies without destructive tile removal, using targeted injection and re-grouting systems, providing a less disruptive and cost-effective fix.",
+        icon: Shield,
+        accentColor: "border-tertiary", // <--- ADDED
+    },
+];
+
+// --- MAIN PAGE COMPONENT ---
+export default function WaterproofingPage() {
+    return (
+        <div className="bg-primary pt-24 text-white">
+
+            {/* --- MODULE 1: WATERPROOFING HERO --- */}
+            <section className="relative py-24 md:py-40 px-4 bg-gray-900 border-b-4 border-secondary">
+                <div className="max-w-7xl mx-auto">
+                    <p className="text-xl font-medium uppercase tracking-widest text-tertiary mb-3">
+                        Water Ingress Solutions
+                    </p>
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight uppercase max-w-5xl">
+                        Guaranteed Waterproofing. Eliminate Water Ingress Risk.
+                    </h1>
+                    <p className="2xl font-light mt-6 max-w-4xl text-gray-400">
+                        We provide **co-signed guarantees** on both our workmanship and the manufacturer&apos;s product, ensuring your high-value asset is protected from the single greatest cause of structural damage: water.
+                    </p>
+
+                    <Button asChild
+                        className="mt-10 bg-secondary hover:bg-[#4AD5E2] text-primary font-bold text-lg h-14 shadow-2xl transform hover:scale-105"
+                    >
+                        <Link href="/contact">
+                            Request Guaranteed Quote &rarr;
+                        </Link>
+                    </Button>
+                </div>
+            </section>
+
+            {/* --- MODULE 2: SYSTEM BREAKDOWN (Technical Grid) --- */}
+            <section className="py-24 px-4 bg-primary">
+                <div className="max-w-7xl mx-auto">
+                    <header className="text-center max-w-4xl mx-auto mb-16">
+                        <h2 className="text-4xl font-extrabold uppercase mb-3">
+                            Certified Waterproofing Systems
+                        </h2>
+                        <p className="text-lg text-gray-400 font-light">
+                            Our team is manufacturer-approved to apply both specialized liquid membranes and traditional torch-on systems.
+                        </p>
+                    </header>
+
+                    {/* Solutions Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {WaterproofingSolutions.map((system, index) => (
+                            // FIX: Added system.accentColor to the border-t-4 class to style the card border
+                            <div key={index} className={`p-6 bg-gray-900 rounded-xl shadow-xl border-t-4 ${system.accentColor}`}>
+                                <system.icon className="w-8 h-8 text-secondary mb-4" />
+                                <h3 className="text-xl font-bold uppercase mb-2 text-white">
+                                    {system.title}
+                                </h3>
+                                <p className="text-gray-400 text-sm">
+                                    {system.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* --- MODULE 3: THE QA PROCESS (Reusing Trust Module) --- */}
+            <QaProcessModule />
+
+            {/* --- MODULE 4: ACCREDITATIONS (Visual Trust) --- */}
+            <AccreditationsStrip />
+
+            {/* --- MODULE 5: FINAL CTA STRIP (Conversion Funnel) --- */}
+            <CtaFinalStrip />
         </div>
     );
 }```
@@ -1595,7 +2384,8 @@ export function CtaStripModule() {
   );
 }```
 
---------------------------------------------------------------------------------📄 FILE PATH: src\components\hero-contact-form.tsx--------------------------------------------------------------------------------```"use client";
+--------------------------------------------------------------------------------📄 FILE PATH: src\components\hero-contact-form.tsx--------------------------------------------------------------------------------```// src/components/hero-contact-form.tsx
+"use client";
 
 import React from "react"; 
 import { useForm } from "react-hook-form";
@@ -1603,7 +2393,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button"; // Shadcn button
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"; // Shadcn card components
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+// Shadcn card components
 
 // --- 1. Define Form Schema (Validation) ---
 const ContactSchema = z.object({
@@ -1612,7 +2403,6 @@ const ContactSchema = z.object({
   service: z.string().min(1, "Please select a service type."),
   problems: z.string().min(10, "Please describe your needs in more detail (min 10 characters)."), // Added textarea field
 });
-
 type ContactFormValues = z.infer<typeof ContactSchema>;
 
 const serviceOptions = [
@@ -1621,11 +2411,9 @@ const serviceOptions = [
   "Specialized Coating",
   "Structural Repairs",
 ];
-
 // --- 2. Main Form Component (Client) ---
 export function HeroContactForm() {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-  
   const {
     register,
     handleSubmit,
@@ -1634,21 +2422,17 @@ export function HeroContactForm() {
   } = useForm<ContactFormValues>({
     resolver: zodResolver(ContactSchema),
   });
-
   const onSubmit = async (data: ContactFormValues) => {
     setIsSubmitting(true);
-    
-    // Simulate API call delay
+// Simulate API call delay
     console.log("Form Data:", data);
-    await new Promise(resolve => setTimeout(resolve, 1500)); 
-    
+    await new Promise(resolve => setTimeout(resolve, 1500));
     alert(`Thank you, ${data.name}! We have received your request for ${data.service}. We will contact you soon.`);
     
     reset();
     setIsSubmitting(false);
   };
-
-  return (
+return (
     // Card matches the HTML structure: p-6 rounded-xl shadow-2xl bg-white
     <Card className="rounded-xl shadow-2xl bg-white border-none mx-auto w-full max-w-sm"> 
       
@@ -1656,6 +2440,7 @@ export function HeroContactForm() {
         <CardTitle className="text-2xl font-extrabold text-primary mb-2">
           Get Started
         </CardTitle>
+        {/* FIX: Used &apos; */}
         <p className="text-gray-600 text-sm leading-relaxed">
           Describe your project or property maintenance needs for a swift and comprehensive quote.
         </p>
@@ -1667,11 +2452,13 @@ export function HeroContactForm() {
           {/* Name Field */}
           <div className="group relative">
             <input
-              id="name"
+           
+            id="name"
               {...register("name")}
               placeholder="Your Name"
               // Applied HTML styles: border, rounded-lg, text-maverick-base, py-2.5 px-3
-              className={`w-full border rounded-lg bg-white text-primary py-2.5 px-3 text-base focus:outline-none focus:ring-2 focus:ring-secondary transition duration-300 ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
+              className={`w-full border rounded-lg bg-white text-primary py-2.5 px-3 text-base focus:outline-none focus:ring-2 focus:ring-secondary transition duration-300 ${errors.name ?
+'border-red-500' : 'border-gray-300'}`}
             />
             {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name.message}</p>}
           </div>
@@ -1680,10 +2467,12 @@ export function HeroContactForm() {
           <div className="group relative">
             <input
               type="email"
-              id="email"
+  
+             id="email"
               {...register("email")}
               placeholder="Your Email"
-              className={`w-full border rounded-lg bg-white text-primary py-2.5 px-3 text-base focus:outline-none focus:ring-2 focus:ring-secondary transition duration-300 ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+              className={`w-full border rounded-lg bg-white text-primary py-2.5 px-3 text-base focus:outline-none focus:ring-2 focus:ring-secondary transition duration-300 ${errors.email ?
+'border-red-500' : 'border-gray-300'}`}
             />
             {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
           </div>
@@ -1692,20 +2481,24 @@ export function HeroContactForm() {
           <div className="group relative custom-select-wrapper">
             <select
               id="service"
-              {...register("service")}
+       
+               {...register("service")}
               // Applied HTML styles
-              className={`block w-full border rounded-lg bg-white text-primary py-2.5 px-3 text-base focus:outline-none focus:ring-2 focus:ring-secondary cursor-pointer custom-select-arrow ${errors.service ? 'border-red-500' : 'border-gray-300'}`}
+              className={`block w-full border rounded-lg bg-white text-primary py-2.5 px-3 text-base focus:outline-none focus:ring-2 focus:ring-secondary cursor-pointer custom-select-arrow ${errors.service ?
+'border-red-500' : 'border-gray-300'}`}
             >
               <option value="" disabled>Select Service Type</option>
               {serviceOptions.map((option) => (
                 <option key={option} value={option}>{option}</option>
               ))}
             </select>
+        
             {/* Custom arrow container recreated for visual fidelity */}
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-600">
                 <svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clipRule="evenodd" /></svg>
             </div>
-            {errors.service && <p className="mt-1 text-xs text-red-500">{errors.service.message}</p>}
+            {errors.service && 
+<p className="mt-1 text-xs text-red-500">{errors.service.message}</p>}
           </div>
           
           {/* Textarea Field (for 'problems') */}
@@ -1713,10 +2506,12 @@ export function HeroContactForm() {
             <textarea 
                 id="problems" 
                 {...register("problems")} 
-                rows={2} 
+   
+             rows={2} 
                 placeholder="Describe your needs (e.g., location, scope, deadline)"
                 // Applied HTML styles
-                className={`w-full border rounded-lg bg-white text-primary py-2.5 px-3 text-base focus:outline-none focus:ring-2 focus:ring-secondary resize-none transition duration-300 ${errors.problems ? 'border-red-500' : 'border-gray-300'}`}
+                className={`w-full border rounded-lg bg-white text-primary py-2.5 px-3 text-base focus:outline-none focus:ring-2 focus:ring-secondary resize-none transition duration-300 ${errors.problems ?
+'border-red-500' : 'border-gray-300'}`}
             />
             {errors.problems && <p className="mt-1 text-xs text-red-500">{errors.problems.message}</p>}
           </div>
@@ -1725,16 +2520,19 @@ export function HeroContactForm() {
           <div className="pt-1">
             <Button 
                 type="submit"
-                disabled={isSubmitting}
+      
+              disabled={isSubmitting}
                 // Replicated HTML styling using Tailwind classes and form-gold color
                 className="w-full py-2.5 px-6 rounded-lg text-base font-bold text-primary bg-form-gold hover:bg-[#ffb000] transition duration-300 shadow-xl transform hover:scale-[1.01] focus:outline-none focus:ring-4 focus:ring-form-gold/50"
             >
-                {isSubmitting ? (
+                {isSubmitting ?
+(
                     <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         Processing Request...
                     </>
-                ) : (
+      
+              ) : (
                     "Get Your Comprehensive Quote"
                 )}
             </Button>
