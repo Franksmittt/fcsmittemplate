@@ -1,3 +1,4 @@
+// tailwind.config.ts
 import type { Config } from "tailwindcss"
 
 const config = {
@@ -17,7 +18,9 @@ const config = {
         "2xl": "1400px",
       },
     },
-    extend: {
+ 
+    
+    extend: { 
       // Custom Colors Redefined to Match HTML
       colors: {
         'primary': {
@@ -26,14 +29,18 @@ const config = {
         },
         'secondary': {
           DEFAULT: '#5AD5E2', // Primary Blue/Cyan (Target color for button/hover text)
+ 
           foreground: '#171716', // Dark text on secondary
+          'dark-text': '#008BAD', 
         },
         'tertiary': {
           DEFAULT: '#A9D834', // Primary Green/Lime (Maverick-Accent)
           foreground: '#171716', // Dark text on tertiary
+          'dark-text': '#769623', 
         },
         'form-gold': '#FFC33A', // Used for main CTA button
         'header-dark': '#1a1919', // Header background
+  
         'footer-dark': '#121111', // Footer background
 
         // --- NEW WHATSAPP GREEN ---
@@ -41,55 +48,74 @@ const config = {
 
         // Standard shadcn/ui colors (Consolidated)
         border: "hsl(var(--border))",
+    
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
+ 
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
+        
           foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
+ 
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
         },
       },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+    
+      // Font Migration
+      fontFamily: {
+        sans: ['var(--font-geist-sans)', 'sans-serif'],
+        mono: ['var(--font-geist-mono)', 'monospace'],
       },
-      // --- Custom Shake Animation Definition ---
-      keyframes: {
+    
+      // --- Custom Keyframes Definition (FIXED SYNTAX) ---
+      keyframes: { 
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
+   
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
+   
         },
-        "shake-logo": { // Custom Keyframe Added
+        // **SYNTAX CORRECTED: Ensure 'transform' is used for each %**
+        "shake-logo": { 
             "0%": { transform: "translateX(0)" },
             "25%": { transform: "translateX(-3px) rotate(-2deg)" },
+   
             "50%": { transform: "translateX(3px) rotate(2deg)" },
             "75%": { transform: "translateX(-3px) rotate(-2deg)" },
-            "100%": { transform: "translateX(0)" },
+            // COMMA ADDED AND SYNTAX CORRECTED
+            "100%": { transform: "translateX(0)" }, 
+        },
+        "infinite-scroll": {
+            from: { transform: "translateX(0)" },
+            to: { transform: "translateX(-50%)" }, 
         }
-      },
-      animation: {
+      }, 
+      
+      // --- Custom Animation Properties Definition ---
+      animation: { 
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "shake": "shake-logo 1.5s ease-in-out 3", // Custom Animation Class
-      },
+        "shake": 
+ "shake-logo 1.5s ease-in-out 3", 
+        "infinite-scroll": "infinite-scroll 25s linear infinite", 
+      }, 
     },
   },
   plugins: [require("tailwindcss-animate")],

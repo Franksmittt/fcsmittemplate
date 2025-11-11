@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter } from "next/font/google"; // <-- This is the font
 import "@/app/globals.css";
 import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer"; // <-- NEW IMPORT
+import { Footer } from "@/components/layout/footer";
+// <-- NEW IMPORT
 
-const inter = Inter({ subsets: ["latin"] });
-
+// FIX: Add 'display: swap' and EXPLICITLY set 'preload: true' for non-blocking optimization.
+const inter = Inter({ subsets: ["latin"], display: "swap", preload: true }); 
 export const metadata: Metadata = {
   title: "MAVERICK | PAINTING CONTRACTORS",
   description: "A production-ready Next.js application built with App Router, Tailwind CSS, and shadcn/ui.",
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -24,7 +24,8 @@ export default function RootLayout({
         <Header /> 
         
         {/* Main content wrapper. flex-1 ensures it pushes the footer down if content is short. */}
-        <main className="flex-grow">
+        
+<main className="flex-grow">
           {children}
         </main>
         

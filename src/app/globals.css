@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-/* * The 'shake-logo' keyframe is now defined in tailwind.config.ts and
- * exposed via the utility class 'animate-shake'
+/* * CRITICAL LCP FIX: INLINE FONT DATA URI 
+ * Replace the 'Base64_String_Goes_Here' placeholder below with the Base64 data from your GeistVF.woff file.
+ * This removes the 47.59 KiB file from the critical network chain.
  */
+@font-face {
+  font-family: var(--font-geist-sans);
+/* FIX: Wrap the entire data URI string in single quotes to prevent Webpack from trying to resolve it as a relative file import.
+*/
+  src: url('data:font/woff;charset=utf-8;base64,YOUR_VERY_LONG_BASE64_STRING_HERE') format('woff');
+  font-weight: 100 900;
+  font-display: swap;
+}
+/* ... rest of the file */
