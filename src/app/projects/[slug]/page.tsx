@@ -1,43 +1,12 @@
 // src/app/projects/[slug]/page.tsx
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { MapPin, Clock } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
-// FIX: Removed unused ClipboardCheck
-import { MapPin, Layers, Clock, CheckSquare, Wrench, PersonStanding, Droplet, Shield } from 'lucide-react'; 
-
-// --- DATA: Project Mocks (Should eventually come from a Database/CMS) ---
-const MOCKED_PROJECTS = [
-    { 
-        slug: 'munyaka', 
-        name: 'Munyaka Lifestyle Estate', 
-        location: 'Midrand, Gauteng',
-        scope: 'Full Exterior Painting, Advanced Waterproofing & Structural Repairs',
-        date: '2023 Q4 - 2024 Q2',
-        value: 'R 7.5 Million',
-        details: [
-            { icon: Layers, text: 'Installed 5,000 m² of liquid applied polyurethane membrane on flat roofs.' },
-            { icon: Wrench, text: 'Repaired severe concrete spalling across three residential blocks.' },
-            { icon: CheckSquare, text: 'Project verified by Independent QA with full film thickness reports.' },
-        ]
-    },
-    { 
-        slug: 'the-blyde', 
-        name: 'The Blyde Riverwalk Estate', 
-        location: 'Pretoria East, Gauteng',
-        scope: 'Exterior Painting, High-Access Rope Work, Balcony Remediation',
-        date: '2022 Q3',
-        value: 'R 4.2 Million',
-        details: [
-            { icon: PersonStanding, text: 'Used certified rope access to paint difficult-to-reach apartment facades.' },
-            { icon: Droplet, text: 'Fixed multiple leaking balconies without removing original tiles.' },
-            { icon: Shield, text: 'Applied specialized anti-fungal and UV-resistant elastomeric coatings.' },
-        ]
-    },
-    // Note: The structure requires ALL project slugs referenced in ProjectShowcaseModule
-    // to have a mock entry here.
-];
+import { projectCaseStudies } from '@/data/projects';
+import { siteConfig } from '@/lib/seo';
 
 // --- DYNAMIC METADATA GENERATION ---
 interface ProjectPageProps {
@@ -47,7 +16,7 @@ interface ProjectPageProps {
 }
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
-    const project = MOCKED_PROJECTS.find(p => p.slug === params.slug);
+    const project = projectCaseStudies.find(p => p.slug === params.slug);
 
     if (!project) {
         // If project isn't found, Next.js will handle the 404 via the notFound() call in the component
@@ -57,15 +26,31 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
         };
     }
 
+    const title = `${project.name} | Structural Repair & Painting Case Study | Maverick`;
+    const description = `Case study for ${project.name} in ${project.location}. Scope: ${project.scope}. Project completed ${project.date}.`;
+
     return {
         title: `${project.name} | Structural Repair & Painting Case Study | Maverick`,
-        description: `Case study for ${project.name} in ${project.location}. Scope: ${project.scope}. Project completed ${project.date}.`,
+        description,
+        alternates: {
+            canonical: `${siteConfig.url}/projects/${project.slug}`,
+        },
+        openGraph: {
+            title,
+            description,
+            type: 'article',
+            url: `${siteConfig.url}/projects/${project.slug}`,
+        },
     };
+}
+
+export function generateStaticParams() {
+    return projectCaseStudies.map((project) => ({ slug: project.slug }));
 }
 
 // --- MAIN PAGE COMPONENT ---
 export default function ProjectDetailPage({ params }: ProjectPageProps) {
-    const project = MOCKED_PROJECTS.find(p => p.slug === params.slug);
+    const project = projectCaseStudies.find(p => p.slug === params.slug);
 
     if (!project) {
         // Use Next.js's built-in notFound() function to render the 404 page

@@ -20,6 +20,8 @@
 │   │   ├── 📄 globals.css
 │   │   ├── 📄 layout.tsx
 │   │   ├── 📄 page.tsx
+│   │   ├── 📄 robots.ts
+│   │   ├── 📄 sitemap.ts
 │   │   ├── 📁 about-us
 │   │   │   ├── 📄 page.tsx
 │   │   ├── 📁 access-solutions
@@ -111,9 +113,12 @@
 │   │   ├── 📁 ui
 │   │   │   ├── 📄 button.tsx
 │   │   │   ├── 📄 card.tsx
+│   ├── 📁 data
+│   │   ├── 📄 projects.ts
 │   ├── 📁 lib
 │   │   ├── 📄 auth.ts
 │   │   ├── 📄 db.ts
+│   │   ├── 📄 seo.ts
 │   │   ├── 📄 utils.ts
 │   │   ├── 📁 db
 │   │   │   ├── 📄 schema.ts
@@ -714,6 +719,7 @@ export default nextConfig;```
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.22",
     "critters": "^0.0.25",
     "drizzle-kit": "^0.23.0",
     "eslint": "^8",
@@ -728,11 +734,12 @@ export default nextConfig;```
 const config = {
   plugins: {
     tailwindcss: {},
+    // Autoprefixer is optional but highly recommended for cross-browser compatibility
+    // You should ensure it's installed as a devDependency in package.json
+    autoprefixer: {},
   },
 };
-
-export default config;
-```
+export default config;```
 
 --------------------------------------------------------------------------------📄 FILE PATH: tailwind.config.ts--------------------------------------------------------------------------------```// tailwind.config.ts
 import type { Config } from "tailwindcss"
@@ -816,7 +823,7 @@ const config = {
         mono: ['var(--font-geist-mono)', 'monospace'],
       },
     
-      // --- Custom Keyframes Definition ---
+      // --- Custom Keyframes Definition (FIXED SYNTAX) ---
       keyframes: { 
         "accordion-down": {
           from: { height: "0" },
@@ -828,14 +835,15 @@ const config = {
           to: { height: "0" },
    
         },
+        // **SYNTAX CORRECTED: Ensure 'transform' is used for each %**
         "shake-logo": { 
             "0%": { transform: "translateX(0)" },
             "25%": { transform: "translateX(-3px) rotate(-2deg)" },
    
             "50%": { transform: "translateX(3px) rotate(2deg)" },
             "75%": { transform: "translateX(-3px) rotate(-2deg)" },
-            "100%": { 
- "translateX(0)" },
+            // COMMA ADDED AND SYNTAX CORRECTED
+            "100%": { transform: "translateX(0)" }, 
         },
         "infinite-scroll": {
             from: { transform: "translateX(0)" },
@@ -849,7 +857,6 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "shake": 
  "shake-logo 1.5s ease-in-out 3", 
-        // THIS IS LINE 102 IN THE CORRECT CODE:
         "infinite-scroll": "infinite-scroll 25s linear infinite", 
       }, 
     },
@@ -906,38 +913,165 @@ export default config```
 /* ... rest of the file */```
 
 --------------------------------------------------------------------------------📄 FILE PATH: src\app\layout.tsx--------------------------------------------------------------------------------```import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter } from "next/font/google"; // <-- This is the font
 import "@/app/globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-// <-- NEW IMPORT
+import { siteConfig } from "@/lib/seo";
 
 // FIX: Add 'display: swap' and EXPLICITLY set 'preload: true' for non-blocking optimization.
-const inter = Inter({ subsets: ["latin"], display: "swap", preload: true }); 
+const inter = Inter({ subsets: ["latin"], display: "swap", preload: true });
+
+const baseUrl = siteConfig.url.replace(/\/$/, "");
+const defaultOgImage = `${baseUrl}/images/munyaka-midrand.jpg`;
+
 export const metadata: Metadata = {
-  title: "MAVERICK | PAINTING CONTRACTORS",
-  description: "A production-ready Next.js application built with App Router, Tailwind CSS, and shadcn/ui.",
+  metadataBase: new URL(siteConfig.url),
+  applicationName: siteConfig.shortName,
+  title: {
+    default: `${siteConfig.name} | Gauteng Painting & Waterproofing Experts`,
+    template: `%s | ${siteConfig.shortName}`,
+  },
+  description: siteConfig.description,
+  keywords: siteConfig.keywords,
+  creator: siteConfig.legalName,
+  publisher: siteConfig.legalName,
+  category: "construction",
+  alternates: {
+    canonical: baseUrl,
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_ZA",
+    url: baseUrl,
+    siteName: siteConfig.name,
+    title: `${siteConfig.name} | Gauteng Painting & Waterproofing Experts`,
+    description: siteConfig.description,
+    images: [
+      {
+        url: defaultOgImage,
+        width: 1200,
+        height: 628,
+        alt: "Maverick Painting Contractors - Structural repairs, coatings and waterproofing",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@maverickpainting",
+    title: `${siteConfig.name} | Gauteng Painting & Waterproofing Experts`,
+    description: siteConfig.description,
+    images: [defaultOgImage],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    other: process.env.NEXT_PUBLIC_BING_VERIFICATION
+      ? {
+          "msvalidate.01": process.env.NEXT_PUBLIC_BING_VERIFICATION,
+        }
+      : undefined,
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: siteConfig.name,
+    url: baseUrl,
+    legalName: siteConfig.legalName,
+    slogan: siteConfig.slogan,
+    email: siteConfig.email,
+    telephone: siteConfig.phoneNumber,
+    areaServed: siteConfig.serviceAreas,
+    sameAs: Object.values(siteConfig.social).filter(Boolean),
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: siteConfig.address.street,
+      addressLocality: siteConfig.address.city,
+      addressRegion: siteConfig.address.region,
+      postalCode: siteConfig.address.postalCode,
+      addressCountry: siteConfig.address.country,
+    },
+    geo: siteConfig.address.latitude
+      ? {
+          "@type": "GeoCoordinates",
+          latitude: siteConfig.address.latitude,
+          longitude: siteConfig.address.longitude,
+        }
+      : undefined,
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        telephone: siteConfig.phoneNumber,
+        contactType: "sales",
+        areaServed: "ZA",
+        availableLanguage: ["English"],
+      },
+    ],
+  };
+
+  const serviceJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Owner Supervised Painting, Structural Repairs & Waterproofing",
+    provider: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: baseUrl,
+    },
+    areaServed: siteConfig.serviceAreas,
+    serviceType: [
+      "Commercial & Industrial Painting",
+      "Body Corporate Asset Maintenance",
+      "Structural & Concrete Repairs",
+      "Waterproofing & Damp Proofing",
+      "High-Access Rope Painting",
+    ],
+  };
+
   return (
-    <html lang="en">
+    <html lang="en-ZA">
       <body className={inter.className}>
         {/* The entire application content lives within the body tags */}
-        
-        <Header /> 
-        
+
+        <Header />
+
         {/* Main content wrapper. flex-1 ensures it pushes the footer down if content is short. */}
-        
-<main className="flex-grow">
+
+        <main className="flex-grow">
           {children}
         </main>
-        
+
         {/* The Footer is placed outside the main content area for site-wide consistency */}
         <Footer />
+        <Script id="organization-schema" type="application/ld+json" strategy="beforeInteractive">
+          {JSON.stringify(organizationJsonLd)}
+        </Script>
+        <Script id="service-schema" type="application/ld+json" strategy="beforeInteractive">
+          {JSON.stringify(serviceJsonLd)}
+        </Script>
       </body>
     </html>
   );
@@ -950,7 +1084,8 @@ import { ClientLogoStrip } from "@/components/client-logo-strip"; // <-- NEW IMP
 import { ServiceExpertiseGrid } from "@/components/service-expertise-grid";
 import { CtaStripModule } from "@/components/cta-strip-module"; 
 import { ProjectShowcaseModule } from "@/components/project-showcase-module";
-import { QaProcessModule } from "@/components/qa-process-module"; // Position Swapped
+import { QaProcessModule } from "@/components/qa-process-module";
+// Position Swapped
 import { AccreditationsStrip } from "@/components/accreditations-strip";
 
 export default function Home() {
@@ -988,6 +1123,62 @@ export default function Home() {
     </>
   );
 }```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\robots.ts--------------------------------------------------------------------------------```import type { MetadataRoute } from "next";
+import { siteConfig } from "@/lib/seo";
+
+export default function robots(): MetadataRoute.Robots {
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
+
+  return {
+    rules: {
+      userAgent: "*",
+      allow: "/",
+      disallow: ["/api/"],
+    },
+    sitemap: [`${baseUrl}/sitemap.xml`],
+    host: baseUrl,
+  };
+}
+
+```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\app\sitemap.ts--------------------------------------------------------------------------------```import type { MetadataRoute } from "next";
+import { siteConfig, defaultChangeFrequency } from "@/lib/seo";
+import { projectCaseStudies } from "@/data/projects";
+
+const baseUrl = siteConfig.url.replace(/\/$/, "");
+
+const normalizePath = (path: string) =>
+  path === "/" ? baseUrl : `${baseUrl}${path}`;
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
+
+  const primaryEntries: MetadataRoute.Sitemap = siteConfig.primaryPages.map(
+    (path) => ({
+      url: normalizePath(path),
+      changeFrequency: defaultChangeFrequency,
+      priority: path === "/" ? 1 : 0.7,
+      lastModified: now,
+    })
+  );
+
+  const projectEntries: MetadataRoute.Sitemap = projectCaseStudies.map(
+    (project) => ({
+      url: `${baseUrl}/projects/${project.slug}`,
+      changeFrequency: "yearly",
+      priority: 0.6,
+      lastModified: project.lastModified
+        ? new Date(project.lastModified)
+        : now,
+    })
+  );
+
+  return [...primaryEntries, ...projectEntries];
+}
+
+```
 
 --------------------------------------------------------------------------------📄 FILE PATH: src\app\about-us\page.tsx--------------------------------------------------------------------------------```// src/app/about-us/page.tsx
 import type { Metadata } from 'next';
@@ -3296,43 +3487,12 @@ export default function ProjectsPage() {
 --------------------------------------------------------------------------------📄 FILE PATH: src\app\projects\[slug]\page.tsx--------------------------------------------------------------------------------```// src/app/projects/[slug]/page.tsx
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { MapPin, Clock } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
-// FIX: Removed unused ClipboardCheck
-import { MapPin, Layers, Clock, CheckSquare, Wrench, PersonStanding, Droplet, Shield } from 'lucide-react'; 
-
-// --- DATA: Project Mocks (Should eventually come from a Database/CMS) ---
-const MOCKED_PROJECTS = [
-    { 
-        slug: 'munyaka', 
-        name: 'Munyaka Lifestyle Estate', 
-        location: 'Midrand, Gauteng',
-        scope: 'Full Exterior Painting, Advanced Waterproofing & Structural Repairs',
-        date: '2023 Q4 - 2024 Q2',
-        value: 'R 7.5 Million',
-        details: [
-            { icon: Layers, text: 'Installed 5,000 m² of liquid applied polyurethane membrane on flat roofs.' },
-            { icon: Wrench, text: 'Repaired severe concrete spalling across three residential blocks.' },
-            { icon: CheckSquare, text: 'Project verified by Independent QA with full film thickness reports.' },
-        ]
-    },
-    { 
-        slug: 'the-blyde', 
-        name: 'The Blyde Riverwalk Estate', 
-        location: 'Pretoria East, Gauteng',
-        scope: 'Exterior Painting, High-Access Rope Work, Balcony Remediation',
-        date: '2022 Q3',
-        value: 'R 4.2 Million',
-        details: [
-            { icon: PersonStanding, text: 'Used certified rope access to paint difficult-to-reach apartment facades.' },
-            { icon: Droplet, text: 'Fixed multiple leaking balconies without removing original tiles.' },
-            { icon: Shield, text: 'Applied specialized anti-fungal and UV-resistant elastomeric coatings.' },
-        ]
-    },
-    // Note: The structure requires ALL project slugs referenced in ProjectShowcaseModule
-    // to have a mock entry here.
-];
+import { projectCaseStudies } from '@/data/projects';
+import { siteConfig } from '@/lib/seo';
 
 // --- DYNAMIC METADATA GENERATION ---
 interface ProjectPageProps {
@@ -3342,7 +3502,7 @@ interface ProjectPageProps {
 }
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
-    const project = MOCKED_PROJECTS.find(p => p.slug === params.slug);
+    const project = projectCaseStudies.find(p => p.slug === params.slug);
 
     if (!project) {
         // If project isn't found, Next.js will handle the 404 via the notFound() call in the component
@@ -3352,15 +3512,31 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
         };
     }
 
+    const title = `${project.name} | Structural Repair & Painting Case Study | Maverick`;
+    const description = `Case study for ${project.name} in ${project.location}. Scope: ${project.scope}. Project completed ${project.date}.`;
+
     return {
         title: `${project.name} | Structural Repair & Painting Case Study | Maverick`,
-        description: `Case study for ${project.name} in ${project.location}. Scope: ${project.scope}. Project completed ${project.date}.`,
+        description,
+        alternates: {
+            canonical: `${siteConfig.url}/projects/${project.slug}`,
+        },
+        openGraph: {
+            title,
+            description,
+            type: 'article',
+            url: `${siteConfig.url}/projects/${project.slug}`,
+        },
     };
+}
+
+export function generateStaticParams() {
+    return projectCaseStudies.map((project) => ({ slug: project.slug }));
 }
 
 // --- MAIN PAGE COMPONENT ---
 export default function ProjectDetailPage({ params }: ProjectPageProps) {
-    const project = MOCKED_PROJECTS.find(p => p.slug === params.slug);
+    const project = projectCaseStudies.find(p => p.slug === params.slug);
 
     if (!project) {
         // Use Next.js's built-in notFound() function to render the 404 page
@@ -4592,15 +4768,16 @@ export function AccreditationsStrip() {
 --------------------------------------------------------------------------------📄 FILE PATH: src\components\client-logo-strip.tsx--------------------------------------------------------------------------------```// src/components/client-logo-strip.tsx
 import React from 'react';
 import { cn } from '@/lib/utils';
-// Assuming the logos are placed in /public/images/clients/
+// The layout is a Server Component for performance.
 
 // --- Data: Dealership Clients (Authority Signals) ---
 const clientLogos = [
-    { name: "Volkswagen", className: "text-blue-500" },
-    { name: "Audi", className: "text-gray-400" },
-    { name: "BMW", className: "text-blue-600" },
-    { name: "Renault", className: "text-yellow-600" },
-    { name: "Hyundai", className: "text-red-500" },
+    { name: "Volkswagen" }, 
+    { name: "Audi" },
+    { name: "BMW" },
+    { name: "Renault" },
+    { name: "Hyundai" },
+    // Removed specific brand colors for unified, monochromatic look
 ];
 
 export function ClientLogoStrip() {
@@ -4608,40 +4785,46 @@ export function ClientLogoStrip() {
     const doubledLogos = [...clientLogos, ...clientLogos];
 
     return (
-        <section className="bg-primary py-10 px-4">
+        // Changed bg-primary to bg-gray-900 for subtle shade difference and added strong borders
+        <section className="bg-gray-900 py-12 px-4 border-t-8 border-secondary border-b-2 border-primary/50"> 
             <div className="max-w-7xl mx-auto overflow-hidden">
                 
-                {/* Authority Headline */}
-                <header className="text-center mb-8">
-                    <p className="text-sm font-semibold tracking-widest uppercase text-tertiary">
-                        Trusted by Industry Leaders
+                {/* Authority Headline (Wording Corrected) */}
+                <header className="text-center mb-10">
+                    <p className="text-lg font-bold tracking-wider uppercase text-tertiary">
+                        Verifiable Project Experience
                     </p>
-                    <h3 className="text-2xl font-light mt-1 text-white">
-                        Official Contractors for Major Dealerships
+                    {/* FIXED WORDING: Emphasize 'Work Completed For' instead of 'Official Contractors' */}
+                    <h3 className="text-3xl font-extrabold mt-1 text-white">
+                        Work Completed For Leading Dealerships
                     </h3>
                 </header>
 
-                {/* Infinite Scrolling Container */}
+                {/* Infinite Scrolling Container (Perspective Marquee) */}
                 <div 
                     // cn utility applies the custom animation defined in tailwind.config.ts
                     className={cn(
-                        "flex w-[200%] md:w-[150%]", // Ensures the width is enough to scroll before repeating
+                        "flex w-[250%] md:w-[150%] items-center", // Increased width for better scroll length
                         "animate-infinite-scroll",
                     )}
                 >
                     {doubledLogos.map((client, index) => (
-                        // Each logo item has a fixed width to ensure smooth scrolling
+                        // Each logo item has a fixed width, heavy padding, and a vertical divider
                         <div 
                             key={index} 
-                            className="flex-shrink-0 w-1/5 md:w-1/6 lg:w-1/10 p-4 flex items-center justify-center h-16"
+                            className="flex-shrink-0 w-1/5 md:w-1/6 lg:w-1/10 p-4 
+                                       flex items-center justify-center 
+                                       border-r border-gray-700/50 last:border-r-0"
                         >
-                            {/* Placeholder for SVG/Image. Use bold text with brand color for authority. */}
+                            {/* Logo Text: Larger, Monochromatic, with a subtle 3D text-shadow effect */}
                             <span 
                                 className={cn(
-                                    "text-3xl font-extrabold uppercase transition-opacity duration-300",
-                                    "text-white/40 hover:text-white", // Subtle white tint over dark background
-                                    client.className // Brand color placeholder
+                                    "text-4xl font-black uppercase tracking-wider transition-colors duration-300",
+                                    "text-white/20 hover:text-secondary", // Fixed: light grey to secondary on hover
+                                    "shadow-lg text-shadow-sm" // Aesthetic effect
                                 )}
+                                // Added subtle animation delay based on index for a cascading effect
+                                style={{ animationDelay: `${index * 0.05}s` }}
                             >
                                 {client.name}
                             </span>
@@ -5125,16 +5308,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ProjectShowcaseImageCard } from './project-showcase-image-card'; // <-- NEW IMPORT
-
-// --- Portfolio Data based on Strategic Projects and Image Paths (Placeholders) ---
-const strategicProjects = [
-    { name: "Munyaka Lifestyle Estate", location: "Midrand", href: "/projects/munyaka", imageSrc: "/images/munyaka-midrand.jpg" },
-    { name: "The Blyde Riverwalk Estate", location: "Pretoria East", href: "/projects/the-blyde", imageSrc: "/images/the-blyde-pretorria.jpg" },
-    { name: "Celebration Retirement Estate", location: "North Riding", href: "/projects/celebration", imageSrc: "/images/celebration-retirement.jpg" },
-    { name: "Eastlands Mature Lifestyle", location: "Benoni", href: "/projects/eastlands", imageSrc: "/images/eastlands-benoni.jpg" },
-    { name: "Kikuyu Lifestyle Centre", location: "Midrand", href: "/projects/kikuyu", imageSrc: "/images/kikuyu-lifestyle.jpg" },
-    { name: "Green Creek Eco-Estate", location: "Pretoria East", href: "/projects/greencreek", imageSrc: "/images/greencreek-estate.jpg" },
-];
+import { featuredProjects } from '@/data/projects';
 export function ProjectShowcaseModule() {
     return (
         <section className="bg-primary py-24 md:py-32 px-4 border-t border-gray-800">
@@ -5158,13 +5332,13 @@ export function ProjectShowcaseModule() {
 
                 {/* --- PROJECT GRID: Elegant List with Image Cards --- */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {strategicProjects.map((project, index) => (
+                    {featuredProjects.map((project) => (
                         <ProjectShowcaseImageCard
-                            key={index}
+                            key={project.slug}
                             name={project.name}
                             location={project.location}
-                            href={project.href}
-                            imageSrc={project.imageSrc}
+                            href={`/projects/${project.slug}`}
+                            imageSrc={project.image}
                         />
                     ))}
                 </div>
@@ -5964,6 +6138,196 @@ CardFooter.displayName = "CardFooter"
 export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
 ```
 
+--------------------------------------------------------------------------------📄 FILE PATH: src\data\projects.ts--------------------------------------------------------------------------------```import type { LucideIcon } from "lucide-react";
+import {
+  Layers,
+  Wrench,
+  CheckSquare,
+  PersonStanding,
+  Droplet,
+  Shield,
+  Factory,
+  Clock,
+  Building,
+} from "lucide-react";
+
+export type ProjectDetail = {
+  icon: LucideIcon;
+  text: string;
+};
+
+export type ProjectCaseStudy = {
+  slug: string;
+  name: string;
+  location: string;
+  scope: string;
+  date: string;
+  value?: string;
+  image: string;
+  details: ProjectDetail[];
+  lastModified?: string;
+};
+
+export const projectCaseStudies: ProjectCaseStudy[] = [
+  {
+    slug: "munyaka",
+    name: "Munyaka Lifestyle Estate",
+    location: "Midrand, Gauteng",
+    scope:
+      "Full exterior repaint, polyurethane waterproofing and structural crack remediation across luxury lifestyle blocks.",
+    date: "2023 Q4 – 2024 Q2",
+    value: "R7.5 Million",
+    image: "/images/munyaka-midrand.jpg",
+    details: [
+      {
+        icon: Layers,
+        text: "Installed 5,000 m² of liquid-applied polyurethane membrane on flat roofs and podium decks.",
+      },
+      {
+        icon: Wrench,
+        text: "Repaired severe concrete spalling across three residential blocks using engineer-approved mortars.",
+      },
+      {
+        icon: CheckSquare,
+        text: "Independent QA issued bi-weekly film thickness and adhesion reports for the developer.",
+      },
+    ],
+    lastModified: "2024-10-02",
+  },
+  {
+    slug: "the-blyde",
+    name: "The Blyde Riverwalk Estate",
+    location: "Pretoria East, Gauteng",
+    scope:
+      "High-access facade repainting, balcony remediation and elastomeric coating application for coastal-grade protection.",
+    date: "2022 Q3",
+    value: "R4.2 Million",
+    image: "/images/the-blyde-pretorria.jpg",
+    details: [
+      {
+        icon: PersonStanding,
+        text: "Used IRATA rope access to coat difficult-to-reach elevations without scaffolding delays.",
+      },
+      {
+        icon: Droplet,
+        text: "Fixed multiple leaking under-tile balconies with low-disruption injection and regouting systems.",
+      },
+      {
+        icon: Shield,
+        text: "Applied UV-stable, anti-fungal elastomeric coatings to all high-exposure facades.",
+      },
+    ],
+    lastModified: "2024-05-18",
+  },
+  {
+    slug: "celebration",
+    name: "Celebration Retirement Estate",
+    location: "North Riding, Gauteng",
+    scope:
+      "Turn-key repaint with on-site damp remediation, roof restoration and resident-friendly scheduling.",
+    date: "2024 Q1",
+    image: "/images/celebration-retirement.jpg",
+    details: [
+      {
+        icon: Clock,
+        text: "Executed a multi-phase programme to minimise disruption for elderly residents.",
+      },
+      {
+        icon: Droplet,
+        text: "Installed new chemical DPC and re-plastered 1,200 m² of rising damp zones before painting.",
+      },
+      {
+        icon: CheckSquare,
+        text: "Delivered photographic QA packs for trustee sign-off at every milestone.",
+      },
+    ],
+    lastModified: "2024-07-09",
+  },
+  {
+    slug: "eastlands",
+    name: "Eastlands Mature Lifestyle Estate",
+    location: "Benoni, Gauteng",
+    scope:
+      "Structural repairs, waterproofing, and repainting of common property and high-exposure boundary walls.",
+    date: "2023 Q2",
+    image: "/images/eastlands-benoni.jpg",
+    details: [
+      {
+        icon: Wrench,
+        text: "Injected structural cracks and sealed 350 linear metres of expansion joints.",
+      },
+      {
+        icon: Shield,
+        text: "Applied torch-on membranes on clubhouse roofs with 15-year manufacturer guarantees.",
+      },
+      {
+        icon: Layers,
+        text: "Completed full facade repaint with breathable elastomeric coatings for long-term durability.",
+      },
+    ],
+    lastModified: "2023-11-21",
+  },
+  {
+    slug: "kikuyu",
+    name: "Kikuyu Lifestyle Centre",
+    location: "Midrand, Gauteng",
+    scope:
+      "Industrial-grade corrosion protection and decorative coatings for the flagship lifestyle centre.",
+    date: "2022 Q4",
+    image: "/images/kikuyu-lifestyle.jpg",
+    details: [
+      {
+        icon: Factory,
+        text: "Abrasive blasted structural steel to SA 2.5 profile prior to zinc-rich priming.",
+      },
+      {
+        icon: Layers,
+        text: "Installed hygienic epoxy floor systems throughout the food court and back-of-house areas.",
+      },
+      {
+        icon: CheckSquare,
+        text: "Issued joint manufacturer + contractor guarantees covering corrosion and hygienic finishes.",
+      },
+    ],
+    lastModified: "2023-02-14",
+  },
+  {
+    slug: "greencreek",
+    name: "Green Creek Eco-Estate",
+    location: "Pretoria East, Gauteng",
+    scope:
+      "Eco-focused repaint and waterproofing programme covering residential blocks, guard houses and lifestyle amenities.",
+    date: "2023 Q1",
+    image: "/images/greencreek-estate.jpg",
+    details: [
+      {
+        icon: Building,
+        text: "Coated 18 multi-storey apartment blocks with low-VOC, high-cover masonry systems.",
+      },
+      {
+        icon: Droplet,
+        text: "Remediated chronic balcony leaks using liquid-applied membranes and new drainage detail.",
+      },
+      {
+        icon: Shield,
+        text: "Rope access teams sealed parapets and coping stones to protect the estate against driving rain.",
+      },
+    ],
+    lastModified: "2023-08-30",
+  },
+];
+
+export const featuredProjects = projectCaseStudies.map(
+  ({ name, location, slug, image }) => ({
+    name,
+    location,
+    slug,
+    image,
+  })
+);
+
+```
+
 --------------------------------------------------------------------------------📄 FILE PATH: src\lib\auth.ts--------------------------------------------------------------------------------```// src/lib/auth.ts
 // ADDED: Module augmentation for NextAuth types
 declare module "next-auth" {
@@ -6052,6 +6416,105 @@ const client = postgres(process.env.DATABASE_URL);
 
 // Initialize Drizzle with the client and your schema files
 export const db = drizzle(client, { schema });```
+
+--------------------------------------------------------------------------------📄 FILE PATH: src\lib\seo.ts--------------------------------------------------------------------------------```export type SocialProfiles = {
+  linkedin: string;
+  facebook: string;
+  instagram?: string;
+  youtube?: string;
+};
+
+export type SiteAddress = {
+  street: string;
+  suburb: string;
+  city: string;
+  region: string;
+  postalCode: string;
+  country: string;
+  latitude?: number;
+  longitude?: number;
+};
+
+export const siteConfig = {
+  name: "Maverick Painting Contractors",
+  shortName: "Maverick Painting",
+  legalName: "Maverick Painting Contractors",
+  slogan: "Owner supervised structural repairs, coatings & waterproofing",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.maverickpainting.co.za",
+  description:
+    "Owner supervised painting contractors in Gauteng specialising in structural repairs, waterproofing, industrial coatings and independent QA for body corporates, developers and high-end homeowners.",
+  keywords: [
+    "painting contractors gauteng",
+    "commercial painting johannesburg",
+    "industrial coatings south africa",
+    "body corporate waterproofing",
+    "structural repairs maverick painting",
+    "rope access painters gauteng",
+    "independent qa coating inspection",
+  ],
+  email: "maverickpainters1984@gmail.com",
+  phoneNumber: "+27 82 627 7082",
+  whatsapp: "https://wa.me/27826277082",
+  social: {
+    linkedin: "https://www.linkedin.com/company/maverickpainting",
+    facebook: "https://www.facebook.com/maverickpaintingcontractors",
+    instagram: "https://www.instagram.com/maverickpainting",
+  } satisfies SocialProfiles,
+  address: {
+    street: "15 Highveld Techno Park",
+    suburb: "Centurion",
+    city: "Pretoria",
+    region: "Gauteng",
+    postalCode: "0157",
+    country: "ZA",
+    latitude: -25.89052,
+    longitude: 28.18904,
+  } satisfies SiteAddress,
+  serviceAreas: [
+    "Johannesburg",
+    "Pretoria",
+    "Midrand",
+    "Centurion",
+    "Sandton",
+    "Benoni",
+    "East Rand",
+  ],
+  primaryPages: [
+    "/",
+    "/about-us",
+    "/services",
+    "/solutions/for-body-corporates",
+    "/solutions/for-developers",
+    "/solutions/for-homeowners",
+    "/painting-services",
+    "/painting/body-corporate-painting",
+    "/painting/commercial-painting",
+    "/painting/high-volume-commercial-painting",
+    "/painting/industrial-painting",
+    "/waterproofing-services",
+    "/damp-proofing-services",
+    "/access-solutions",
+    "/specialized-coatings",
+    "/structural-repairs",
+    "/coatings/hygienic-food-grade-flooring",
+    "/our-process-independent-qa",
+    "/projects",
+    "/blog",
+    "/blog/industrial",
+    "/blog/waterproofing",
+    "/blog/waterproofing/leaking-balcony-fixes",
+    "/blog/waterproofing/liquid-vs-torch-on",
+    "/blog/waterproofing/rising-damp-guide",
+    "/blog/structural-remediation",
+    "/privacy",
+    "/terms",
+    "/contact",
+  ],
+};
+
+export const defaultChangeFrequency = "monthly";
+
+```
 
 --------------------------------------------------------------------------------📄 FILE PATH: src\lib\utils.ts--------------------------------------------------------------------------------```import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"

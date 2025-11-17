@@ -3,16 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ProjectShowcaseImageCard } from './project-showcase-image-card'; // <-- NEW IMPORT
-
-// --- Portfolio Data based on Strategic Projects and Image Paths (Placeholders) ---
-const strategicProjects = [
-    { name: "Munyaka Lifestyle Estate", location: "Midrand", href: "/projects/munyaka", imageSrc: "/images/munyaka-midrand.jpg" },
-    { name: "The Blyde Riverwalk Estate", location: "Pretoria East", href: "/projects/the-blyde", imageSrc: "/images/the-blyde-pretorria.jpg" },
-    { name: "Celebration Retirement Estate", location: "North Riding", href: "/projects/celebration", imageSrc: "/images/celebration-retirement.jpg" },
-    { name: "Eastlands Mature Lifestyle", location: "Benoni", href: "/projects/eastlands", imageSrc: "/images/eastlands-benoni.jpg" },
-    { name: "Kikuyu Lifestyle Centre", location: "Midrand", href: "/projects/kikuyu", imageSrc: "/images/kikuyu-lifestyle.jpg" },
-    { name: "Green Creek Eco-Estate", location: "Pretoria East", href: "/projects/greencreek", imageSrc: "/images/greencreek-estate.jpg" },
-];
+import { featuredProjects } from '@/data/projects';
 export function ProjectShowcaseModule() {
     return (
         <section className="bg-primary py-24 md:py-32 px-4 border-t border-gray-800">
@@ -36,13 +27,13 @@ export function ProjectShowcaseModule() {
 
                 {/* --- PROJECT GRID: Elegant List with Image Cards --- */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {strategicProjects.map((project, index) => (
+                    {featuredProjects.map((project) => (
                         <ProjectShowcaseImageCard
-                            key={index}
+                            key={project.slug}
                             name={project.name}
                             location={project.location}
-                            href={project.href}
-                            imageSrc={project.imageSrc}
+                            href={`/projects/${project.slug}`}
+                            imageSrc={project.image}
                         />
                     ))}
                 </div>
