@@ -1,17 +1,18 @@
 // src/app/access-solutions/page.tsx
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { QaProcessModule } from '@/components/qa-process-module';
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
 import { PersonStanding, Shield, TrendingUp, Truck } from 'lucide-react'; // REMOVED: Zap, Phone
+import { buildPageMetadata } from '@/lib/metadata';
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Rope Access & High-Access Painting Solutions | Cost-Effective & OHS Compliant',
     description: 'Expert rope access and high-access painting contractors. We use scaffolding, boom lifts, and certified rope access to provide cost-effective maintenance for high-rise facades and difficult-to-reach industrial areas.',
-};
+    path: '/access-solutions',
+});
 
 // --- TECHNICAL DATA FOR CONTENT MODULES ---
 const AccessMethods = [

@@ -22,6 +22,7 @@ export const siteConfig = {
   legalName: "Maverick Painting Contractors",
   slogan: "Owner supervised structural repairs, coatings & waterproofing",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.maverickpainting.co.za",
+  defaultOgImage: "/images/munyaka-midrand.jpg",
   description:
     "Owner supervised painting contractors in Gauteng specialising in structural repairs, waterproofing, industrial coatings and independent QA for body corporates, developers and high-end homeowners.",
   keywords: [
@@ -36,6 +37,7 @@ export const siteConfig = {
   email: "maverickpainters1984@gmail.com",
   phoneNumber: "+27 82 627 7082",
   whatsapp: "https://wa.me/27826277082",
+  twitterHandle: "@maverickpainting",
   social: {
     linkedin: "https://www.linkedin.com/company/maverickpainting",
     facebook: "https://www.facebook.com/maverickpaintingcontractors",

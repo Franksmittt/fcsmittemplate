@@ -1,17 +1,18 @@
 // src/app/waterproofing-services/page.tsx
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { QaProcessModule } from '@/components/qa-process-module';
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
 import { Shield, Droplet, Layers, FileText } from 'lucide-react'; // REMOVED: Phone
+import { buildPageMetadata } from '@/lib/metadata';
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Flat Roof & Balcony Waterproofing Services | Guaranteed Membrane Systems',
     description: 'Specialist waterproofing contractors in Gauteng. We use guaranteed liquid-applied and torch-on membrane systems to permanently solve flat roof, balcony, and basement water ingress. Independent QA verified.',
-};
+    path: '/waterproofing-services',
+});
 
 // --- TECHNICAL DATA FOR CONTENT MODULES ---
 const WaterproofingSolutions = [

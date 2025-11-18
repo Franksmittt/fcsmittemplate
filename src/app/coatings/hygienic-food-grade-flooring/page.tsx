@@ -1,17 +1,18 @@
 // src/app/coatings/hygienic-food-grade-flooring/page.tsx
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { QaProcessModule } from '@/components/qa-process-module';
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
 import { FlaskConical, Beaker, Utensils, Shield } from 'lucide-react'; 
+import { buildPageMetadata } from '@/lib/metadata';
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Food-Grade & Hygienic Epoxy Flooring Contractors | HACCP Compliance',
     description: 'Seamless, non-porous, and chemical-resistant epoxy and polyurethane floor systems for food and beverage plants, commercial kitchens, and healthcare facilities. Guaranteed HACCP compliance.',
-};
+    path: '/coatings/hygienic-food-grade-flooring',
+});
 
 // --- KEY FEATURES DATA ---
 const HygienicFeatures = [

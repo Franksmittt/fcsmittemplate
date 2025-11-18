@@ -1,17 +1,18 @@
 // src/app/solutions/for-body-corporates/page.tsx
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { QaProcessModule } from '@/components/qa-process-module';
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
 import { ClipboardCheck, MessageCircle, Scroll, Shield } from 'lucide-react'; // REMOVED: Users
+import { buildPageMetadata } from '@/lib/metadata';
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Painting & Waterproofing Solutions for Body Corporates & HOAs | Maverick',
-    description: 'Specialized asset maintenance for Body Corporates and Homeowners&apos; Associations. We offer guaranteed compliance, minimal disturbance, and Independent QA for long-term asset security.',
-};
+    description: 'Specialized asset maintenance for Body Corporates and Homeowners\' Associations. We offer guaranteed compliance, minimal disturbance, and Independent QA for long-term asset security.',
+    path: '/solutions/for-body-corporates',
+});
 
 // --- CORE PAIN POINTS DATA ---
 const PainPoints = [

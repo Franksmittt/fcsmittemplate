@@ -1,13 +1,14 @@
 // src/app/privacy/page.tsx
-import type { Metadata } from 'next';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
 import { Shield } from 'lucide-react'; // REMOVED: FileText
+import { buildPageMetadata } from '@/lib/metadata';
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Privacy Policy | Data Collection and Use | Maverick Painting Contractors',
     description: 'Review the official Privacy Policy for Maverick Painting, detailing how user data is collected, used, and protected.',
-};
+    path: '/privacy',
+});
 
 // --- MAIN PAGE COMPONENT ---
 export default function PrivacyPage() {

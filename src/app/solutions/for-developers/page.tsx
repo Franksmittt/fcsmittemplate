@@ -1,17 +1,18 @@
 // src/app/solutions/for-developers/page.tsx
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { QaProcessModule } from '@/components/qa-process-module';
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
 import { Building, ClipboardCheck, Scroll, Wrench } from 'lucide-react'; // REMOVED: Hammer, Layers
+import { buildPageMetadata } from '@/lib/metadata';
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'New Build & Developer Painting Solutions | Technical Compliance & Auditable QA',
     description: 'Verifiable painting and coating specifications for developers, engineers, and quantity surveyors. We guarantee compliance with SANS standards and ensure zero hand-over risk through Independent 3rd Party QA.',
-};
+    path: '/solutions/for-developers',
+});
 
 // --- CORE PAIN POINTS DATA ---
 const DeveloperValueProps = [

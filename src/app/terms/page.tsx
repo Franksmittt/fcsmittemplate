@@ -1,13 +1,14 @@
 // src/app/terms/page.tsx
-import type { Metadata } from 'next';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
 import { FileText } from 'lucide-react';
+import { buildPageMetadata } from '@/lib/metadata';
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Terms of Service | Maverick Painting Contractors',
     description: 'Review the official Terms of Service for all contracting work and use of the Maverick Painting website.',
-};
+    path: '/terms',
+});
 
 // --- MAIN PAGE COMPONENT ---
 export default function TermsPage() {

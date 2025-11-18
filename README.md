@@ -47,3 +47,27 @@ cd mvvppaint
 
 # 2. Install all dependencies using pnpm
 pnpm install
+
+### 2.3 Configure On-Demand Revalidation
+
+1. Define a strong shared secret in your environment (e.g. `.env.local`):
+
+   ```
+   REVALIDATE_SECRET="replace_with_random_string"
+   ```
+
+2. Point your CMS/webhook provider at `POST /api/revalidate` with JSON like:
+
+   ```json
+   {
+     "secret": "replace_with_random_string",
+     "scope": "pillar",
+     "pillar": "waterproofing"
+   }
+   ```
+
+   - `scope`: `"all" | "pillar" | "cluster"` (defaults to `"all"`).
+   - `pillar`: slug from `src/lib/pillars.ts`.
+   - `cluster`: required only for `scope: "cluster"`.
+
+Every successful request purges the relevant static routes and cache tags so updated content publishes instantly.

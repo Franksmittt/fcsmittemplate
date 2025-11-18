@@ -1,16 +1,17 @@
 // src/app/projects/page.tsx
-import type { Metadata } from 'next';
 // import Link from 'next/link'; // REMOVED: Unused
 // import { Button } from '@/components/ui/button'; // REMOVED: Unused
 import { ProjectShowcaseModule } from '@/components/project-showcase-module';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
 import { Layers, MapPin, CheckSquare } from 'lucide-react';
+import { buildPageMetadata } from '@/lib/metadata';
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Gauteng Painting & Structural Repair Project Portfolio | Maverick',
     description: 'View our portfolio of high-value commercial, body corporate, and industrial projects across Gauteng, including Midrand, Pretoria East, and North Riding. Verifiable quality assurance on every job.',
-};
+    path: '/projects',
+});
 
 // --- CORE FEATURE DATA (Proof Points) ---
 const ProofPoints = [

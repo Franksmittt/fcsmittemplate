@@ -1,17 +1,18 @@
 // src/app/accreditations/page.tsx
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
 // FIX: Added Paintbrush to resolve TypeScript error.
 import { Shield, Layers, Users, Factory, Award, Scroll, ClipboardCheck, Paintbrush } from 'lucide-react';
+import { buildPageMetadata } from '@/lib/metadata';
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Approved Manufacturer Applicators & Certified Contractors | Maverick',
     description: 'View our official accreditations, manufacturer applicator status (Sika, Plascon, Marmoran), and compliance certificates (OHS, MBA, NAMA). Your guarantee of verifiable quality.',
-};
+    path: '/accreditations',
+});
 
 // --- DATA: MANUFACTURER PARTNERSHIPS ---
 const ManufacturerPartners = [

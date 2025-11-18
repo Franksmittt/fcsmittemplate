@@ -1,17 +1,18 @@
 // src/app/solutions/for-homeowners/page.tsx
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 // import { QaProcessModule } from '@/components/qa-process-module'; // REMOVED: Unused - replaced by modular section below
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
 import { Users, CheckSquare, Shield, Clock } from 'lucide-react'; // REMOVED: Home, Paintbrush
+import { buildPageMetadata } from '@/lib/metadata';
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Owner Supervised Painting for High-End Homeowners | Guaranteed Quality',
-    description: 'Premium exterior and interior painting services for homeowners. Benefit from daily owner supervision, guaranteed workmanship, and meticulous site cleanliness. Gauteng&apos;s trusted residential contractor.',
-};
+    description: 'Premium exterior and interior painting services for homeowners. Benefit from daily owner supervision, guaranteed workmanship, and meticulous site cleanliness. Gauteng\'s trusted residential contractor.',
+    path: '/solutions/for-homeowners',
+});
 
 // --- CORE PAIN POINTS DATA ---
 const HomeownerAssurances = [

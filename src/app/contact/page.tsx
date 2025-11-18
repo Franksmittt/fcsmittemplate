@@ -1,15 +1,16 @@
 // src/app/contact/page.tsx
-import type { Metadata } from 'next';
 import { Phone, Mail, MapPin, MessageCircle, Layers, ClipboardCheck, Scroll } from 'lucide-react'; 
 import { Button } from '@/components/ui/button';
 import { HeroContactForm } from '@/components/hero-contact-form'; // Reusing the form logic
+import { buildPageMetadata } from '@/lib/metadata';
 
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Get a Professional Painting, Structural Repair Quote | Contact Maverick',
     description: 'Contact Maverick Painting for a free site assessment and comprehensive quote. Specialized solutions for Body Corporates, Developers, and high-value properties in Gauteng, South Africa.',
-};
+    path: '/contact',
+});
 
 // --- MAIN PAGE COMPONENT ---
 export default function ContactPage() {

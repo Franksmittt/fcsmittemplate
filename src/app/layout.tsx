@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Partytown } from "@builder.io/partytown/react";
 import { Inter } from "next/font/google"; // <-- This is the font
 import "@/app/globals.css";
 import { Header } from "@/components/layout/header";
@@ -139,6 +140,9 @@ export default function RootLayout({
 
   return (
     <html lang="en-ZA">
+      <head>
+        <Partytown debug={false} forward={["dataLayer.push"]} />
+      </head>
       <body className={inter.className}>
         {/* The entire application content lives within the body tags */}
 

@@ -1,15 +1,16 @@
 // src/app/blog/page.tsx
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
 import { BookOpen, Wrench, Layers, Building } from 'lucide-react';
+import { buildPageMetadata } from '@/lib/metadata';
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Expertise Hub: Structural Repair, Waterproofing & Coating Guides | Maverick Blog',
     description: 'Read technical guides and expert advice on concrete spalling, high-performance epoxy coatings, industrial waterproofing, and managing body corporate maintenance projects.',
-};
+    path: '/blog',
+});
 
 // --- DATA: Content Categories (Future SEO Silos) ---
 const ContentCategories = [

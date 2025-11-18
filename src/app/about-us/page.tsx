@@ -1,7 +1,7 @@
 // src/app/about-us/page.tsx
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ClipboardCheck, Medal, Scroll, Users, Phone, Wrench, Sprout, Shield } from 'lucide-react'; // Removed Layers, Home, Factory
+import { buildPageMetadata } from '@/lib/metadata';
 import { Button } from '@/components/ui/button';
 import { QaProcessModule } from '@/components/qa-process-module'; // Reusing existing module
 import { AccreditationsStrip } from '@/components/accreditations-strip'; // Reusing existing module
@@ -23,10 +23,11 @@ function ExperienceStatCard({ value, label, icon: Icon }: { value: string; label
 }
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Owner Supervised Painting Contractors - 50+ Years Experience | Maverick',
     description: 'Established in 2004, Maverick Painting offers structural repair and specialized coatings, backed by Independent 3rd Party Quality Assurance on every high-value project.',
-};
+    path: '/about-us',
+});
 
 
 // --- MAIN PAGE COMPONENT ---

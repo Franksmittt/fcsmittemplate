@@ -1,17 +1,18 @@
 // src/app/damp-proofing-services/page.tsx
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { QaProcessModule } from '@/components/qa-process-module';
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
 import { Droplet, Sprout, Building, MessageSquare } from 'lucide-react'; // REMOVED: AirVent
+import { buildPageMetadata } from '@/lib/metadata';
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Rising Damp & Damp Proofing Solutions | Chemical DPC & Moisture Control',
     description: 'Specialized rising damp treatment contractors offering guaranteed chemical DPC (Damp Proof Course) injection and full moisture control solutions for basements and ground-level walls.',
-};
+    path: '/damp-proofing-services',
+});
 
 // --- KEY FEATURES DATA ---
 const DampFeatures = [

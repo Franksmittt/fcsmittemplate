@@ -1,17 +1,18 @@
 // src/app/painting-services/page.tsx
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { QaProcessModule } from '@/components/qa-process-module';
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
 import { Building, Factory, Wrench, Truck } from 'lucide-react'; // REMOVED: Paintbrush, Phone
+import { buildPageMetadata } from '@/lib/metadata';
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Commercial & High-Access Painting Contractors | Industrial & Body Corporate',
     description: 'Specialist large-scale painting services for industrial sites, factories, and commercial buildings. Expert high-access, rope access, and cost-effective solutions with Independent QA.',
-};
+    path: '/painting-services',
+});
 
 // --- TECHNICAL DATA FOR CONTENT MODULES ---
 const CommercialPaintingServices = [

@@ -1,17 +1,18 @@
 // src/app/structural-repairs/page.tsx
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { QaProcessModule } from '@/components/qa-process-module';
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { Wrench, Shield, Layers, Users } from 'lucide-react';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
+import { buildPageMetadata } from '@/lib/metadata';
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Concrete Spalling, Structural Crack & Remedial Repair Specialists | Maverick',
     description: 'Expert structural repair contractors in Gauteng. We permanently fix concrete spalling, rising damp, and structural cracks before applying specialized protective coatings. Guaranteed quality assurance.',
-};
+    path: '/structural-repairs',
+});
 
 // --- TECHNICAL DATA FOR CONTENT MODULES ---
 const RepairProcessSteps = [

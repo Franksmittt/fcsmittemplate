@@ -1,17 +1,18 @@
 // src/app/painting/commercial-painting/page.tsx
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { QaProcessModule } from '@/components/qa-process-module';
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
 import { Stethoscope, ClipboardCheck, MessageCircle, Building } from 'lucide-react'; 
+import { buildPageMetadata } from '@/lib/metadata';
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Commercial & Healthcare Painting Contractors | Low-VOC & Sensitive Environment Coatings',
     description: 'Specialist low-VOC and anti-microbial coating application for commercial offices, healthcare facilities, and retail spaces. We ensure minimal disruption and high air quality compliance.',
-};
+    path: '/painting/commercial-painting',
+});
 
 // --- KEY FEATURES DATA ---
 const CommercialFeatures = [

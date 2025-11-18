@@ -1,0 +1,142 @@
+{
+  "pillars": [
+    {
+      "slug": "waterproofing",
+      "title": "Waterproofing & Damp Proofing Guides",
+      "subtitle": "Flat roofs, balconies, and moisture diagnostics.",
+      "summary": "Technical playbooks for liquid-applied vs. torch-on membranes, chemical damp proofing, and low-disruption balcony repairs.",
+      "icon": "Layers",
+      "heroCta": {
+        "label": "Consult a Waterproofing Expert",
+        "href": "/contact"
+      },
+      "metadata": {
+        "title": "Waterproofing & Damp Proofing Guides | Flat Roof, Balcony, and Basement Solutions",
+        "description": "Expert guides on selecting liquid-applied vs. torch-on membranes, preventing rising damp, and troubleshooting water ingress in balconies and basements.",
+        "path": "/blog/waterproofing"
+      },
+      "clusters": [
+        {
+          "slug": "liquid-vs-torch-on",
+          "title": "Liquid Applied vs. Torch-On: Which System is Superior?",
+          "description": "Durability, installation, and warranty differences between polyurethane membranes and traditional torch-on systems.",
+          "icon": "Droplet",
+          "metadata": {
+            "title": "Technical Comparison: Liquid Applied vs. Torch-On Waterproofing Membranes",
+            "description": "An expert technical guide comparing the durability, installation process, and long-term cost-effectiveness of liquid applied polyurethane membranes against traditional torch-on felt systems for flat roofs and balconies.",
+            "path": "/blog/waterproofing/liquid-vs-torch-on"
+          },
+          "relatedSlugs": ["rising-damp-guide", "leaking-balcony-fixes"]
+        },
+        {
+          "slug": "leaking-balcony-fixes",
+          "title": "Low-Disruption Balcony Leak Repair",
+          "description": "Diagnose and remediates under-tile leaks using injection and re-grouting systems.",
+          "icon": "Shield",
+          "metadata": {
+            "title": "How to Fix a Leaking Balcony Without Removing Tiles (Low-Disruption Repair)",
+            "description": "A practical guide on diagnosing and repairing leaking under-tile balconies using low-disruption injection and re-grouting systems.",
+            "path": "/blog/waterproofing/leaking-balcony-fixes"
+          },
+          "relatedSlugs": ["liquid-vs-torch-on"]
+        },
+        {
+          "slug": "rising-damp-guide",
+          "title": "Chemical DPC Injection Guide",
+          "description": "Diagnosing rising damp vs. condensation and executing the chemical DPC + plaster remediation process.",
+          "icon": "Layers",
+          "metadata": {
+            "title": "The Permanent Fix for Rising Damp: Chemical DPC Injection Guide",
+            "description": "A comprehensive guide on diagnosing rising damp versus condensation, detailing the chemical DPC method and plaster remediation.",
+            "path": "/blog/waterproofing/rising-damp-guide"
+          },
+          "relatedSlugs": ["liquid-vs-torch-on"]
+        }
+      ]
+    },
+    {
+      "slug": "industrial",
+      "title": "Industrial Painting & Maintenance Guides",
+      "subtitle": "Corrosion control, floor systems, and plant liability.",
+      "summary": "Expert industrial guides on corrosion control, abrasive blasting prep, hygienic flooring, and OHS compliance for factories and plant assets.",
+      "icon": "Factory",
+      "heroCta": {
+        "label": "Request a technical consultation",
+        "href": "/contact"
+      },
+      "metadata": {
+        "title": "Industrial Painting & Maintenance Blog | Corrosion Control & Plant Asset Guides",
+        "description": "Expert industrial guides on corrosion control, abrasive blasting preparation, epoxy flooring systems, and protective coatings for factories and plant assets.",
+        "path": "/blog/industrial"
+      },
+      "clusters": [
+        {
+          "slug": "zinc-primer-corrosion-control",
+          "title": "The Science of Stopping Rust",
+          "description": "Technical comparison of sacrificial vs. barrier protection for structural steel.",
+          "icon": "Wrench",
+          "metadata": {
+            "title": "The Science of Stopping Rust: Choosing the Right Zinc Primer",
+            "description": "A technical guide to sacrificial and barrier protection systems for structural steel and exposed plant assets.",
+            "path": "/blog/industrial/zinc-primer-corrosion-control"
+          },
+          "relatedSlugs": ["fast-curing-floors", "ohs-access-liability"]
+        },
+        {
+          "slug": "fast-curing-floors",
+          "title": "Fast-Curing Floors for Food Production",
+          "description": "How polyurethane screeds minimize downtime and ensure HACCP compliance.",
+          "icon": "Factory",
+          "metadata": {
+            "title": "Minimizing Downtime: Fast-Curing Floors for Food Production",
+            "description": "How fast-curing polyurethane screeds minimize disruption and ensure HACCP compliance in processing plants.",
+            "path": "/blog/industrial/fast-curing-floors"
+          },
+          "relatedSlugs": ["zinc-primer-corrosion-control"]
+        },
+        {
+          "slug": "ohs-access-liability",
+          "title": "OHS Compliance for High Access",
+          "description": "Compliance checklists for rope access and elevated work on industrial sites.",
+          "icon": "Shield",
+          "metadata": {
+            "title": "OHS Compliance: Managing High-Access Liability on Industrial Sites",
+            "description": "A checklist for facility managers to ensure contractors meet all OHS requirements for work performed at height.",
+            "path": "/blog/industrial/ohs-access-liability"
+          },
+          "relatedSlugs": ["zinc-primer-corrosion-control"]
+        }
+      ]
+    },
+    {
+      "slug": "structural-remediation",
+      "title": "Structural Remediation Guides",
+      "subtitle": "Concrete spalling, crack injection, and QA workflows.",
+      "summary": "Engineering-led playbooks covering defect diagnostics, steel passivation, polymer-modified mortars, and protective coatings.",
+      "icon": "ShieldCheck",
+      "heroCta": {
+        "label": "Book a remediation assessment",
+        "href": "/structural-repairs"
+      },
+      "metadata": {
+        "title": "Technical Guide: How to Permanently Repair Concrete Spalling & Cancer",
+        "description": "An expert guide to structural remediation, detailing concrete spalling repair, rebar passivation, crack injection, and protective coatings.",
+        "path": "/blog/structural-remediation"
+      },
+      "clusters": [
+        {
+          "slug": "concrete-spalling-repair",
+          "title": "Concrete Spalling Repair Workflow",
+          "description": "Four-phase remediation covering defect breakout, rebar treatment, structural mortars, and breathable coatings.",
+          "icon": "Wrench",
+          "metadata": {
+            "title": "Concrete Spalling Repair: Permanent, Engineering-Led Workflow",
+            "description": "Step-by-step remediation process that prevents recurring failure by addressing rebar corrosion and protective top coats.",
+            "path": "/blog/structural-remediation/concrete-spalling-repair"
+          }
+        }
+      ]
+    }
+  ]
+}
+

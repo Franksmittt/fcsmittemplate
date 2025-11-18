@@ -1,7 +1,8 @@
 // src/app/services/page.tsx
-import type { Metadata } from 'next';
 import Link from 'next/link';
+import Script from 'next/script';
 import { Button } from '@/components/ui/button';
+import { buildPageMetadata } from '@/lib/metadata';
 // FIX: Re-added Home and Phone to resolve the "Cannot find name" compilation errors (Lines 180 and 303 in the error report).
 import { ClipboardCheck, Shield, Wrench, FlaskConical, Building, Layers, Factory, Home, Phone } from 'lucide-react';
 import { QaProcessModule } from '@/components/qa-process-module'; // Reusing existing module
@@ -9,10 +10,11 @@ import { AccreditationsStrip } from '@/components/accreditations-strip';
 // Reusing existing module
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Specialized Painting, Waterproofing & Structural Repair Services | Gauteng Contractor',
     description: 'A structural asset maintenance partner offering guaranteed, turn-key solutions for commercial, industrial, and body corporate properties, including structural repairs, specialized coatings, and Independent QA. Johannesburg & Pretoria.',
-};
+    path: '/services',
+});
 // --- CORE SERVICE PILLAR DATA (Central to SEO Silo) ---
 const servicePillars = [
     {
@@ -79,10 +81,39 @@ const servicePillars = [
         isFeatured: false,
     },
 ];
+
+const servicesFaq = [
+    {
+        question: "What makes Maverick's structural repairs different from standard painters?",
+        answer: "Every remedial scope starts with substrate diagnostics, engineer-approved specifications and independent QA sign-off, so defects are fixed at the structural level before we apply coatings.",
+    },
+    {
+        question: 'Do you handle waterproofing, painting and access in a single contract?',
+        answer: 'Yes. Our turnkey teams manage advanced access (rope, scaffold, boom lifts), waterproofing membranes and final coating systems, giving body corporates and developers one accountable partner.',
+    },
+    {
+        question: 'How do you guarantee compliance and warranties?',
+        answer: 'We partner with leading manufacturers, document film thickness with third-party inspectors and co-sign workmanship + product guarantees ranging from 5 to 15 years.',
+    },
+];
 // --- MAIN PAGE COMPONENT ---
 export default function ServicesPage() {
     return (
         <div className="bg-primary pt-24">
+            <Script id="services-faq-schema" type="application/ld+json" strategy="afterInteractive">
+                {JSON.stringify({
+                    '@context': 'https://schema.org',
+                    '@type': 'FAQPage',
+                    mainEntity: servicesFaq.map((item) => ({
+                        '@type': 'Question',
+                        name: item.question,
+                        acceptedAnswer: {
+                            '@type': 'Answer',
+                            text: item.answer,
+                        },
+                    })),
+                })}
+            </Script>
 
             {/* --- MODULE 1: SEO HERO (Structural Thesis) --- */}
             <section className="relative py-20 md:py-32 px-4 text-white bg-gray-900 border-b-4 border-secondary">

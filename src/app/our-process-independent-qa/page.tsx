@@ -1,17 +1,18 @@
 // src/app/our-process-independent-qa/page.tsx
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 // import { QaProcessModule } from '@/components/qa-process-module'; // REMOVED: Replaced by custom module below
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
 import { Scroll, CheckSquare, FileText, BarChart } from 'lucide-react';
+import { buildPageMetadata } from '@/lib/metadata';
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Independent 3rd Party QA Process & Guarantee | Maverick Painting',
     description: 'Learn how our Independent 3rd Party Quality Assurance (QA) process eliminates project risk. Receive bi-weekly reports on film thickness and application quality, guaranteed.',
-};
+    path: '/our-process-independent-qa',
+});
 
 // --- TECHNICAL DATA FOR THE PROCESS MODULE ---
 const FullQAProcess = [

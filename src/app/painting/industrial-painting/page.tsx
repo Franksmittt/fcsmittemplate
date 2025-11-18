@@ -1,17 +1,18 @@
 // src/app/painting/industrial-painting/page.tsx
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { QaProcessModule } from '@/components/qa-process-module';
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
 import { Factory, Shield, Wrench, Sprout } from 'lucide-react'; 
+import { buildPageMetadata } from '@/lib/metadata';
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Industrial Painting & Corrosion Control Contractors | Plant & Steel Structures',
     description: 'Specialist industrial painting services including corrosion control, surface preparation (abrasive blasting), and protective coatings for factories, plants, and steel structures.',
-};
+    path: '/painting/industrial-painting',
+});
 
 // --- KEY FEATURES DATA ---
 const IndustrialFeatures = [

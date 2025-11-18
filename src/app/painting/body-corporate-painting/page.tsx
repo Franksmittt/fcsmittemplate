@@ -1,17 +1,18 @@
 // src/app/painting/body-corporate-painting/page.tsx
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { QaProcessModule } from '@/components/qa-process-module';
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
 import { Paintbrush, Truck, Users, Clock } from 'lucide-react'; // REMOVED: Building
+import { buildPageMetadata } from '@/lib/metadata';
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Large-Scale Body Corporate Painting Contractors Gauteng | Auditable Quality',
     description: 'Expert residential complex and Body Corporate painting services. We ensure minimal resident disturbance, full site compliance, and transparent Independent QA on all common property painting projects.',
-};
+    path: '/painting/body-corporate-painting',
+});
 
 // --- KEY FEATURES DATA ---
 const ProjectFeatures = [

@@ -1,17 +1,18 @@
 // src/app/painting/high-volume-commercial-painting/page.tsx
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { QaProcessModule } from '@/components/qa-process-module';
 import { AccreditationsStrip } from '@/components/accreditations-strip';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
 import { Scale, Factory, Clock, Building } from 'lucide-react'; 
+import { buildPageMetadata } from '@/lib/metadata';
 
 // --- METADATA (SEO) ---
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
     title: 'Large-Scale Commercial Painting Contractors | High-Volume Industrial Facades',
     description: 'High-volume commercial painting services for large retail centres, office blocks, and industrial complexes. We specialize in projects requiring strict scheduling and multi-phase execution.',
-};
+    path: '/painting/high-volume-commercial-painting',
+});
 
 // --- KEY FEATURES DATA ---
 const VolumeFeatures = [
