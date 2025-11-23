@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Partytown } from "@builder.io/partytown/react";
-import { Inter } from "next/font/google"; // <-- This is the font
+import { Inter } from "next/font/google";
 import "@/app/globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { siteConfig } from "@/lib/seo";
+import { GoogleTagManager } from "@/components/analytics/gtm-partytown"; // <--- NEW IMPORT
 
 // FIX: Add 'display: swap' and EXPLICITLY set 'preload: true' for non-blocking optimization.
 const inter = Inter({ subsets: ["latin"], display: "swap", preload: true });
@@ -144,18 +145,19 @@ export default function RootLayout({
         <Partytown debug={false} forward={["dataLayer.push"]} />
       </head>
       <body className={inter.className}>
-        {/* The entire application content lives within the body tags */}
+        
+        {/* --- ANALYTICS INJECTION (Off-Main Thread) --- */}
+        {/* REPLACE "GTM-YOURID" WITH YOUR ACTUAL CONTAINER ID */}
+        <GoogleTagManager containerId="GTM-YOURID" />
 
         <Header />
-
-        {/* Main content wrapper. flex-1 ensures it pushes the footer down if content is short. */}
 
         <main className="flex-grow">
           {children}
         </main>
 
-        {/* The Footer is placed outside the main content area for site-wide consistency */}
         <Footer />
+        
         <Script id="organization-schema" type="application/ld+json" strategy="beforeInteractive">
           {JSON.stringify(organizationJsonLd)}
         </Script>

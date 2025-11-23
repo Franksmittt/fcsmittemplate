@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { siteConfig, defaultChangeFrequency } from "@/lib/seo";
 import { projectCaseStudies } from "@/data/projects";
 import { getPillars } from "@/lib/pillars";
+import { serviceLocations } from "@/data/locations"; // <--- NEW IMPORT
 
 const baseUrl = siteConfig.url.replace(/\/$/, "");
 
@@ -29,19 +30,28 @@ const getPillarEntries = (now: Date): MetadataRoute.Sitemap => {
 
   return pillars.flatMap((pillar) => [
     {
-      url: normalizePath(pillar.metadata.path),
+      url: normalizePath(pillar.metadata.path ?? `/blog/${pillar.slug}`),
       changeFrequency: "weekly" as const,
       priority: 0.75,
       lastModified: now,
     },
     ...pillar.clusters.map((cluster) => ({
-      url: normalizePath(cluster.metadata.path),
+      url: normalizePath(cluster.metadata.path ?? `/blog/${pillar.slug}/${cluster.slug}`),
       changeFrequency: "weekly" as const,
       priority: 0.65,
       lastModified: now,
     })),
   ]);
 };
+
+// <--- NEW FUNCTION FOR LOCATION PAGES
+const getLocationEntries = (now: Date): MetadataRoute.Sitemap =>
+  serviceLocations.map((loc) => ({
+    url: `${baseUrl}/locations/${loc.slug}`,
+    changeFrequency: "weekly",
+    priority: 0.85, // High priority for local SEO
+    lastModified: now,
+  }));
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
@@ -50,8 +60,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...getPrimaryEntries(now),
+    ...getLocationEntries(now), // <--- INJECTED HERE
     ...getPillarEntries(now),
     ...projectEntries,
   ];
 }
-
