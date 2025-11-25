@@ -29,17 +29,20 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
     const title = `${project.name} | Structural Repair & Painting Case Study | Maverick`;
     const description = `Case study for ${project.name} in ${project.location}. Scope: ${project.scope}. Project completed ${project.date}.`;
 
+    // Ensure canonical URL has no trailing slash (matching next.config.mjs trailingSlash: false)
+    const canonical = `${siteConfig.url.replace(/\/$/, "")}/projects/${project.slug}`;
+    
     return {
         title: `${project.name} | Structural Repair & Painting Case Study | Maverick`,
         description,
         alternates: {
-            canonical: `${siteConfig.url}/projects/${project.slug}`,
+            canonical,
         },
         openGraph: {
             title,
             description,
             type: 'article',
-            url: `${siteConfig.url}/projects/${project.slug}`,
+            url: canonical,
         },
     };
 }

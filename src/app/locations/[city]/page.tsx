@@ -56,7 +56,9 @@ export default function LocationPage({ params }: { params: { city: string } }) {
     <div className="bg-primary pt-24 text-white">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(localSchema).replace(/</g, '\\u003c'),
+        }}
       />
 
       {/* HERO SECTION */}

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Partytown } from "@builder.io/partytown/react";
 import { Inter } from "next/font/google";
 import "@/app/globals.css";
@@ -158,12 +157,18 @@ export default function RootLayout({
 
         <Footer />
         
-        <Script id="organization-schema" type="application/ld+json" strategy="beforeInteractive">
-          {JSON.stringify(organizationJsonLd)}
-        </Script>
-        <Script id="service-schema" type="application/ld+json" strategy="beforeInteractive">
-          {JSON.stringify(serviceJsonLd)}
-        </Script>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd).replace(/</g, '\\u003c'),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(serviceJsonLd).replace(/</g, '\\u003c'),
+          }}
+        />
       </body>
     </html>
   );

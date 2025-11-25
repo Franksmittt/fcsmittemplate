@@ -21,11 +21,13 @@ export default function robots(): MetadataRoute.Robots {
   }
 
   return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-      disallow: ["/api/"],
-    },
+    rules: [
+      {
+        userAgent: "*",
+        allow: ["/", "/_next/static/"], // Allow all pages and Next.js static resources (critical for rendering)
+        disallow: ["/api/"], // Block API routes to prevent crawl budget waste
+      },
+    ],
     sitemap: [`${baseUrl}/sitemap.xml`],
     host: baseUrl,
   };

@@ -29,8 +29,9 @@ export function buildPageMetadata({
   path = "/",
   image,
 }: BuildMetadataParams): Metadata {
-  const canonical =
-    path === "/" ? baseUrl : `${baseUrl}${path.startsWith("/") ? path : `/${path}`}`;
+  // Ensure canonical URLs have no trailing slash (matching next.config.mjs trailingSlash: false)
+  const normalizedPath = path === "/" ? "" : path.startsWith("/") ? path : `/${path}`;
+  const canonical = `${baseUrl}${normalizedPath}`;
   const ogImage = toAbsoluteUrl(image);
 
   return {

@@ -4,6 +4,9 @@ import { projectCaseStudies } from "@/data/projects";
 import { getPillars } from "@/lib/pillars";
 import { serviceLocations } from "@/data/locations"; // <--- NEW IMPORT
 
+// GSC Optimization: Set max duration for sitemap generation to prevent Googlebot timeouts
+export const maxDuration = 30;
+
 const baseUrl = siteConfig.url.replace(/\/$/, "");
 
 const normalizePath = (path: string) =>
