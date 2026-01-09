@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ServiceGridItem } from './service-grid-item';
 import { Button } from '@/components/ui/button';
 // Import the actual Lucide components used for the data array
-import { Wrench, Umbrella, AirVent, PersonStanding, FlaskConical, Stethoscope, Building } from 'lucide-react';
+import { Wrench, Umbrella, AirVent, PersonStanding, FlaskConical, Stethoscope, Building, Home } from 'lucide-react';
 const servicesData = [
     // NOW PASSING THE ACTUAL COMPONENT TYPE (e.g., Wrench)
     { title: "Structural & Spalling Repairs", description: "Fixing concrete cancer and structural defects.", href: "/structural-repairs/", icon: Wrench },
@@ -15,6 +15,7 @@ const servicesData = [
     { title: "Hygienic Food-Grade Floors", description: "Seamless, chemical-resistant systems for food plants.", href: "/coatings/hygienic-food-grade-flooring/", icon: FlaskConical },
     { title: "Body Corporate Painting", description: "Managing complex projects with minimal disturbance.", href: "/painting/body-corporate-painting/", icon: Building },
     { title: "Commercial & Healthcare", description: "Low-VOC, specialized coatings for sensitive environments.", href: "/painting/commercial-painting/", icon: Stethoscope },
+    { title: "Stucco & Wall Coatings", description: "Premium masonry cladding with vapor-permeable finishes.", href: "/painting/stucco-wall-coatings/", icon: Home },
 ];
 // This is the main layout component for the service grid.
 export function ServiceExpertiseGrid() {

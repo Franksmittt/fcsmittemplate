@@ -95,6 +95,7 @@ export const siteConfig = {
     "/painting/parking-garage-painting",
     "/painting/road-marking",
     "/painting/warehouse-painting",
+    "/painting/stucco-wall-coatings",
     "/waterproofing-services",
     "/damp-proofing-services",
     "/access-solutions",

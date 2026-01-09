@@ -74,8 +74,8 @@ const servicePillars = [
             "Body Corporate Painting",
             "Industrial & Factory Painting",
             "Rope Access Painting",
-
             "Roof Painting & Restoration",
+            "Stucco & Wall Coatings",
         ],
         accentColor: "border-secondary",
         isFeatured: false,

@@ -81,6 +81,7 @@ return (
                        
              {/* NEW LINK: Industrial Corrosion */}
                             <li><Link href="/painting/industrial-painting" className={footerLinkClass}>Industrial Corrosion Control</Link></li>
+                            <li><Link href="/painting/stucco-wall-coatings" className={footerLinkClass}>Stucco & Wall Coatings</Link></li>
                         </ul>
                     </div>
 
