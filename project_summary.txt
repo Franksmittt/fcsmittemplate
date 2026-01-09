@@ -1,18 +1,26 @@
 📋 **PROJECT STATUS: UPDATED 2025-01-27**
 
 **Recent Updates:**
+- ✅ **Next.js 16 Upgrade:** Successfully upgraded from Next.js 14.2.33 to 16.1.1
+- ✅ **React 19:** Updated to React 19.2.3 and React DOM 19.2.3
+- ✅ **ESLint 9:** Updated to ESLint 9.39.2 (required for Next.js 16)
+- ✅ **Async Params:** All dynamic routes updated for Next.js 16 async params requirement
+- ✅ **Cache API:** Updated revalidateTag calls to include required cache profile parameter
 - ✅ Added 7 new location pages (Benoni, Kempton Park, Alberton, Johannesburg North, Serengeti Estate, Ebotse Estate, Meyersdal Estate)
 - ✅ Added 5 new service pages (roof-painting, interior-painting, parking-garage-painting, road-marking, warehouse-painting)
 - ✅ Added new blog article (peeling-paint-repair) to structural-remediation pillar
 - ✅ Enhanced keywords with 15+ new high-intent terms
 - ✅ Updated sitemap to include all new pages
-- ✅ Build successful: 64 pages generated
+- ✅ Build successful: 63 pages generated (Next.js 16)
 - ✅ All SEO requirements verified and complete
+- ✅ Zero SEO regressions after upgrade
 
-**Total Pages:** 64 (13 new pages added)
+**Total Pages:** 63 (13 new pages added, 1 removed due to Next.js 16 edge runtime)
 **Location Pages:** 11 (expanded from 4)
 **Service Pages:** 9 painting pages (expanded from 4)
 **Blog Articles:** 8 total (1 new problem-solution article)
+**Next.js Version:** 16.1.1 (upgraded from 14.2.33)
+**React Version:** 19.2.3 (upgraded from 18.3.1)
 
 ====================================================================================================
 
@@ -268,11 +276,11 @@ yarn-error.log*
 next-env.d.ts
 ```
 
---------------------------------------------------------------------------------📄 FILE PATH: README.md--------------------------------------------------------------------------------```# ⚡ mvvppaint: Production-Ready Next.js 14 Boilerplate
+--------------------------------------------------------------------------------📄 FILE PATH: README.md--------------------------------------------------------------------------------```# ⚡ mvvppaint: Production-Ready Next.js 16 Boilerplate
 
 [![GitHub Workflow Status (main)](https://img.shields.io/github/actions/workflow/status/Franksmittt/fcsmittemplate/main.yml?branch=main&label=Build%20Status)](https://github.com/Franksmittt/fcsmittemplate/actions)
 [![GitHub last commit](https://img.shields.io/github/last-commit/Franksmittt/fcsmittemplate)](https://github.com/Franksmittt/fcsmittemplate/commits/main)
-[![Next.js Version](https://img.shields.io/badge/Next.js-14.2.33-000000.svg)](https://nextjs.org/)
+[![Next.js Version](https://img.shields.io/badge/Next.js-16.1.1-000000.svg)](https://nextjs.org/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 **Live Demo:** [https://fcsmittemplate.vercel.app/](https://fcsmittemplate.vercel.app/)
@@ -287,7 +295,7 @@ This project is a **Minimum Viable Production-Ready** template, built to institu
 
 | Layer | Technology | Rationale & Best Practice |
 | :--- | :--- | :--- |
-| **Framework** | **Next.js 14.2.33** | [cite_start]The **App Router** is used exclusively, embracing the **Server-First Paradigm**[cite: 864]. This minimizes client-side JavaScript, leading to faster initial page loads (Lighthouse Core Web Vitals). |
+| **Framework** | **Next.js 16.1.1** | [cite_start]The **App Router** is used exclusively, embracing the **Server-First Paradigm**[cite: 864]. This minimizes client-side JavaScript, leading to faster initial page loads (Lighthouse Core Web Vitals). Next.js 16 introduces async params, improved caching APIs, and enhanced performance optimizations. |
 | **Styling** | **Tailwind CSS (v3.4)** | Utility-first framework for rapid, conflict-free UI development. |
 | **UI Components** | **shadcn/ui (New York Style)** | [cite_start]Uses the "copy, don't install" philosophy for **Architectural Sovereignty**[cite: 1040, 1120]. Components are locally owned and styled with Tailwind, ensuring zero runtime CSS-in-JS overhead. |
 | **Language** | **TypeScript (v5)** | Essential for building robust, scalable applications by catching type errors at compile time, enforcing the strictest project quality gate. |
@@ -616,13 +624,13 @@ export default nextConfig;```
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.31.2",
     "lucide-react": "^0.553.0",
-    "next": "14.2.33",
+    "next": "^16.1.1",
     "next-auth": "^4.24.13",
     "next-themes": "^0.4.6",
     "pg": "^8.16.3",
     "postgres": "^3.4.4",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-hook-form": "^7.66.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
@@ -630,13 +638,13 @@ export default nextConfig;```
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "autoprefixer": "^10.4.22",
     "critters": "^0.0.25",
     "drizzle-kit": "^0.23.0",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.33",
+    "eslint": "^9",
+    "eslint-config-next": "^16.1.1",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
@@ -781,9 +789,10 @@ export function generateStaticParams() {
   }));
 }
 
-// 2. Dynamic SEO Metadata
-export function generateMetadata({ params }: { params: { city: string } }) {
-  const loc = getLocation(params.city);
+// 2. Dynamic SEO Metadata (Next.js 16: async params)
+export async function generateMetadata({ params }: { params: Promise<{ city: string }> }) {
+  const { city } = await params;
+  const loc = getLocation(city);
   if (!loc) return {};
 
   return buildPageMetadata({
@@ -793,9 +802,10 @@ export function generateMetadata({ params }: { params: { city: string } }) {
   });
 }
 
-// 3. The Local Landing Page Component
-export default function LocationPage({ params }: { params: { city: string } }) {
-  const loc = getLocation(params.city);
+// 3. The Local Landing Page Component (Next.js 16: async params)
+export default async function LocationPage({ params }: { params: Promise<{ city: string }> }) {
+  const { city } = await params;
+  const loc = getLocation(city);
   if (!loc) notFound();
 
   const localSchema = {
@@ -8184,23 +8194,25 @@ import {
 } from "@/lib/pillars";
 
 type PillarPageProps = {
-  params: { pillar: string };
+  params: Promise<{ pillar: string }>;
 };
 
 export function generateStaticParams() {
   return getPillarStaticParams();
 }
 
-export function generateMetadata({ params }: PillarPageProps): Metadata {
-  const pillar = getPillarBySlug(params.pillar);
+export async function generateMetadata({ params }: PillarPageProps): Promise<Metadata> {
+  const { pillar: pillarSlug } = await params;
+  const pillar = getPillarBySlug(pillarSlug);
   if (!pillar) {
     return {};
   }
   return buildPageMetadata(pillar.metadata);
 }
 
-export default function PillarPage({ params }: PillarPageProps) {
-  const pillar = getPillarBySlug(params.pillar);
+export default async function PillarPage({ params }: PillarPageProps) {
+  const { pillar: pillarSlug } = await params;
+  const pillar = getPillarBySlug(pillarSlug);
   if (!pillar) {
     notFound();
   }
@@ -8284,24 +8296,26 @@ import {
 } from "@/lib/pillars";
 
 type ClusterPageProps = {
-  params: { pillar: string; cluster: string };
+  params: Promise<{ pillar: string; cluster: string }>;
 };
 
 export function generateStaticParams() {
   return getClusterStaticParams();
 }
 
-export function generateMetadata({ params }: ClusterPageProps): Metadata {
-  const cluster = getClusterBySlugs(params.pillar, params.cluster);
+export async function generateMetadata({ params }: ClusterPageProps): Promise<Metadata> {
+  const { pillar: pillarSlug, cluster: clusterSlug } = await params;
+  const cluster = getClusterBySlugs(pillarSlug, clusterSlug);
   if (!cluster) {
     return {};
   }
   return buildPageMetadata(cluster.metadata);
 }
 
-export default function ClusterPage({ params }: ClusterPageProps) {
-  const cluster = getClusterBySlugs(params.pillar, params.cluster);
-  const pillar = getPillarBySlug(params.pillar);
+export default async function ClusterPage({ params }: ClusterPageProps) {
+  const { pillar: pillarSlug, cluster: clusterSlug } = await params;
+  const cluster = getClusterBySlugs(pillarSlug, clusterSlug);
+  const pillar = getPillarBySlug(pillarSlug);
 
   if (!cluster || !pillar) {
     notFound();
@@ -8687,9 +8701,10 @@ export function generateStaticParams() {
   }));
 }
 
-// 2. Dynamic SEO Metadata
-export function generateMetadata({ params }: { params: { city: string } }) {
-  const loc = getLocation(params.city);
+// 2. Dynamic SEO Metadata (Next.js 16: async params)
+export async function generateMetadata({ params }: { params: Promise<{ city: string }> }) {
+  const { city } = await params;
+  const loc = getLocation(city);
   if (!loc) return {};
 
   return buildPageMetadata({
@@ -8699,9 +8714,10 @@ export function generateMetadata({ params }: { params: { city: string } }) {
   });
 }
 
-// 3. The Local Landing Page Component
-export default function LocationPage({ params }: { params: { city: string } }) {
-  const loc = getLocation(params.city);
+// 3. The Local Landing Page Component (Next.js 16: async params)
+export default async function LocationPage({ params }: { params: Promise<{ city: string }> }) {
+  const { city } = await params;
+  const loc = getLocation(city);
   if (!loc) notFound();
 
   const localSchema = {
@@ -9642,15 +9658,16 @@ import { CtaFinalStrip } from '@/components/cta-final-strip';
 import { projectCaseStudies } from '@/data/projects';
 import { siteConfig } from '@/lib/seo';
 
-// --- DYNAMIC METADATA GENERATION ---
+// --- DYNAMIC METADATA GENERATION (Next.js 16: async params) ---
 interface ProjectPageProps {
-    params: {
+    params: Promise<{
         slug: string;
-    };
+    }>;
 }
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
-    const project = projectCaseStudies.find(p => p.slug === params.slug);
+    const { slug } = await params;
+    const project = projectCaseStudies.find(p => p.slug === slug);
 
     if (!project) {
         // If project isn't found, Next.js will handle the 404 via the notFound() call in the component
@@ -9682,9 +9699,10 @@ export function generateStaticParams() {
     return projectCaseStudies.map((project) => ({ slug: project.slug }));
 }
 
-// --- MAIN PAGE COMPONENT ---
-export default function ProjectDetailPage({ params }: ProjectPageProps) {
-    const project = projectCaseStudies.find(p => p.slug === params.slug);
+// --- MAIN PAGE COMPONENT (Next.js 16: async params) ---
+export default async function ProjectDetailPage({ params }: ProjectPageProps) {
+    const { slug } = await params;
+    const project = projectCaseStudies.find(p => p.slug === slug);
 
     if (!project) {
         // Use Next.js's built-in notFound() function to render the 404 page

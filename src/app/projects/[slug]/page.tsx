@@ -11,13 +11,14 @@ import { buildPageMetadata } from '@/lib/metadata';
 
 // --- DYNAMIC METADATA GENERATION ---
 interface ProjectPageProps {
-    params: {
+    params: Promise<{
         slug: string;
-    };
+    }>;
 }
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
-    const project = projectCaseStudies.find(p => p.slug === params.slug);
+    const { slug } = await params;
+    const project = projectCaseStudies.find(p => p.slug === slug);
 
     if (!project) {
         // If project isn't found, Next.js will handle the 404 via the notFound() call in the component
@@ -53,8 +54,9 @@ export function generateStaticParams() {
 }
 
 // --- MAIN PAGE COMPONENT ---
-export default function ProjectDetailPage({ params }: ProjectPageProps) {
-    const project = projectCaseStudies.find(p => p.slug === params.slug);
+export default async function ProjectDetailPage({ params }: ProjectPageProps) {
+    const { slug } = await params;
+    const project = projectCaseStudies.find(p => p.slug === slug);
 
     if (!project) {
         // Use Next.js's built-in notFound() function to render the 404 page

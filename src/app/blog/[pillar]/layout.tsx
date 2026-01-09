@@ -5,11 +5,12 @@ import { getPillarBySlug } from "@/lib/pillars";
 
 type PillarLayoutProps = {
   children: ReactNode;
-  params: { pillar: string };
+  params: Promise<{ pillar: string }>;
 };
 
-export default function PillarLayout({ children, params }: PillarLayoutProps) {
-  const pillar = getPillarBySlug(params.pillar);
+export default async function PillarLayout({ children, params }: PillarLayoutProps) {
+  const { pillar: pillarSlug } = await params;
+  const pillar = getPillarBySlug(pillarSlug);
 
   if (!pillar) {
     notFound();

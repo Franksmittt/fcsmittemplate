@@ -16,8 +16,9 @@ export function generateStaticParams() {
 }
 
 // 2. Dynamic SEO Metadata
-export function generateMetadata({ params }: { params: { city: string } }) {
-  const loc = getLocation(params.city);
+export async function generateMetadata({ params }: { params: Promise<{ city: string }> }) {
+  const { city } = await params;
+  const loc = getLocation(city);
   if (!loc) return {};
 
   return buildPageMetadata({
@@ -28,8 +29,9 @@ export function generateMetadata({ params }: { params: { city: string } }) {
 }
 
 // 3. The Local Landing Page Component
-export default function LocationPage({ params }: { params: { city: string } }) {
-  const loc = getLocation(params.city);
+export default async function LocationPage({ params }: { params: Promise<{ city: string }> }) {
+  const { city } = await params;
+  const loc = getLocation(city);
   if (!loc) notFound();
 
   const localSchema = {

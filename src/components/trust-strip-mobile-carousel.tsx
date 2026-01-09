@@ -1,4 +1,6 @@
 // src/components/trust-strip-mobile-carousel.tsx
+'use client';
+
 import React from 'react';
 // FIX: Dynamically import the Client Component to remove it from the main bundle
 import dynamic from 'next/dynamic';

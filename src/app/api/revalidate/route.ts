@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
 
   try {
     if (scope === "all") {
-      const results = revalidateEntireSite();
+      const results = await revalidateEntireSite();
       return NextResponse.json({ revalidated: results }, { status: 200 });
     }
 
@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
           { status: 400 }
         );
       }
-      const result = revalidatePillar(payload.pillar);
+      const result = await revalidatePillar(payload.pillar);
       return NextResponse.json({ revalidated: [result] }, { status: 200 });
     }
 
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      const result = revalidateCluster(payload.pillar, payload.cluster);
+      const result = await revalidateCluster(payload.pillar, payload.cluster);
       return NextResponse.json({ revalidated: [result] }, { status: 200 });
     }
 
@@ -80,14 +80,14 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function revalidateEntireSite() {
-  const results = getPillars().map((pillar) => revalidatePillar(pillar.slug));
-  revalidateTag(GLOBAL_SITEMAP_TAG);
+async function revalidateEntireSite() {
+  const results = await Promise.all(getPillars().map((pillar) => revalidatePillar(pillar.slug)));
+  await revalidateTag(GLOBAL_SITEMAP_TAG, 'default');
   revalidatePath("/sitemap.xml");
   return results;
 }
 
-function revalidatePillar(pillarSlug: string) {
+async function revalidatePillar(pillarSlug: string) {
   const pillar = getPillarBySlug(pillarSlug);
   if (!pillar) {
     throw new Error(`Unknown pillar slug: ${pillarSlug}`);
@@ -95,14 +95,14 @@ function revalidatePillar(pillarSlug: string) {
 
   const paths = [pillar.metadata.path ?? `/blog/${pillar.slug}`, `/blog/${pillar.slug}`];
   paths.forEach((path) => revalidatePath(path));
-  revalidateTag(pillarTag(pillar.slug));
+  await revalidateTag(pillarTag(pillar.slug), 'default');
 
-  pillar.clusters.forEach((cluster) => {
+  await Promise.all(pillar.clusters.map(async (cluster) => {
     if (cluster.metadata.path) {
       revalidatePath(cluster.metadata.path);
     }
-    revalidateTag(clusterTag(pillar.slug, cluster.slug));
-  });
+    await revalidateTag(clusterTag(pillar.slug, cluster.slug), 'default');
+  }));
 
   return {
     pillar: pillar.slug,
@@ -114,7 +114,7 @@ function revalidatePillar(pillarSlug: string) {
   };
 }
 
-function revalidateCluster(pillarSlug: string, clusterSlug: string) {
+async function revalidateCluster(pillarSlug: string, clusterSlug: string) {
   const cluster = getClusterBySlugs(pillarSlug, clusterSlug);
   if (!cluster) {
     throw new Error(
@@ -125,7 +125,7 @@ function revalidateCluster(pillarSlug: string, clusterSlug: string) {
   if (cluster.metadata.path) {
     revalidatePath(cluster.metadata.path);
   }
-  revalidateTag(clusterTag(pillarSlug, clusterSlug));
+  await revalidateTag(clusterTag(pillarSlug, clusterSlug), 'default');
 
   return {
     pillar: pillarSlug,

@@ -26,7 +26,7 @@ import {
   PeelingPaintRepairArticle,
 } from "@/content/pillars/structural-remediation";
 
-type Component = () => JSX.Element;
+type Component = () => React.ReactElement;
 
 export type ClusterDefinition = {
   slug: string;

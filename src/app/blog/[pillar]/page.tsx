@@ -8,23 +8,25 @@ import {
 } from "@/lib/pillars";
 
 type PillarPageProps = {
-  params: { pillar: string };
+  params: Promise<{ pillar: string }>;
 };
 
 export function generateStaticParams() {
   return getPillarStaticParams();
 }
 
-export function generateMetadata({ params }: PillarPageProps): Metadata {
-  const pillar = getPillarBySlug(params.pillar);
+export async function generateMetadata({ params }: PillarPageProps): Promise<Metadata> {
+  const { pillar: pillarSlug } = await params;
+  const pillar = getPillarBySlug(pillarSlug);
   if (!pillar) {
     return {};
   }
   return buildPageMetadata(pillar.metadata);
 }
 
-export default function PillarPage({ params }: PillarPageProps) {
-  const pillar = getPillarBySlug(params.pillar);
+export default async function PillarPage({ params }: PillarPageProps) {
+  const { pillar: pillarSlug } = await params;
+  const pillar = getPillarBySlug(pillarSlug);
   if (!pillar) {
     notFound();
   }

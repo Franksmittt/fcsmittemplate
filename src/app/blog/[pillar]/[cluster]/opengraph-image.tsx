@@ -9,10 +9,11 @@ export const headers = {
   'Cache-Control': 'public, max-age=86400, stale-while-revalidate=3600',
 }
 
-export default async function Image({ params }: { params: { pillar: string; cluster: string } }) {
-  const cluster = getClusterBySlugs(params.pillar, params.cluster)
+export default async function Image({ params }: { params: Promise<{ pillar: string; cluster: string }> }) {
+  const { pillar: pillarSlug, cluster: clusterSlug } = await params;
+  const cluster = getClusterBySlugs(pillarSlug, clusterSlug)
   const title = cluster?.title || 'Maverick Painting Technical Guide'
-  const category = params.pillar.replace('-', ' ').toUpperCase()
+  const category = pillarSlug.replace('-', ' ').toUpperCase()
 
   return new ImageResponse(
     (

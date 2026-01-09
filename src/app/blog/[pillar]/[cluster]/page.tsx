@@ -9,24 +9,26 @@ import {
 } from "@/lib/pillars";
 
 type ClusterPageProps = {
-  params: { pillar: string; cluster: string };
+  params: Promise<{ pillar: string; cluster: string }>;
 };
 
 export function generateStaticParams() {
   return getClusterStaticParams();
 }
 
-export function generateMetadata({ params }: ClusterPageProps): Metadata {
-  const cluster = getClusterBySlugs(params.pillar, params.cluster);
+export async function generateMetadata({ params }: ClusterPageProps): Promise<Metadata> {
+  const { pillar: pillarSlug, cluster: clusterSlug } = await params;
+  const cluster = getClusterBySlugs(pillarSlug, clusterSlug);
   if (!cluster) {
     return {};
   }
   return buildPageMetadata(cluster.metadata);
 }
 
-export default function ClusterPage({ params }: ClusterPageProps) {
-  const cluster = getClusterBySlugs(params.pillar, params.cluster);
-  const pillar = getPillarBySlug(params.pillar);
+export default async function ClusterPage({ params }: ClusterPageProps) {
+  const { pillar: pillarSlug, cluster: clusterSlug } = await params;
+  const cluster = getClusterBySlugs(pillarSlug, clusterSlug);
+  const pillar = getPillarBySlug(pillarSlug);
 
   if (!cluster || !pillar) {
     notFound();
