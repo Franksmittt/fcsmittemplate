@@ -112,8 +112,8 @@ h-5 text-secondary flex-shrink-0 mt-0.5" />
                             </li>
                     
                          <li className="flex space-x-4 pt-2">
-                                <a href="#" className="text-white hover:text-tertiary transition duration-300 text-2xl" aria-label="Connect on Facebook"><Facebook /></a>
-                                <a href="#" className="text-white hover:text-tertiary transition duration-300 text-2xl" aria-label="Connect on LinkedIn"><Linkedin /></a>
+                                <a href="https://www.facebook.com/people/Maverick-Painting/61586004524227/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-tertiary transition duration-300 text-2xl" aria-label="Connect on Facebook"><Facebook /></a>
+                                <a href="https://www.linkedin.com/company/maverickpainting" target="_blank" rel="noopener noreferrer" className="text-white hover:text-tertiary transition duration-300 text-2xl" aria-label="Connect on LinkedIn"><Linkedin /></a>
      
                             <a href="https://wa.me/27826277082" target="_blank" rel="noopener noreferrer" className="text-white hover:text-tertiary transition duration-300 text-2xl" aria-label="WhatsApp Maverick Painting"><MessageCircle /></a>
                             </li>
