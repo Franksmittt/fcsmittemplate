@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { CtaFinalStrip } from '@/components/cta-final-strip';
 import { projectCaseStudies } from '@/data/projects';
 import { siteConfig } from '@/lib/seo';
+import { buildPageMetadata } from '@/lib/metadata';
 
 // --- DYNAMIC METADATA GENERATION ---
 interface ProjectPageProps {
@@ -29,20 +30,20 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
     const title = `${project.name} | Structural Repair & Painting Case Study | Maverick`;
     const description = `Case study for ${project.name} in ${project.location}. Scope: ${project.scope}. Project completed ${project.date}.`;
 
-    // Ensure canonical URL has no trailing slash (matching next.config.mjs trailingSlash: false)
-    const canonical = `${siteConfig.url.replace(/\/$/, "")}/projects/${project.slug}`;
-    
-    return {
-        title: `${project.name} | Structural Repair & Painting Case Study | Maverick`,
+    // Use buildPageMetadata for consistent SEO (includes OG images, Twitter cards, canonical)
+    const metadata = buildPageMetadata({
+        title,
         description,
-        alternates: {
-            canonical,
-        },
+        path: `/projects/${project.slug}`,
+        image: project.image, // Use project image if available
+    });
+
+    // Override type to 'article' for case studies
+    return {
+        ...metadata,
         openGraph: {
-            title,
-            description,
+            ...metadata.openGraph,
             type: 'article',
-            url: canonical,
         },
     };
 }
@@ -60,8 +61,49 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
         notFound();
     }
 
+    // Structured Data (Article Schema) for SEO
+    const baseUrl = siteConfig.url.replace(/\/$/, "");
+    const articleJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": project.name,
+        "description": `Case study for ${project.name} in ${project.location}. Scope: ${project.scope}.`,
+        "image": `${baseUrl}${project.image}`,
+        "datePublished": project.lastModified || project.date,
+        "dateModified": project.lastModified || project.date,
+        "author": {
+            "@type": "Organization",
+            "name": siteConfig.name,
+            "url": baseUrl,
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": siteConfig.name,
+            "url": baseUrl,
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `${baseUrl}/projects/${project.slug}`,
+        },
+        "articleSection": "Case Studies",
+        "keywords": [
+            "structural repair",
+            "painting contractors",
+            project.location,
+            "waterproofing",
+            "commercial painting",
+        ],
+    };
+
     return (
         <div className="bg-primary pt-24 text-white min-h-screen">
+            {/* Structured Data Injection */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(articleJsonLd).replace(/</g, '\\u003c'),
+                }}
+            />
 
             {/* --- MODULE 1: PROJECT HERO (Dynamic Content) --- */}
             <section className="relative py-24 md:py-32 px-4 bg-gray-900 border-b-4 border-secondary">

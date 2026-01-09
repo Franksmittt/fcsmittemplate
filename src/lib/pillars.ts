@@ -23,6 +23,7 @@ import {
 import {
   StructuralRemediationPillarPage,
   ConcreteSpallingRepairArticle,
+  PeelingPaintRepairArticle,
 } from "@/content/pillars/structural-remediation";
 
 type Component = () => JSX.Element;
@@ -228,6 +229,20 @@ const structuralRemediationPillar: PillarDefinition = {
       },
       component: ConcreteSpallingRepairArticle,
     },
+    {
+      slug: "peeling-paint-repair",
+      title: "Why is My Paint Peeling? Complete Diagnostic Guide",
+      description:
+        "Diagnose and fix peeling paint by identifying root causes: moisture intrusion, poor preparation, or adhesion failure.",
+      icon: Wrench,
+      metadata: {
+        title: "Why is My Paint Peeling? The Complete Diagnostic & Repair Guide",
+        description:
+          "Expert guide to diagnosing and permanently fixing peeling paint. Learn to identify moisture intrusion, poor surface preparation, and adhesion failures before repainting.",
+        path: "/blog/structural-remediation/peeling-paint-repair",
+      },
+      component: PeelingPaintRepairArticle,
+    },
   ],
 };
 
@@ -265,6 +280,10 @@ const detailComponentMap: Record<string, ClusterDefinition> = {
   "structural-remediation:concrete-spalling-repair": {
     ...structuralRemediationPillar.clusters[0],
     component: ConcreteSpallingRepairArticle,
+  },
+  "structural-remediation:peeling-paint-repair": {
+    ...structuralRemediationPillar.clusters[1],
+    component: PeelingPaintRepairArticle,
   },
 };
 

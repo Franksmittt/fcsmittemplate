@@ -134,6 +134,17 @@
             "description": "Step-by-step remediation process that prevents recurring failure by addressing rebar corrosion and protective top coats.",
             "path": "/blog/structural-remediation/concrete-spalling-repair"
           }
+        },
+        {
+          "slug": "peeling-paint-repair",
+          "title": "Why is My Paint Peeling? Complete Diagnostic Guide",
+          "description": "Diagnose and fix peeling paint by identifying root causes: moisture intrusion, poor preparation, or adhesion failure.",
+          "icon": "Wrench",
+          "metadata": {
+            "title": "Why is My Paint Peeling? The Complete Diagnostic & Repair Guide",
+            "description": "Expert guide to diagnosing and permanently fixing peeling paint. Learn to identify moisture intrusion, poor surface preparation, and adhesion failures before repainting.",
+            "path": "/blog/structural-remediation/peeling-paint-repair"
+          }
         }
       ]
     }

@@ -14,7 +14,7 @@ const baseUrl = siteConfig.url.replace(/\/$/, "");
 const defaultOgImage = `${baseUrl}/images/munyaka-midrand.jpg`;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
+  metadataBase: new URL(baseUrl), // Use normalized baseUrl for consistency
   applicationName: siteConfig.shortName,
   title: {
     default: `${siteConfig.name} | Gauteng Painting & Waterproofing Experts`,

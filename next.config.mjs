@@ -3,6 +3,9 @@ const nextConfig = {
     // FIX: Set swcMinify to true to solve the "Legacy JavaScript" audit.
     swcMinify: true,
     
+    // SEO Checklist: React Strict Mode for better development experience and error detection
+    reactStrictMode: true,
+    
     // GSC Optimization: Trailing slash consistency for canonical URLs
     trailingSlash: false,
     

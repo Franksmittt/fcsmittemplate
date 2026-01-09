@@ -8,6 +8,14 @@ import { ProjectShowcaseModule } from "@/components/project-showcase-module";
 import { QaProcessModule } from "@/components/qa-process-module";
 // Position Swapped
 import { AccreditationsStrip } from "@/components/accreditations-strip";
+import { buildPageMetadata } from "@/lib/metadata";
+
+// SEO Checklist: Explicit homepage metadata (inherits from layout but explicit is better)
+export const metadata = buildPageMetadata({
+    title: "Gauteng Painting & Waterproofing Experts | Structural Repairs & Industrial Coatings",
+    description: "Owner supervised painting contractors in Gauteng specialising in structural repairs, waterproofing, industrial coatings and independent QA for body corporates, developers and high-end homeowners.",
+    path: "/",
+});
 
 export default function Home() {
   return (
